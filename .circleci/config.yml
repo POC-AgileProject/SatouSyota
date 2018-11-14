@@ -4,13 +4,21 @@ jobs:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
+
+    # Run only when pushed to develop branch
     branches:
       only:
         - develop
+
     environment:
       JVM_OPTS: -Xmx3200m
+
     steps:
+      # checkout from GitHub
       - checkout
+
+      # Set authentication information for running Firebase
+      # Install GoogleSDK
       - run:
           name: auth
           command: |
@@ -19,38 +27,44 @@ jobs:
               sudo apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-cloud-build-local google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
               sudo apt-get install google-cloud-sdk
               gcloud config set project poc-firebase-test
+
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
 
+      - run:
           command: sudo chmod +x ./gradlew
+
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
 
+      # Download AndroidSDK
       - run:
          name: update android sdk
          command: |
              echo y | android update sdk --no-ui --all --filter tool,extra-android-m2repository,extra-google-google_play_services,extra-google-m2repository,android-28
              echo y | android update sdk --no-ui --all --filter build-tools-28.0.0
 
+      # make apk
       - run:
           name: gradle assembleDebug
           command: |
               ./gradlew assembleDebug
               ./gradlew assembleDebugAndroidTest
+
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 
-
+      # run Unit Test and LintTest
       - run:
           name: unit test
           command: |
               ./gradlew test
               ./gradlew lint test
 
+      # install Android Emulator
       - run:
           name: Setup Emulator
           command: |
@@ -75,21 +89,25 @@ jobs:
           name: Run EspressoTests
           command: ./gradlew connectedAndroidTest
 
+      # Run firebase Test Lab
       - run:
           name: robo test
           command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
 
+# mute InstrumentationTest
 #      - run:
 #          name: instrumentation test
 #          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
 
+      # Update results to CircleCI
       - store_artifacts:
           path: app/build/reports
           destination: reports
 
+      - store_test_results:
+          path: app/build/test-results
+
+      # upload Expresso result
       - store_artifacts:
           path: app/build/reports/androidTests/connected
           destination: reports_expresso
-
-      - store_test_results:
-          path: app/build/test-results
