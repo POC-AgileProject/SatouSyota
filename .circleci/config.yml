@@ -52,15 +52,44 @@ jobs:
               ./gradlew lint test
 
       - run:
+          name: Setup Emulator
+          command: |
+              echo y | sudo apt-get install libgles2-mesa-dev
+              sdkmanager "system-images;android-24;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
+
+      - run:
+          name: Launch Emulator
+          command: |
+              cd ${ANDROID_HOME}/emulator
+              export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on -gpu off
+          background: true
+
+      - run:
+          name: Wait emulator
+          command: |
+            circle-android wait-for-boot
+            sleep 30
+            adb shell input keyevent 82
+
+      - run:
+          name: Run EspressoTests
+          command: ./gradlew connectedAndroidTest
+
+      - run:
           name: robo test
           command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
 
-      - run:
-          name: instrumentation test
-          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
+#      - run:
+#          name: instrumentation test
+#          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
 
       - store_artifacts:
           path: app/build/reports
           destination: reports
+
+      - store_artifacts:
+          path: app/build/reports/androidTests/connected
+          destination: reports_expresso
+
       - store_test_results:
           path: app/build/test-results
