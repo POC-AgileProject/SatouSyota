@@ -8,6 +8,11 @@ public class Plan {
     private String memo;
     private String icon;
 
+    public Plan() {
+
+    }
+
+
     public String getPlanName() {
         return planName;
     }
