@@ -17,16 +17,22 @@ jobs:
       # checkout from GitHub
       - checkout
 
-      # Set authentication information for running Firebase
+      # Set authentication information for running Firebas Tests Lab
       # Install GoogleSDK
       - run:
-          name: auth
+          name: auth for Tests Lab
           command: |
               echo "$GOOGLE_AUTH" | base64 -i --decode > "$HOME/gcp-key.json"
               gcloud auth activate-service-account --key-file "$HOME/gcp-key.json"
               sudo apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-cloud-build-local google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
               sudo apt-get install google-cloud-sdk
               gcloud config set project poc-firebase-test
+              
+      # Decoded json for connecting Firebase Realtime Database
+      - run:
+          name: decoded json for Realtime Database
+          command: |
+              echo $GOOGLE_SERVICES_JSON | base64 --decode --ignore-garbage > ${HOME}/${CIRCLE_PROJECT_REPONAME}/app/google-services.json
 
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
