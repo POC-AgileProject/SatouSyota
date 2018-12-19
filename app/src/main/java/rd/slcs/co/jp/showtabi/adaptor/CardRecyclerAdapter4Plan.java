@@ -1,10 +1,13 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.activity.MainActivity;
+import rd.slcs.co.jp.showtabi.activity.PlanEditActivity;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 
@@ -45,12 +50,24 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
         byte[] decodedString = Base64.decode(planList.get(position).getIcon(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         vh.imageView_icon.setImageBitmap(decodedByte);
-//                vh.layout.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                                Toast.makeText(context,list[position],Toast.LENGTH_SHORT).show();
-//                        }
-//                });
+        vh.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TESTBBB", planList.get(position).getKey());
+            }
+        });
+
+        vh.layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.d("TESTAAAA", planList.get(position).getKey());
+                Intent intent = new Intent(context, PlanEditActivity.class);
+                context.startActivity(intent);
+                return true;
+            }
+        });
+
+
     }
 
     @Override
@@ -66,6 +83,7 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
         TextView textView_startYMD;
         TextView textView_endYMD;
         ImageView imageView_icon;
+        LinearLayout layout;
 
         public ViewHolder(View v) {
             super(v);
@@ -73,6 +91,7 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             textView_startYMD = (TextView) v.findViewById(R.id.textView_startYMD);
             textView_endYMD = (TextView) v.findViewById(R.id.textView_endYMD);
             imageView_icon = (ImageView) v.findViewById(R.id.imageView_icon);
+            layout = (LinearLayout) v.findViewById(R.id.layout);
         }
     }
 }
