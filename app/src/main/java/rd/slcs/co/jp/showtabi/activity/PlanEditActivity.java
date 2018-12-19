@@ -46,6 +46,9 @@ public class PlanEditActivity extends AppCompatActivity {
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        // 画面のタイトルを設定
+        actionBar.setTitle(R.string.title_planEdit);
+
 
         Intent intent = getIntent();
         planKey = intent.getStringExtra(Const.DB_PLANTABLE_PLANKEY);
@@ -150,7 +153,7 @@ public class PlanEditActivity extends AppCompatActivity {
         plan.setPerson(editPerson.getText().toString());
 
         EditText editMemo = findViewById(R.id.editMemo);
-        plan.setEndYMD(editMemo.getText().toString());
+        plan.setMemo(editMemo.getText().toString());
 
 
         //TODO:開始日と終了日の前後チェック

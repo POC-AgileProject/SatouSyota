@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.PlanTourokuActivity"></activity>
+        <activity android:name=".activity.PlanAddActivity"></activity>
         <activity android:name=".activity.PlanListActivity" />
         <activity android:name=".activity.PlanEditActivity"></activity>
     </application>
