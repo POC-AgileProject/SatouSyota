@@ -12,6 +12,11 @@
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>
 
+    <!-- 各ページのタイトル -->
+    <string name="title_planList">プラン一覧</string>
+    <string name="title_planAdd">プランの新規作成</string>
+    <string name="title_planEdit">プランの編集画面</string>
+
 
 
     <!-- エラーメッセージ -->
