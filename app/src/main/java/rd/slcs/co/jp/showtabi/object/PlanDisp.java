@@ -10,6 +10,7 @@ public class PlanDisp extends Plan{
         this.setStartYMD(plan.getStartYMD());
         this.setEndYMD(plan.getEndYMD());
         this.setIcon(plan.getIcon());
+        this.setPerson(plan.getPerson());
         this.setMemo(plan.getMemo());
     }
 

@@ -5,6 +5,7 @@ public class Plan {
     private String planName;
     private String startYMD;
     private String endYMD;
+    private String person;
     private String memo;
     private String icon;
 
@@ -36,6 +37,10 @@ public class Plan {
     public void setEndYMD(String endYMD) {
         this.endYMD = endYMD;
     }
+
+    public String getPerson() { return person; }
+
+    public void setPerson(String person) { this.person = person; }
 
     public String getMemo() {
         return memo;
