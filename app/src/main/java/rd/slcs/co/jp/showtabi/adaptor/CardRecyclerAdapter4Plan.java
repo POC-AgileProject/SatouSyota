@@ -21,6 +21,7 @@ import java.util.List;
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.activity.MainActivity;
 import rd.slcs.co.jp.showtabi.activity.PlanEditActivity;
+import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 
@@ -46,10 +47,18 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
         vh.textView_planName.setText(planList.get(position).getPlanName());
         vh.textView_startYMD.setText(planList.get(position).getStartYMD());
         vh.textView_endYMD.setText(planList.get(position).getEndYMD());
-        // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
-        byte[] decodedString = Base64.decode(planList.get(position).getIcon(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        vh.imageView_icon.setImageBitmap(decodedByte);
+
+        byte[] decodedString = {};
+
+        // プラン画像が設定されている場合
+        if(planList.get(position).getIcon() != null){
+            // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
+            decodedString = Base64.decode(planList.get(position).getIcon(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            vh.imageView_icon.setImageBitmap(decodedByte);
+        }
+
+        
         vh.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +71,7 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             public boolean onLongClick(View view) {
                 Log.d("TESTAAAA", planList.get(position).getKey());
                 Intent intent = new Intent(context, PlanEditActivity.class);
+                intent.putExtra(Const.DB_PLANTABLE_PLANKEY,planList.get(position).getKey());
                 context.startActivity(intent);
                 return true;
             }

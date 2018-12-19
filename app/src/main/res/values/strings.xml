@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">ShowTabi</string>
     <string name="period">～</string>
+    <string name="alertDialog_title">削除確認</string>
+    <string name="alertDialog_positiveButton">はい</string>
+    <string name="alertDialog_negativeButton">いいえ</string>
+    <string name="column_planName">プラン名</string>
+    <string name="column_startDay">開始日</string>
+    <string name="column_endDay">終了日</string>
+    <string name="column_memo">メモ</string>
+    <string name="column_person">人数</string>
+    <string name="button_save">保存</string>
+    <string name="button_del">削除</string>
+
+
+
+    <!-- エラーメッセージ -->
+    <string name="msg_error_0001">必須項目を入力してください</string>
+
+    <!-- ワーニングメッセージ -->
+    <string name="msg_warning_0001">プランを削除します。よろしいですか？</string>
 
 </resources>
