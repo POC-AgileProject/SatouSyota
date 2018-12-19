@@ -19,6 +19,9 @@ android {
     testOptions {
         animationsDisabled true
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
