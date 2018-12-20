@@ -16,6 +16,7 @@
 
 
         <rd.slcs.co.jp.showtabi.view.CardRecyclerView4Plan
+            android:id="@+id/CardRecyclerView4Plan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></rd.slcs.co.jp.showtabi.view.CardRecyclerView4Plan>
 
