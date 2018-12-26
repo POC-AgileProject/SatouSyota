@@ -94,20 +94,15 @@ public class POC_38_Test {
         }
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
-                .perform(replaceText("テストプラン"))
-                .perform(closeSoftKeyboard());
+                .perform(replaceText("テストプラン"));
         onView(withId(R.id.editStartDay))
-                .perform(replaceText("20500101"))
-                .perform(closeSoftKeyboard());
+                .perform(replaceText("20500101"));
         onView(withId(R.id.editEndDay))
-                .perform(replaceText("20510101"))
-                .perform(closeSoftKeyboard());
+                .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
-                .perform(replaceText("100"))
-                .perform(closeSoftKeyboard());
+                .perform(replaceText("100"));
         onView(withId(R.id.editMemo))
-                .perform(replaceText("テストメモ"))
-                .perform(closeSoftKeyboard());
+                .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
         onView(withId(R.id.button_save))
                 .perform(click());
