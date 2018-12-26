@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import rd.slcs.co.jp.showtabi.R;
 
-public class EventEditActivity extends AppCompatActivity {
+public class EventReferenceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_edit);
+        setContentView(R.layout.activity_event_reference);
     }
 }
