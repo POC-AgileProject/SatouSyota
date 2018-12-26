@@ -21,6 +21,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -92,14 +93,19 @@ public class POC_6_Test {
         }
         // プラン情報を編集
         onView(withId(R.id.editPlanName))
+                .perform(scrollTo())
                 .perform(replaceText("テストプラン"));
         onView(withId(R.id.editStartDay))
+                .perform(scrollTo())
                 .perform(replaceText("20500101"));
         onView(withId(R.id.editEndDay))
+                .perform(scrollTo())
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
+                .perform(scrollTo())
                 .perform(replaceText("100"));
         onView(withId(R.id.editMemo))
+                .perform(scrollTo())
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
         onView(withId(R.id.button_save))
