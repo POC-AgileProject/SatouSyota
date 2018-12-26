@@ -19,6 +19,7 @@ import rd.slcs.co.jp.showtabi.object.Plan;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -93,15 +94,20 @@ public class POC_38_Test {
         }
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
-                .perform(replaceText("テストプラン"));
+                .perform(replaceText("テストプラン"))
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.editStartDay))
-                .perform(replaceText("20500101"));
+                .perform(replaceText("20500101"))
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.editEndDay))
-                .perform(replaceText("20510101"));
+                .perform(replaceText("20510101"))
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.editPerson))
-                .perform(replaceText("100"));
+                .perform(replaceText("100"))
+                .perform(closeSoftKeyboard());
         onView(withId(R.id.editMemo))
-                .perform(replaceText("テストメモ"));
+                .perform(replaceText("テストメモ"))
+                .perform(closeSoftKeyboard());
         // 保存ボタンを押下
         onView(withId(R.id.button_save))
                 .perform(click());
