@@ -1,6 +1,10 @@
 package rd.slcs.co.jp.showtabi.object;
 
 public class Event {
+
+    // 時間を切り取る処理において基準となるインデックス値
+    private final static int SUBTIME_INDEX = 8;
+
     private String planKey;
     private String eventName;
     private String startTime;
@@ -69,4 +73,23 @@ public class Event {
     public void setPhotos(String photos) {
         this.photos = photos;
     }
+
+
+    // 開始時間に関して、時刻を切り出す。
+    public String subStartTime() {
+        return getStartTime().substring(SUBTIME_INDEX);
+    }
+
+    // 終了時間に関して、時刻を切り出す。
+    public String subEndTime(){
+        return getEndTime().substring(SUBTIME_INDEX);
+    }
+
+
+
+
+
+
+
+
 }

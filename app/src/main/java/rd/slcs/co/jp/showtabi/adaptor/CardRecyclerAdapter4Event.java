@@ -42,8 +42,8 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
     @Override
     public void onBindViewHolder(ViewHolder vh, final int position) {
         vh.textView_eventName.setText(eventList.get(position).getEventName());
-        vh.textView_startTime.setText(eventList.get(position).getStartTime());
-        vh.textView_endTime.setText(eventList.get(position).getEndTime());
+        vh.textView_startTime.setText(eventList.get(position).subStartTime());
+        vh.textView_endTime.setText(eventList.get(position).subEndTime());
         //ToDo
 
         byte[] decodedString = {};
