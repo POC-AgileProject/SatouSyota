@@ -70,43 +70,43 @@ jobs:
               ./gradlew test
               ./gradlew lint test
 
-      # install Android Emulator
-      - run:
-          name: Setup Emulator
-          command: |
-              echo y | sudo apt-get install libgles2-mesa-dev
-              sdkmanager "system-images;android-24;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
-
-      - run:
-          name: Launch Emulator
-          command: |
-              cd ${ANDROID_HOME}/emulator
-              export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on -gpu off
-          background: true
-
-      - run:
-          name: Wait emulator
-          command: |
-            circle-android wait-for-boot
-            sleep 30
-            adb shell input keyevent 82
-            adb shell settings put global window_animation_scale 0.0
-            adb shell settings put global transition_animation_scale 0.0
-            adb shell settings put global animator_duration_scale 0.0
-
-      - run:
-          name: Run EspressoTests
-          command: ./gradlew connectedAndroidTest
+# mute install Android Emulator
+#      - run:
+#          name: Setup Emulator
+#          command: |
+#              echo y | sudo apt-get install libgles2-mesa-dev
+#              sdkmanager "system-images;android-24;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
+#
+#      - run:
+#          name: Launch Emulator
+#          command: |
+#              cd ${ANDROID_HOME}/emulator
+#              export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/lib64/qt/lib && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on -gpu off
+#          background: true
+#
+#      - run:
+#          name: Wait emulator
+#          command: |
+#            circle-android wait-for-boot
+#            sleep 30
+#            adb shell input keyevent 82
+#            adb shell settings put global window_animation_scale 0.0
+#            adb shell settings put global transition_animation_scale 0.0
+#            adb shell settings put global animator_duration_scale 0.0
+#
+#      - run:
+#          name: Run EspressoTests
+#          command: ./gradlew connectedAndroidTest
 
       # Run firebase Test Lab
       - run:
           name: robo test
           command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
 
-# mute InstrumentationTest
-#      - run:
-#          name: instrumentation test
-#          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
+      # InstrumentationTest
+      - run:
+          name: instrumentation test
+          command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
 
       # Update results to CircleCI
       - store_artifacts:
@@ -116,7 +116,7 @@ jobs:
       - store_test_results:
           path: app/build/test-results
 
-      # upload Expresso result
-      - store_artifacts:
-          path: app/build/reports/androidTests/connected
-          destination: reports_expresso
+# mute upload Expresso result
+#      - store_artifacts:
+#          path: app/build/reports/androidTests/connected
+#          destination: reports_expresso
