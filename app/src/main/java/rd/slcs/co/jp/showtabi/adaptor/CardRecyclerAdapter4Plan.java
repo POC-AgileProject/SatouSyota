@@ -63,7 +63,8 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
                 Log.d("TESTBBB", planList.get(position).getKey());
 
                 Intent intent = new Intent(context, EventListActivity.class);
-                intent.putExtra(Const.DB_PLANTABLE_PLANKEY,planList.get(position).getKey());
+                intent.putExtra("planDisp", planList.get(position));
+
                 context.startActivity(intent);
             }
         });

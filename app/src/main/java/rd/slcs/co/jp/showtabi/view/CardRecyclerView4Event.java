@@ -1,6 +1,8 @@
 package rd.slcs.co.jp.showtabi.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,13 +33,23 @@ public class CardRecyclerView4Event extends RecyclerView{
         // plansテーブル配下のデータを参照するためのリファレンスを取得する
         //       Firebase認証の初期化
         //       FirebaseApp.initializeApp(this);
+
+        // イベント一覧画面の遷移前で選択されたプランのキーを取得
+        Intent intent = ((Activity)context).getIntent();
+        PlanDisp planInfo = (PlanDisp)intent.getSerializableExtra("planDisp");
+        final String planKey = planInfo.getKey();
+
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE);
 
         Log.d("Test_GetEvent","イベント取得します");
+        Log.d("mDatabase = ", mDatabase.toString());
 
-        //  plansテーブルのstartYMDの昇順にソートするクエリを作成
-        Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_STARTTIME);
+        //  Eventsテーブルから選択されたプランに該当するイベントを抽出
+        Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_PLANKEY).equalTo(planKey);  // 昇順降順のやり方が不明
+
+        //Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_STARTTIME);
+
         // クエリを使用してデータベースの内容を一度だけ取得する
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -55,8 +67,7 @@ public class CardRecyclerView4Event extends RecyclerView{
 //                    plan.setMemo((String)dataSnapshot.child(Const.DB_PLANTABLE_MEMO).getValue());
                     EventDisp eventDisp = new EventDisp(event, dataSnapshot.getKey());
 
-                    eventDispList.add(eventDisp);
-
+                        eventDispList.add(eventDisp);
                 }
 
                 // 保存した情報を用いた描画処理などを記載する。

@@ -1,6 +1,8 @@
 package rd.slcs.co.jp.showtabi.object;
 
-public class Plan {
+import java.io.Serializable;
+
+public class Plan implements Serializable {
 
     private String planName;
     private String startYMD;
