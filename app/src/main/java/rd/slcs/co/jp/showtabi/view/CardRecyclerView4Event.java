@@ -17,46 +17,50 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Plan;
+import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Event;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.object.Event;
+import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
-public class CardRecyclerView4Plan extends RecyclerView{
-    public CardRecyclerView4Plan(final Context context, AttributeSet attrs) {
+public class CardRecyclerView4Event extends RecyclerView{
+    public CardRecyclerView4Event(final Context context, AttributeSet attrs) {
         super(context, attrs);
         // plansテーブル配下のデータを参照するためのリファレンスを取得する
         //       Firebase認証の初期化
         //       FirebaseApp.initializeApp(this);
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE);
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE);
+
+        Log.d("Test_GetEvent","イベント取得します");
 
         //  plansテーブルのstartYMDの昇順にソートするクエリを作成
-        Query query = mDatabase.orderByChild(Const.DB_PLANTABLE_STARTYMD);
+        Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_STARTTIME);
         // クエリを使用してデータベースの内容を一度だけ取得する
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseDB_Plan", snapshot.toString());
+                Log.d("FirebaseDB_Event", snapshot.toString());
 
-                List<PlanDisp> planDispList = new ArrayList<>();
+                List<EventDisp> eventDispList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Plan plan = dataSnapshot.getValue(Plan.class);
+                    Event event = dataSnapshot.getValue(Event.class);
 //                    Plan plan = new Plan();
 //                    plan.setPlanName((String)dataSnapshot.child(Const.DB_PLANTABLE_PLANNAME).getValue());
 //                    plan.setStartYMD((String)dataSnapshot.child(Const.DB_PLANTABLE_STARTYMD).getValue());
 //                    plan.setEndYMD((String)dataSnapshot.child(Const.DB_PLANTABLE_ENDYMD).getValue());
 //                    plan.setIcon((String)dataSnapshot.child(Const.DB_PLANTABLE_ICON).getValue());
 //                    plan.setMemo((String)dataSnapshot.child(Const.DB_PLANTABLE_MEMO).getValue());
-                    PlanDisp planDisp = new PlanDisp(plan, dataSnapshot.getKey());
+                    EventDisp eventDisp = new EventDisp(event, dataSnapshot.getKey());
 
-                    planDispList.add(planDisp);
+                    eventDispList.add(eventDisp);
 
                 }
 
                 // 保存した情報を用いた描画処理などを記載する。
-                setRecyclerAdapter(context,planDispList);
+                setRecyclerAdapter(context,eventDispList);
             }
 
             @Override
@@ -66,8 +70,8 @@ public class CardRecyclerView4Plan extends RecyclerView{
         });
     }
 
-    public void setRecyclerAdapter(Context context, List<PlanDisp> planDispList){
+    public void setRecyclerAdapter(Context context, List<EventDisp> eventDispList){
         setLayoutManager(new LinearLayoutManager(context));
-        setAdapter(new CardRecyclerAdapter4Plan(context,planDispList));
-}
+        setAdapter(new CardRecyclerAdapter4Event(context,eventDispList));
+    }
 }

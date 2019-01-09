@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.PlanAddActivity"></activity>
+        <activity android:name=".activity.PlanAddActivity" />
         <activity android:name=".activity.PlanListActivity" />
-        <activity android:name=".activity.PlanEditActivity"></activity>
+        <activity android:name=".activity.PlanEditActivity" />
+        <activity android:name=".activity.EventListActivity" />
+        <activity android:name=".activity.EventAddActivity" />
+        <activity android:name=".activity.EventReferenceActivity" />
+        <activity android:name=".activity.EventEditActivity"></activity>
     </application>
 
 </manifest>
