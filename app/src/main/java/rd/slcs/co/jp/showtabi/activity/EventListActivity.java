@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -35,15 +37,7 @@ public class EventListActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView_startYMD);
         textView.setText(startYMD);
 
-
     }
-
-    public void onClick(View view){
-        Intent intent = new Intent(this,EventAddActivity.class);
-        intent.putExtra("eventYMD","20181220");  // 日付テスト
-        startActivity(intent);
-    }
-
 
     /*
         メニューのアイコンが押下された場合の処理を行います。
@@ -57,6 +51,21 @@ public class EventListActivity extends AppCompatActivity {
             finish();
         }
 
+        if (itemID == R.id.menuListOption_Event_List) {
+            Intent intent = new Intent(this, EventAddActivity.class);
+            intent.putExtra("eventYMD","20181220");  // 日付テスト
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    // オプションメニューを作成する
+    public boolean onCreateOptionsMenu(Menu menu){
+        // menuにcustom_menuレイアウトを適用
+        getMenuInflater().inflate(R.menu.menu_options_menu_list, menu);
+        // オプションメニュー表示する場合はtrue
+        return true;
+    }
+
 }
