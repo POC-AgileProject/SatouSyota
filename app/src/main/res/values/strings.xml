@@ -16,6 +16,12 @@
     <string name="title_planList">プラン一覧</string>
     <string name="title_planAdd">プランの新規作成</string>
     <string name="title_planEdit">プランの編集画面</string>
+    <string name="title_eventList">イベント一覧</string>
+    <string name="title_eventAdd">イベントの新規作成</string>
+    <string name="title_eventEdit">イベントの編集画面</string>
+    <string name="title_eventReference">イベントの参照画面</string>
+
+
 
 
     <!-- エラーメッセージ -->

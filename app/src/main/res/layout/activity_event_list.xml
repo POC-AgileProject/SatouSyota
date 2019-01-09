@@ -7,7 +7,12 @@
     android:orientation="vertical"
     tools:context=".activity.PlanListActivity">
 
-
+    <TextView
+        android:id="@+id/textView_startYMD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
 
     <FrameLayout
         android:layout_width="fill_parent"
