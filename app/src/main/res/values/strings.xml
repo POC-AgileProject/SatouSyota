@@ -11,6 +11,7 @@
     <string name="column_person">人数</string>
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>
+    <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
 
     <!-- 各ページのタイトル -->
     <string name="title_planList">プラン一覧</string>
