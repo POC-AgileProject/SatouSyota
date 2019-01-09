@@ -12,7 +12,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -25,14 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.object.Plan;
-import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class PlanEditActivity extends AppCompatActivity {
 
