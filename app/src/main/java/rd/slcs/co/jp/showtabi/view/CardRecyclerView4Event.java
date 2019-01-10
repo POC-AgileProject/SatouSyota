@@ -48,8 +48,6 @@ public class CardRecyclerView4Event extends RecyclerView{
         //  Eventsテーブルから選択されたプランに該当するイベントを抽出
         Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_PLANKEY).equalTo(planKey);  // 昇順降順のやり方が不明
 
-        //Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_STARTTIME);
-
         // クエリを使用してデータベースの内容を一度だけ取得する
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

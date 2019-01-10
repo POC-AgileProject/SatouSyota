@@ -1,13 +1,20 @@
 package rd.slcs.co.jp.showtabi.object;
 
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Event {
+
     private String planKey;
     private String eventName;
     private String startTime;
     private String endTime;
     private String category;
     private String memo;
-    private String photos;
+    private String address;
+
+
 
     public Event (){
 
@@ -62,11 +69,14 @@ public class Event {
         this.memo = memo;
     }
 
-    public String getPhotos() {
-        return photos;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPhotos(String photos) {
-        this.photos = photos;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+
+
 }
