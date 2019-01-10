@@ -99,7 +99,11 @@ public class EventAddActivity extends AppCompatActivity {
 
                     // 日付と時間の連結
                     String startTime = eventDate + editStartTime.getText().toString();
-                    String endTime = eventDate + editEndTime.getText().toString();
+                    String endTime ="";
+                    // 終了時間が入力されている場合
+                    if(!"".equals(editEndTime.getText().toString())) {
+                        endTime = eventDate + editEndTime.getText().toString();
+                    }
 
                     Event event = new Event();
 

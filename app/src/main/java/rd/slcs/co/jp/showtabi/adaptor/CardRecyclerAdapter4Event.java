@@ -48,13 +48,13 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
 
         byte[] decodedString = {};
 
-        // イベント画像が設定されている場合
-        if(eventList.get(position).getAddress() != null){
-            // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
-            decodedString = Base64.decode(eventList.get(position).getAddress(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            //vh.imageView_icon.setImageBitmap(decodedByte);
-        }
+//        // イベント画像が設定されている場合
+//        if(eventList.get(position).getAddress() != null){
+//            // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
+//            decodedString = Base64.decode(eventList.get(position).getAddress(), Base64.DEFAULT);
+//            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//            //vh.imageView_icon.setImageBitmap(decodedByte);
+//        }
 
 
         vh.layout.setOnClickListener(new View.OnClickListener() {

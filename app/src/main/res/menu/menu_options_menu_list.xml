@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuListOptionSave"
-        app:showAsAction="always"
-        android:title="@string/menu_list_options_Save">
-    </item>
-
-    <item
         android:id="@+id/menuListOption_Event_List"
         app:showAsAction="always"
         android:title="@string/menu_list_options_event_list"
