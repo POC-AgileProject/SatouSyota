@@ -2,12 +2,10 @@ package rd.slcs.co.jp.showtabi.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,14 +18,16 @@ import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.object.Event;
-import rd.slcs.co.jp.showtabi.object.Plan;
+import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 /**
  * イベントの新規作成アクティビティークラスです。
  */
 public class EventAddActivity extends AppCompatActivity {
 
-    String planKey;
+    private PlanDisp planInfo;
+    private String planKey;
+    private String eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,13 @@ public class EventAddActivity extends AppCompatActivity {
 
         // プランキーの値を取得
         Intent intentEventList = getIntent();
-        planKey = intentEventList.getStringExtra(Const.DB_PLANTABLE_PLANKEY);
-        Toast.makeText(this, planKey, Toast.LENGTH_LONG).show();
+        planInfo = (PlanDisp) intentEventList.getSerializableExtra("planDisp");
+        planKey = planInfo.getKey();
+
+        // 日付の取得
+        EditText editEventDate = findViewById(R.id.editEventDate);
+        eventDate = planInfo.getStartYMD();
+        editEventDate.setText(eventDate);
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
@@ -54,7 +59,7 @@ public class EventAddActivity extends AppCompatActivity {
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         // menuにcustom_menuレイアウトを適用
-        getMenuInflater().inflate(R.menu.menu_options_menu_list, menu);
+        getMenuInflater().inflate(R.menu.menu_options_event_add, menu);
         // オプションメニュー表示する場合はtrue
         return true;
     }
@@ -71,10 +76,11 @@ public class EventAddActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
 
             // 保存ボタン押下時
-            case R.id.menuListOptionSave:
+            case R.id.menuListOption_Event_Add:
 
                 // 画面の値を取得
                 EditText editEventName = findViewById(R.id.editEventName);
+                EditText editEventDate = findViewById(R.id.editEventDate);
                 EditText editStartTime = findViewById(R.id.editStartTime);
                 EditText editEndTime = findViewById(R.id.editEndTime);
                 RadioGroup editCategory = findViewById(R.id.editCategory);
@@ -84,19 +90,24 @@ public class EventAddActivity extends AppCompatActivity {
                 //TODO:開始日と終了日の前後チェック
                 // 入力チェック
                 if ("".equals(editEventName.getText().toString())
+                        || "".equals(editEventDate.getText().toString())
                         || "".equals(editStartTime.getText().toString())) {
 
                     Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
                 } else {
 
+                    // 日付と時間の連結
+                    String startTime = eventDate + editStartTime.getText().toString();
+                    String endTime = eventDate + editEndTime.getText().toString();
+
                     Event event = new Event();
 
                     // イベントの設定
                     event.setPlanKey(planKey);
                     event.setEventName(editEventName.getText().toString());
-                    event.setStartTime(editStartTime.getText().toString());
-                    event.setEndTime(editEndTime.getText().toString());
+                    event.setStartTime(startTime);
+                    event.setEndTime(endTime);
                     event.setMemo(editMemo.getText().toString());
                     event.setAddress(editAddress.getText().toString());
 
@@ -115,12 +126,15 @@ public class EventAddActivity extends AppCompatActivity {
                     // イベントリスト画面に遷移
                     Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("planDisp",planInfo);
                     startActivity(intent);
                 }
+                break;
 
             // 戻るボタン押下時
             case android.R.id.home:
                 finish();
+                break;
 
             default:
         }

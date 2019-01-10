@@ -15,6 +15,9 @@ import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class EventListActivity extends AppCompatActivity {
 
+
+    private PlanDisp planInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,7 @@ public class EventListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        PlanDisp planInfo = (PlanDisp)intent.getSerializableExtra("planDisp");
+        planInfo = (PlanDisp)intent.getSerializableExtra("planDisp");
         String planName = planInfo.getPlanName();
         String startYMD = planInfo.getStartYMD();
 
@@ -53,7 +56,7 @@ public class EventListActivity extends AppCompatActivity {
 
         if (itemID == R.id.menuListOption_Event_List) {
             Intent intent = new Intent(this, EventAddActivity.class);
-            intent.putExtra("eventYMD","20181220");  // 日付テスト
+            intent.putExtra("planDisp",planInfo);
             startActivity(intent);
         }
 
