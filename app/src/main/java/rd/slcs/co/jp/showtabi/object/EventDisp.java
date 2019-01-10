@@ -12,7 +12,7 @@ public class EventDisp extends Event{
         this.setEndTime(event.getEndTime());
         this.setCategory(event.getCategory());
         this.setMemo(event.getMemo());
-        this.setPhotos(event.getPhotos());
+        this.setAddress(event.getAddress());
 
     }
 

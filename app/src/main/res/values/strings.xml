@@ -9,9 +9,23 @@
     <string name="column_endDay">終了日</string>
     <string name="column_memo">メモ</string>
     <string name="column_person">人数</string>
+    <string name="column_eventName">イベント名</string>
+    <string name="column_eventDate">日付</string>
+    <string name="column_startTime">開始時間</string>
+    <string name="column_endTime">終了時間</string>
+    <string name="column_category">イベントカテゴリ</string>
+    <string name="column_address">住所</string>
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>
+    <string name="radio_idou">移動</string>
+    <string name="radio_kankou">観光</string>
+    <string name="radio_syokuji">食事</string>
+    <string name="radio_syukuhaku">宿泊</string>
+    <string name="radio_sonota">その他</string>
+
     <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
+    <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>
+    <string name="menu_list_options_Save">保存</string>
 
     <!-- 各ページのタイトル -->
     <string name="title_planList">プラン一覧</string>
@@ -21,9 +35,6 @@
     <string name="title_eventAdd">イベントの新規作成</string>
     <string name="title_eventEdit">イベントの編集画面</string>
     <string name="title_eventReference">イベントの参照画面</string>
-
-
-
 
     <!-- エラーメッセージ -->
     <string name="msg_error_0001">必須項目を入力してください</string>
