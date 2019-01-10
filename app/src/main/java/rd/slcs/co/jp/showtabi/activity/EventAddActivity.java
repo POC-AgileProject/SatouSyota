@@ -27,10 +27,18 @@ import rd.slcs.co.jp.showtabi.object.Plan;
  */
 public class EventAddActivity extends AppCompatActivity {
 
+    String planKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_add);
+
+
+        // プランキーの値を取得
+        Intent intentEventList = getIntent();
+        planKey = intentEventList.getStringExtra(Const.DB_PLANTABLE_PLANKEY);
+        Toast.makeText(this, planKey, Toast.LENGTH_LONG).show();
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
@@ -85,6 +93,7 @@ public class EventAddActivity extends AppCompatActivity {
                     Event event = new Event();
 
                     // イベントの設定
+                    event.setPlanKey(planKey);
                     event.setEventName(editEventName.getText().toString());
                     event.setStartTime(editStartTime.getText().toString());
                     event.setEndTime(editEndTime.getText().toString());

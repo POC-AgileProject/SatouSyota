@@ -22,13 +22,17 @@
     <string name="radio_syokuji">食事</string>
     <string name="radio_syukuhaku">宿泊</string>
     <string name="radio_sonota">その他</string>
-    
+
+    <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
+
     <!-- 各ページのタイトル -->
     <string name="title_planList">プラン一覧</string>
     <string name="title_planAdd">プランの新規作成</string>
     <string name="title_planEdit">プランの編集画面</string>
+    <string name="title_eventList">イベント一覧</string>
     <string name="title_eventAdd">イベントの新規作成</string>
-
+    <string name="title_eventEdit">イベントの編集画面</string>
+    <string name="title_eventReference">イベントの参照画面</string>
 
     <!-- エラーメッセージ -->
     <string name="msg_error_0001">必須項目を入力してください</string>
