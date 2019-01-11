@@ -50,7 +50,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
     public void onBindViewHolder(ViewHolder vh, final int position) {
 
         vh.textView_eventName.setText(eventList.get(position).getEventName());
-
+        
         // イベントの開始時間と終了時間をDate型に変換
         Date startDate = Util.convertToDate(eventList.get(position).getStartTime());
         Date endDate = Util.convertToDate(eventList.get(position).getEndTime());
