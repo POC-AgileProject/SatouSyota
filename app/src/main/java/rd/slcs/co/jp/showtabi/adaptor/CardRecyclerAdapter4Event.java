@@ -58,8 +58,9 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
         // 表示形式にフォーマット
         SimpleDateFormat fmt = new SimpleDateFormat("HH:mm");
         vh.textView_startTime.setText(fmt.format(startDate));
-        vh.textView_endTime.setText(fmt.format(endDate));
-
+        if(endDate != null) {
+            vh.textView_endTime.setText(fmt.format(endDate));
+        }
 
         // イベントアイコンを設定
         String category = eventList.get(position).getCategory();
