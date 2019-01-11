@@ -63,14 +63,13 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_margin="5dp"
-                android:background="@mipmap/ic_launcher"
                 />
 
             <TextView
                 android:id="@+id/textView_eventName"
-                android:layout_width="180dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack" />
             <!--                 android:layout_marginLeft=""
@@ -83,15 +82,14 @@ android:layout_marginRight="" -->
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/ic_insert_comment_black_24dp"
                 />
 
             <ImageView
-                android:id="@+id/imageView_url"
+                android:id="@+id/imageView_link"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_margin="5dp"
-                android:background="@drawable/ic_insert_link_black_24dp" />
+                />
             <!--             android:textSize="" -->
 
         </LinearLayout>

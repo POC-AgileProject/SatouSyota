@@ -17,6 +17,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Event;
@@ -48,8 +49,6 @@ public class CardRecyclerView4Event extends RecyclerView{
         //  Eventsテーブルから選択されたプランに該当するイベントを抽出
         Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_PLANKEY).equalTo(planKey);  // 昇順降順のやり方が不明
 
-        //Query query = mDatabase.orderByChild(Const.DB_EVENTTABLE_STARTTIME);
-
         // クエリを使用してデータベースの内容を一度だけ取得する
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -67,9 +66,18 @@ public class CardRecyclerView4Event extends RecyclerView{
 //                    plan.setMemo((String)dataSnapshot.child(Const.DB_PLANTABLE_MEMO).getValue());
                     EventDisp eventDisp = new EventDisp(event, dataSnapshot.getKey());
 
-                        eventDispList.add(eventDisp);
+                    eventDispList.add(eventDisp);
                 }
 
+                // イベントを開始時間の昇順でソート
+                eventDispList.sort(new Comparator<EventDisp>() {
+                    @Override
+                    public int compare(EventDisp o1, EventDisp o2) {
+                        return o1.getStartTime().compareTo(o2.getStartTime());
+                    }
+                });
+
+                //(o1, o2) -> o2.getStartTime().compareTo(o1.getStartTime())
                 // 保存した情報を用いた描画処理などを記載する。
                 setRecyclerAdapter(context,eventDispList);
             }

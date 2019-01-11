@@ -10,11 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class EventListActivity extends AppCompatActivity {
-
 
     private PlanDisp planInfo;
 
@@ -28,17 +32,17 @@ public class EventListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        planInfo = (PlanDisp)intent.getSerializableExtra("planDisp");
+        planInfo = (PlanDisp)intent.getSerializableExtra(Const.PLANDISP);
         String planName = planInfo.getPlanName();
-        String startYMD = planInfo.getStartYMD();
+        Date startYMD = Util.convertToDate(planInfo.getStartYMD());
 
 
         // 画面のタイトルを設定
         actionBar.setTitle(planName);
-
         // 出発日を表示
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         TextView textView = findViewById(R.id.textView_startYMD);
-        textView.setText(startYMD);
+        textView.setText(fmt.format(startYMD));
 
     }
 
@@ -56,7 +60,7 @@ public class EventListActivity extends AppCompatActivity {
 
         if (itemID == R.id.menuListOption_Event_List) {
             Intent intent = new Intent(this, EventAddActivity.class);
-            intent.putExtra("planDisp",planInfo);
+            intent.putExtra(Const.PLANDISP, planInfo);
             startActivity(intent);
         }
 
