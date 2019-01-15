@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,9 +25,8 @@ import rd.slcs.co.jp.showtabi.object.PlanDisp;
 public class CardRecyclerView4Plan extends RecyclerView{
     public CardRecyclerView4Plan(final Context context, AttributeSet attrs) {
         super(context, attrs);
-        // plansテーブル配下のデータを参照するためのリファレンスを取得する
-        //       Firebase認証の初期化
-        //       FirebaseApp.initializeApp(this);
+
+        // Firebaseからインスタンスを取得
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE);
 
@@ -38,22 +36,15 @@ public class CardRecyclerView4Plan extends RecyclerView{
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseDB_Plan", snapshot.toString());
 
                 List<PlanDisp> planDispList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Plan plan = dataSnapshot.getValue(Plan.class);
-//                    Plan plan = new Plan();
-//                    plan.setPlanName((String)dataSnapshot.child(Const.DB_PLANTABLE_PLANNAME).getValue());
-//                    plan.setStartYMD((String)dataSnapshot.child(Const.DB_PLANTABLE_STARTYMD).getValue());
-//                    plan.setEndYMD((String)dataSnapshot.child(Const.DB_PLANTABLE_ENDYMD).getValue());
-//                    plan.setIcon((String)dataSnapshot.child(Const.DB_PLANTABLE_ICON).getValue());
-//                    plan.setMemo((String)dataSnapshot.child(Const.DB_PLANTABLE_MEMO).getValue());
                     PlanDisp planDisp = new PlanDisp(plan, dataSnapshot.getKey());
-
                     planDispList.add(planDisp);
-
                 }
+
+                //TODO: プランを降順にソート
 
                 // 保存した情報を用いた描画処理などを記載する。
                 setRecyclerAdapter(context,planDispList);

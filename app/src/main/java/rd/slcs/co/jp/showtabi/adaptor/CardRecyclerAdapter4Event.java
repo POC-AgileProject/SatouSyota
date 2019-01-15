@@ -2,11 +2,7 @@ package rd.slcs.co.jp.showtabi.adaptor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +12,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.activity.EventEditActivity;
@@ -64,7 +58,6 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
 
         // イベントアイコンを設定
         String category = eventList.get(position).getCategory();
-        Log.d("category_Test", category);
 
         // データ定義を考慮すればこのif文で囲む必要はない。
         if(Const.categoryToIconMap.containsKey(category)) {
@@ -74,33 +67,31 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
 
         // メモアイコンを設定
         if(!"".equals(eventList.get(position).getMemo())) {
-            vh.imageView_memo.setImageResource(R.drawable.ic_insert_comment_black_24dp);
+            vh.imageView_memo.setImageResource(R.drawable.ic_insert_comment_24dp);
         }
 
         // ToDO:URLが実装されたら
         /*
         if(!"".equals(eventList.get(position).getLink())) {
-            vh.imageView_link.setImageResource(R.drawable.ic_insert_link_black_24dp);
+            vh.imageView_link.setImageResource(R.drawable.ic_insert_link_24dp);
         }
         */
 
 
-            vh.layout.setOnClickListener(new View.OnClickListener() {
+        // タッチ時の処理
+        vh.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TESTCCC", eventList.get(position).getKey());
-
                 Intent intent = new Intent(context, EventReferenceActivity.class);
                 intent.putExtra(Const.DB_EVENTTABLE_EVENTKEY,eventList.get(position).getKey());
                 context.startActivity(intent);
             }
         });
 
+        // 長押し時の処理
         vh.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Log.d("TESTDDDD", eventList.get(position).getKey());
-
                 Intent intent = new Intent(context, EventEditActivity.class);
                 intent.putExtra(Const.DB_EVENTTABLE_EVENTKEY,eventList.get(position).getKey());
                 context.startActivity(intent);
@@ -108,8 +99,8 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
             }
         });
 
-
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -118,6 +109,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView_eventName;

@@ -30,7 +30,7 @@
             android:layout_marginBottom="10dp"
             android:background="@null"
             android:onClick="onClick"
-            app:srcCompat="@drawable/ic_add_circle_outline_black_72dp" />
+            app:srcCompat="@drawable/ic_add_circle_outline_72dp" />
 
     </FrameLayout>
 </LinearLayout>
