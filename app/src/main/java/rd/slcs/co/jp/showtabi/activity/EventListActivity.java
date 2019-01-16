@@ -4,17 +4,19 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class EventListActivity extends AppCompatActivity {
-
 
     private PlanDisp planInfo;
 
@@ -28,17 +30,17 @@ public class EventListActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        planInfo = (PlanDisp)intent.getSerializableExtra("planDisp");
+        planInfo = (PlanDisp)intent.getSerializableExtra(Const.PLANDISP);
         String planName = planInfo.getPlanName();
-        String startYMD = planInfo.getStartYMD();
+        Date startYMD = Util.convertToDate(planInfo.getStartYMD());
 
 
         // 画面のタイトルを設定
         actionBar.setTitle(planName);
-
         // 出発日を表示
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
         TextView textView = findViewById(R.id.textView_startYMD);
-        textView.setText(startYMD);
+        textView.setText(fmt.format(startYMD));
 
     }
 
@@ -50,13 +52,15 @@ public class EventListActivity extends AppCompatActivity {
 
         int itemID = item.getItemId();
 
+        // 戻るアイコンが押下された場合
         if(itemID == android.R.id.home){
             finish();
         }
 
+        // 新規登録ボタンが押下された場合
         if (itemID == R.id.menuListOption_Event_List) {
             Intent intent = new Intent(this, EventAddActivity.class);
-            intent.putExtra("planDisp",planInfo);
+            intent.putExtra(Const.PLANDISP, planInfo);
             startActivity(intent);
         }
 

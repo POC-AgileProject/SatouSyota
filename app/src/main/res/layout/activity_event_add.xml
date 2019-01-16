@@ -101,35 +101,35 @@
             android:id="@+id/editCategory">
 
             <RadioButton
-                android:id="@+id/radioIdou"
+                android:id="@+id/radio_move"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="@string/radio_idou" />
+                android:text="@string/category_move" />
 
             <RadioButton
-                android:id="@+id/radioKankou"
+                android:id="@+id/radio_sightseeing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_kankou" />
+                android:text="@string/category_sightseeing" />
 
             <RadioButton
-                android:id="@+id/radioSyokuji"
+                android:id="@+id/radio_eat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_syokuji" />
+                android:text="@string/category_eat" />
 
             <RadioButton
-                android:id="@+id/radioSyukuhaku"
+                android:id="@+id/radio_stay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_syukuhaku" />
+                android:text="@string/category_stay" />
 
             <RadioButton
-                android:id="@+id/radioSonota"
+                android:id="@+id/radio_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radio_sonota" />
+                android:text="@string/category_other" />
         </RadioGroup>
 
         <android.support.design.widget.TextInputLayout

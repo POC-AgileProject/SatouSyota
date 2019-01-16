@@ -1,6 +1,8 @@
 package rd.slcs.co.jp.showtabi.object;
 
+
 public class Event {
+
     private String planKey;
     private String eventName;
     private String startTime;
@@ -8,6 +10,7 @@ public class Event {
     private String category;
     private String memo;
     private String address;
+
 
     public Event (){
 
@@ -69,4 +72,7 @@ public class Event {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
+
 }
