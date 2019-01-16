@@ -11,7 +11,10 @@
         android:id="@+id/textView_startYMD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:layout_margin="5dp"
         />
 
     <FrameLayout
@@ -21,6 +24,7 @@
 
 
         <rd.slcs.co.jp.showtabi.view.CardRecyclerView4Event
+            android:id="@+id/CardRecyclerView4Event"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></rd.slcs.co.jp.showtabi.view.CardRecyclerView4Event>
 

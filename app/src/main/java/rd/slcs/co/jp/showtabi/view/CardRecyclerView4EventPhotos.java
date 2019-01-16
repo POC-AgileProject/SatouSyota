@@ -33,22 +33,16 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
     public CardRecyclerView4EventPhotos(final Context context, AttributeSet attrs) {
         super(context, attrs);
-        // plansテーブル配下のデータを参照するためのリファレンスを取得する
-        //       Firebase認証の初期化
-        //       FirebaseApp.initial
-
-        Log.d("Test_GetIntent", "Intentを受け取ります");
 
         // 選択されたイベントのイベントキーを取得
         Intent intent = ((Activity) context).getIntent();
         final String eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
 
+        // Firebaseからインスタンスを取得
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
-        Log.d("Test_GetPhoto", "写真を取得します");
-
-        //  photosテーブルのsortKeyの昇順にソートするクエリを作成
+        //  Photosテーブルから選択されたイベントに該当する写真情報を抽出
         Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventKey);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -65,16 +59,14 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
                     byte[] decodedString = photoData.getBytes();
                     // byte[] → Bitmap　に変換
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                    Log.d("photoConvert","できた。");
                     photoList.add(decodedByte);
 
                 }
 
-                Log.d("photoList size = ", ((Integer)photoList.size()).toString());
+                // TODO: 写真をsortKeyを基準にソート
+
 
                 setRecyclerAdapter(context, photoList);
-
             }
 
             @Override
@@ -87,25 +79,6 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
     public void setRecyclerAdapter(Context context, List<Bitmap> photoList) {
         setLayoutManager(new LinearLayoutManager(context));
         setAdapter(new CardRecyclerAdapter4Photos(context, photoList));
-    }
-
-
-    /*
-        byte[] からBMPリストへの変換
-     */
-    public List<Bitmap> toBMPConvert(String[] photos) {
-
-        List<Bitmap> photoList = new ArrayList<>();
-        byte[] decodedString = {};
-
-        // byte[] → BMP の変換
-        for (String data : photos) {
-            decodedString = Base64.decode(data, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            photoList.add(decodedByte);
-        }
-
-        return photoList;
     }
 
 
