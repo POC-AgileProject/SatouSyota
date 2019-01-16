@@ -26,6 +26,6 @@ public class PlanListActivity extends AppCompatActivity
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, PlanAddActivity.class);  //インテントの作成
-        startActivity(intent);                                                      //画面遷移
+        startActivity(intent); //画面遷移
     }
 }

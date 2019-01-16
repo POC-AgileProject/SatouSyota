@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import rd.slcs.co.jp.showtabi.object.PlanDisp;
 /**
  */
 public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerAdapter4Plan.ViewHolder> {
+
     private List<PlanDisp> planList;
     private Context context;
 
@@ -56,24 +56,20 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             vh.imageView_icon.setImageBitmap(decodedByte);
         }
 
-        
+        // タッチ時の処理
         vh.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TESTBBB", planList.get(position).getKey());
-
-                Intent intent = new Intent(context, EventListActivity.class);
-                intent.putExtra("planDisp", planList.get(position));
-
+                 Intent intent = new Intent(context, EventListActivity.class);
+                intent.putExtra(Const.PLANDISP, planList.get(position));
                 context.startActivity(intent);
             }
         });
 
+        // 長押し時の処理
         vh.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                Log.d("TESTAAAA", planList.get(position).getKey());
-
                 Intent intent = new Intent(context, PlanEditActivity.class);
                 intent.putExtra(Const.DB_PLANTABLE_PLANKEY,planList.get(position).getKey());
                 context.startActivity(intent);

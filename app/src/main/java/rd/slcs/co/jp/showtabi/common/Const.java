@@ -43,6 +43,10 @@ public class Const {
     public static final String PLANDISP = "planDisp";
 
 
+    /** 日付フォーマット */
+    public static final String YYYYMMDD = "yyyyMMdd";
+    public static final String YYYYMMDDHHMM = "yyyyMMddHHmm";
+
     /* カテゴリーアイコン */
     // category文字列とアイコン画像の対応Map
     public static final Map<String, Integer> categoryToIconMap = Collections.unmodifiableMap(new HashMap(){

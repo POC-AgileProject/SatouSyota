@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">ShowTabi</string>
+
     <string name="period">～</string>
+
     <string name="alertDialog_title">削除確認</string>
     <string name="alertDialog_positiveButton">はい</string>
     <string name="alertDialog_negativeButton">いいえ</string>
+
     <string name="column_planName">プラン名</string>
     <string name="column_startDay">開始日</string>
     <string name="column_endDay">終了日</string>
@@ -15,13 +18,15 @@
     <string name="column_endTime">終了時間</string>
     <string name="column_category">イベントカテゴリ</string>
     <string name="column_address">住所</string>
+
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>
-    <string name="radio_idou">移動</string>
-    <string name="radio_kankou">観光</string>
-    <string name="radio_syokuji">食事</string>
-    <string name="radio_syukuhaku">宿泊</string>
-    <string name="radio_sonota">その他</string>
+
+    <string name="category_move">移動</string>
+    <string name="category_sightseeing">観光</string>
+    <string name="category_eat">食事</string>
+    <string name="category_stay">宿泊</string>
+    <string name="category_other">その他</string>
 
     <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
     <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>

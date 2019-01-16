@@ -1,8 +1,5 @@
 package rd.slcs.co.jp.showtabi.object;
 
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Event {
 
@@ -13,7 +10,6 @@ public class Event {
     private String category;
     private String memo;
     private String address;
-
 
 
     public Event (){

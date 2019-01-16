@@ -8,15 +8,18 @@ import java.util.Date;
 
 public class Util {
 
+    private final static int YMD_DATE_LENGTH = 8;
+    private final static int YMDHM_DATE_LENGTH = 12;
+
     /* String → Date型 */
     public static Date convertToDate(String dateStr){
 
-        //ToDO:バリデーションチェック前提。
+        //ToDO:バリデーションチェック前提で、PlanやEventのオブジェクトを渡すよう変更する？？
 
         SimpleDateFormat fmt;
         switch(dateStr.length()) {
-            case 8:  fmt = new SimpleDateFormat("yyyyMMdd");break;
-            case 12: fmt = new SimpleDateFormat("yyyyMMddHHmm");break;
+            case YMD_DATE_LENGTH:  fmt = new SimpleDateFormat(Const.YYYYMMDD);break;
+            case YMDHM_DATE_LENGTH: fmt = new SimpleDateFormat(Const.YYYYMMDDHHMM);break;
             default: fmt = new SimpleDateFormat();
         }
 

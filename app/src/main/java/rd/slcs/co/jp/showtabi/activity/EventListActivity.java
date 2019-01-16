@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -54,10 +52,12 @@ public class EventListActivity extends AppCompatActivity {
 
         int itemID = item.getItemId();
 
+        // 戻るアイコンが押下された場合
         if(itemID == android.R.id.home){
             finish();
         }
 
+        // 新規登録ボタンが押下された場合
         if (itemID == R.id.menuListOption_Event_List) {
             Intent intent = new Intent(this, EventAddActivity.class);
             intent.putExtra(Const.PLANDISP, planInfo);

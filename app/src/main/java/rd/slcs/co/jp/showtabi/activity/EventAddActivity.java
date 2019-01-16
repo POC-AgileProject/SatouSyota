@@ -130,7 +130,7 @@ public class EventAddActivity extends AppCompatActivity {
                     // イベントリスト画面に遷移
                     Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("planDisp",planInfo);
+                    intent.putExtra(Const.PLANDISP,planInfo);
                     startActivity(intent);
                 }
                 break;
