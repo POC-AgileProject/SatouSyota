@@ -1,6 +1,8 @@
 package rd.slcs.co.jp.showtabi.object;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable {
     private String planKey;
     private String eventName;
     private String startTime;
