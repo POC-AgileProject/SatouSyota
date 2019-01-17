@@ -1,6 +1,9 @@
 package rd.slcs.co.jp.showtabi.common;
 
+import android.app.Activity;
+import android.graphics.Point;
 import android.util.Log;
+import android.view.Display;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,5 +34,15 @@ public class Util {
         }
     }
 
+
+    /*
+        現在のディスプレイのサイズを取得する。
+     */
+    public static Point getDisplaySize(Activity activity){
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        return point;
+    }
 
 }

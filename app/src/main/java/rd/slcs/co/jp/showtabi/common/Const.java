@@ -47,6 +47,11 @@ public class Const {
     public static final String YYYYMMDD = "yyyyMMdd";
     public static final String YYYYMMDDHHMM = "yyyyMMddHHmm";
 
+
+    // 写真表示レイアウト：x軸方向の分割数
+    public static final int GRID_SPAN = 3;
+
+
     /* カテゴリーアイコン */
     // category文字列とアイコン画像の対応Map
     public static final Map<String, Integer> categoryToIconMap = Collections.unmodifiableMap(new HashMap(){

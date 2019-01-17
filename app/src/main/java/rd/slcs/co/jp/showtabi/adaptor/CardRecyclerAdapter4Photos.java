@@ -1,17 +1,23 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.Util;
 
 public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecyclerAdapter4Photos.ViewHolder> {
 
@@ -32,6 +38,11 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
     @Override
     public void onBindViewHolder(ViewHolder vh, final int position) {
 
+        Log.d("photoList size =", ((Integer)photoList.size()).toString());
+
+        Point point = Util.getDisplaySize((Activity)context);
+        vh.imageView_photo.getLayoutParams().height = point.x / Const.GRID_SPAN;
+
         vh.imageView_photo.setImageBitmap(photoList.get(position));
         //ToDo
 
@@ -51,7 +62,6 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
                 return true;
             }
         });
-
 
     }
 

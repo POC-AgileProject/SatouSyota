@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
@@ -56,10 +59,11 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
                     Log.d("photoData=", photoData);
 
-                    byte[] decodedString = photoData.getBytes();
+                    byte[] decodedString = Base64.decode(photoData.getBytes(), Base64.DEFAULT);
                     // byte[] → Bitmap　に変換
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                     photoList.add(decodedByte);
+
 
                 }
 
@@ -77,7 +81,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
     }
 
     public void setRecyclerAdapter(Context context, List<Bitmap> photoList) {
-        setLayoutManager(new LinearLayoutManager(context));
+        setLayoutManager(new GridLayoutManager(context, Const.GRID_SPAN));
         setAdapter(new CardRecyclerAdapter4Photos(context, photoList));
     }
 
