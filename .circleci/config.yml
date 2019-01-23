@@ -45,7 +45,7 @@ jobs:
           command: |
               echo $ANDROID_HOME
               pwd
-              mkdir $ANDROID_HOME/licenses
+              # mkdir $ANDROID_HOME/licenses
               cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
               ./gradlew androidDependencies
 
