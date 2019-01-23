@@ -42,11 +42,12 @@ jobs:
 
       - run:
           name: Download Dependencies
-          command: echo $ANDROID_HOME
-          command: pwd
-          command: mkdir $ANDROID_HOME/licenses
-          command: cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
-          command: ./gradlew androidDependencies
+          command: |
+              echo $ANDROID_HOME
+              pwd
+              mkdir $ANDROID_HOME/licenses
+              cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
+              ./gradlew androidDependencies
 
       # Download AndroidSDK
       - run:
