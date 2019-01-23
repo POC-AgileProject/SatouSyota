@@ -34,6 +34,7 @@
                 />
 
             <rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos
+                android:id="@+id/CardRecyclerView4Photos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos>
 

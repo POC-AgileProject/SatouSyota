@@ -28,18 +28,36 @@ import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.object.Photo;
 
 public class CardRecyclerView4EventPhotos extends RecyclerView {
 
-    List<Bitmap> photoList = new ArrayList<>();
-
+    List<Photo> photoList = new ArrayList<>();
+    final String eventKey;  // この写真のリストが紐づくイベントのキー
+    final Context context;  // この写真のリストが表示される画面
 
     public CardRecyclerView4EventPhotos(final Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
 
         // 選択されたイベントのイベントキーを取得
         Intent intent = ((Activity) context).getIntent();
-        final String eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
+        eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
+
+        // DBから写真リストを読み込み＆アダプターにセット
+        loadPhotoData();
+
+    }
+
+
+
+    /*
+        DBから写真情報を読み込む
+     */
+    public void loadPhotoData() {
+
+        // PhotoListを初期化
+        photoList.clear();
 
         // Firebaseからインスタンスを取得
         DatabaseReference mDatabase;
@@ -55,22 +73,15 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     // イベントに紐づく写真を取得
-                    String photoData = (String)dataSnapshot.child(Const.DB_PHOTOSTABLE_PHOTO).getValue();
-
-                    Log.d("photoData=", photoData);
-
-                    byte[] decodedString = Base64.decode(photoData.getBytes(), Base64.DEFAULT);
-                    // byte[] → Bitmap　に変換
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    photoList.add(decodedByte);
-
+                    Photo photoData = dataSnapshot.getValue(Photo.class);
+                    photoList.add(photoData);
 
                 }
 
                 // TODO: 写真をsortKeyを基準にソート
 
 
-                setRecyclerAdapter(context, photoList);
+                setRecyclerAdapter(context,photoList);
             }
 
             @Override
@@ -78,22 +89,19 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
             }
         });
+
     }
 
-    public void setRecyclerAdapter(Context context, List<Bitmap> photoList) {
+
+
+    /*
+        レイアウト及びアダプターを生成し、紐づける
+     */
+    public void setRecyclerAdapter(Context context, List<Photo> photoList) {
         setLayoutManager(new GridLayoutManager(context, Const.GRID_SPAN));
         setAdapter(new CardRecyclerAdapter4Photos(context, photoList));
     }
 
-
-    /*
-        BMPのリストを受け取り配列に追加。及びDBに追加する。
-     */
-    public static void addPhotoImage(){
-
-
-
-    }
 
 
 }
