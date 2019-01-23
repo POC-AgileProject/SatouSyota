@@ -41,6 +41,7 @@ public class Const {
 
     /** モデル名 */
     public static final String PLANDISP = "planDisp";
+    public static final String EVENTDISP = "eventDisp";
 
 
     /** 日付フォーマット */
