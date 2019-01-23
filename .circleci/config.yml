@@ -27,7 +27,7 @@ jobs:
               sudo apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-cloud-build-local google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
               sudo apt-get install google-cloud-sdk
               gcloud config set project poc-firebase-test
-              
+
       # Decoded json for connecting Firebase Realtime Database
       - run:
           name: decoded json for Realtime Database
@@ -42,7 +42,12 @@ jobs:
 
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: |
+              echo $ANDROID_HOME
+              pwd
+              mkdir $ANDROID_HOME/licenses
+              cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
+              ./gradlew androidDependencies
 
       # Download AndroidSDK
       - run:
