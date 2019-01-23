@@ -98,6 +98,12 @@ public class POC_9_Test {
         onView(withId(R.id.button_del))
                 .perform(click());
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // イベント一覧画面に遷移することを確認
         onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
 
