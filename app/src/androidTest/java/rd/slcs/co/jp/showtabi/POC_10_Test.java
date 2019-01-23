@@ -85,10 +85,11 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         // 適当にイベント編集
         // ---------------------------------------------------------------
+        String eventDate = "20170401";
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText(eventDate));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -114,7 +115,13 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
+        // イベント編集画面への遷移を確認
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
+
+        // 登録したイベント日付が引き継がれていることを確認
+        onView(withText(R.string.msg_error_0001))
+                .check(matches(withText(eventDate)));
+
 
         // -----------------------------------------------------------------------------------
         // バリデーションチェック
@@ -185,8 +192,6 @@ public class POC_10_Test {
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
-
-
 
 
     }
