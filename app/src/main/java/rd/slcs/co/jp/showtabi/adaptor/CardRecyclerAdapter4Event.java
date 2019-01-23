@@ -83,7 +83,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EventReferenceActivity.class);
-                intent.putExtra(Const.DB_EVENTTABLE_EVENTKEY,eventList.get(position).getKey());
+                intent.putExtra(Const.EVENTDISP, eventList.get(position));
                 context.startActivity(intent);
             }
         });

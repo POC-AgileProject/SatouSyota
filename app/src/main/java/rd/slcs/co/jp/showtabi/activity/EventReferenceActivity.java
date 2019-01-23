@@ -1,11 +1,14 @@
 package rd.slcs.co.jp.showtabi.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,34 +40,39 @@ public class EventReferenceActivity extends AppCompatActivity {
     private String eventCategory;
     private String eventMemo;
     private String eventAddress;
+//    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_add);
+        setContentView(R.layout.activity_event_reference);
 
 
         // プランキーの値を取得
         Intent intentEventList = getIntent();
 //        planInfo = (PlanDisp) intentEventList.getSerializableExtra("planDisp");
 //        planKey = planInfo.getKey();
-        eventInfo = (EventDisp) intentEventList.getSerializableExtra(Const.DB_EVENTTABLE_EVENTKEY);
+        eventInfo = (EventDisp) intentEventList.getSerializableExtra(Const.EVENTDISP);
 
         // 表示データの取得
+//        LayoutInflater layoutInflater = LayoutInflater.from(context);
+//        View v = layoutInflater.inflate(R.layout.activity_event_reference, parent, false);
+
+//        TextView viewEventName = findViewById(R.id.viewEventName);
         TextView viewEventName = findViewById(R.id.viewEventName);
         eventName = eventInfo.getEventName();
         viewEventName.setText(eventName);
 
         TextView viewEventDate = findViewById(R.id.viewEventDate);
-        eventDate = eventInfo.getStartTime();
+        eventDate = eventInfo.getStartTime().substring(0, 8);
         viewEventDate.setText(eventDate);
 
         TextView viewStartTime = findViewById(R.id.viewStartTime);
-        startTime = eventInfo.getStartTime();
+        startTime = eventInfo.getStartTime().substring(8);
         viewStartTime.setText(startTime);
 
         TextView viewEndTime = findViewById(R.id.viewEndTime);
-        endTime = eventInfo.getEndTime();
+        endTime = eventInfo.getEndTime().substring(8);
         viewEndTime.setText(endTime);
 
         TextView viewEventCategory = findViewById(R.id.viewEventCategory);
@@ -85,20 +93,20 @@ public class EventReferenceActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         // 画面のタイトルを設定
-        actionBar.setTitle(R.string.title_eventAdd);
+        actionBar.setTitle(R.string.title_eventReference);
     }
 
-//    /**
-//     * オプションメニューを作成する
-//     * @param menu  メニュー
-//     * @return  true（オプションメニュー表示）
-//     */
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // menuにcustom_menuレイアウトを適用
-//        getMenuInflater().inflate(R.menu.menu_options_event_add, menu);
-//        // オプションメニュー表示する場合はtrue
-//        return true;
-//    }
+    /**
+     * オプションメニューを作成する
+     * @param menu  メニュー
+     * @return  true（オプションメニュー表示）
+     */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // menuにcustom_menuレイアウトを適用
+        getMenuInflater().inflate(R.menu.menu_options_event_reference, menu);
+        // オプションメニュー表示する場合はtrue
+        return true;
+    }
 
     /**
      * メニューのアイコン押下時
@@ -111,9 +119,9 @@ public class EventReferenceActivity extends AppCompatActivity {
         // 押されたメニューのIDで処理を振り分ける
         switch (menuItem.getItemId()) {
 
-//            // 保存ボタン押下時
-//            case R.id.menuListOption_Event_Add:
-//
+            // 編集ボタン押下時
+            case R.id.menuListOption_Event_Reference:
+
 //                // 画面の値を取得
 //                EditText editEventName = findViewById(R.id.editEventName);
 //                EditText editEventDate = findViewById(R.id.editEventDate);
@@ -162,14 +170,14 @@ public class EventReferenceActivity extends AppCompatActivity {
 //
 //                    //push()でキーの自動生成
 //                    mDatabase.push().setValue(event);
-//
-//                    // イベントリスト画面に遷移
-//                    Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
+
+                    // イベント参照画面に遷移
+                    Intent intent = new Intent(getApplicationContext(), EventEditActivity.class);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    intent.putExtra("planDisp",planInfo);
-//                    startActivity(intent);
+//                    intent.putExtra("eventDisp",eventInfo);
+                    startActivity(intent);
 //                }
-//                break;
+                break;
 
             // 戻るボタン押下時
             case android.R.id.home:
