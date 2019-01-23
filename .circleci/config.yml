@@ -40,9 +40,11 @@ jobs:
       - run:
           command: sudo chmod +x ./gradlew
 
-      - run: sdkmanager --install "ndk-bundle"
+#       - run: sdkmanager --install "ndk-bundle"
 
-      - run: sdkmanager --licenses
+      - run: yes | sdkmanager --licenses || exit 0
+ 
+      - run: yes | sdkmanager --update || exit 0
 
       - run:
           name: Download Dependencies
