@@ -116,6 +116,78 @@ public class POC_10_Test {
 
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
+        // -----------------------------------------------------------------------------------
+        // バリデーションチェック
+        // -----------------------------------------------------------------------------------
+
+        // イベント名のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(replaceText(""));
+        onView(withId(R.id.radio_stay))
+                .perform(click());
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20990331"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("2100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("メモ１"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区１"));
+
+        onView(withId(R.id.button_save))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+        // TODO 日付のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント名２"));
+        onView(withId(R.id.radio_stay))
+                .perform(click());
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText(""));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("2100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("メモ２"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区２"));
+
+        onView(withId(R.id.button_save))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+        // TODO 開始時間のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント名３"));
+        onView(withId(R.id.radio_stay))
+                .perform(click());
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20990331"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText(""));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("2100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("メモ３"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区３"));
+
+        onView(withId(R.id.button_save))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+
+
 
     }
 
