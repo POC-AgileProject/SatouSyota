@@ -94,6 +94,8 @@ public class EventEditActivity extends AppCompatActivity {
                     //Toast.makeText(this, snapDate, Toast.LENGTH_SHORT).show();
                 }catch(IOException e){
                     Log.d("error","写真にアクセスできませんでした。");
+                }catch(NullPointerException e){
+                    Log.d("error", "写真に撮影日がありません。");
                 }
 
 

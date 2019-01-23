@@ -69,7 +69,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseDB_Photos", snapshot.toString());
+
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     // イベントに紐づく写真を取得
