@@ -40,14 +40,18 @@ jobs:
       - run:
           command: sudo chmod +x ./gradlew
 
+      - run: sdkmanager --install "ndk-bundle"
+
+      - run: sdkmanager --licenses
+
       - run:
           name: Download Dependencies
           command: |
-              echo $ANDROID_HOME
-              ls -lR $ANDROID_HOME
-              pwd
+              # echo $ANDROID_HOME
+              # ls -lR $ANDROID_HOME
+              # pwd
               # mkdir $ANDROID_HOME/licenses
-              cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
+              # cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
               ./gradlew androidDependencies
 
       # Download AndroidSDK
