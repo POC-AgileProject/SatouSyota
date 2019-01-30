@@ -3,29 +3,30 @@ package rd.slcs.co.jp.showtabi.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.nguyenhoanglam.imagepicker.model.Config;
-import com.nguyenhoanglam.imagepicker.model.Image;
-
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
+import rd.slcs.co.jp.showtabi.object.Event;
+import rd.slcs.co.jp.showtabi.object.EventDisp;
 
 public class EventEditActivity extends AppCompatActivity {
+
+    /** イベントDisp */
+    private EventDisp eventDisp;
 
     /** イベントキー */
     private String eventKey;
@@ -35,15 +36,80 @@ public class EventEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
 
-        // イベントキーの値を取得
+        // イベントDispを取得
         Intent intentEventList = getIntent();
-        eventKey = (String)intentEventList.getSerializableExtra(Const.DB_EVENTTABLE_EVENTKEY);
+        eventDisp = (EventDisp) intentEventList.getSerializableExtra(Const.EVENTDISP);
+
+        // イベントキーの値を取得
+        eventKey = eventDisp.getKey();
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         // 画面のタイトルを設定
         actionBar.setTitle(R.string.title_eventEdit);
+
+    }
+    /**
+     * 保存ボタン押下時処理
+     * @param v View
+     */
+    public void onClickSaveButton(View v) {
+
+        // 画面の値を取得
+        EditText editEventName = findViewById(R.id.editEventName);
+        EditText editEventDate = findViewById(R.id.editEventDate);
+        EditText editStartTime = findViewById(R.id.editStartTime);
+        EditText editEndTime = findViewById(R.id.editEndTime);
+        RadioGroup editCategory = findViewById(R.id.editCategory);
+        EditText editMemo = findViewById(R.id.editMemo);
+        EditText editAddress = findViewById(R.id.editAddress);
+
+        //TODO:開始日と終了日の前後チェック
+        // 入力チェック
+        if ("".equals(editEventName.getText().toString())
+                || "".equals(editEventDate.getText().toString())
+                || "".equals(editStartTime.getText().toString())) {
+
+            Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
+
+        } else {
+
+            // 日付と時間の連結
+            String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+            String endTime ="";
+            // 終了時間が入力されている場合
+            if(!"".equals(editEndTime.getText().toString())) {
+                endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+            }
+
+            Event event = new Event();
+
+            // イベントの設定
+            event.setPlanKey(eventDisp.getPlanKey());
+            event.setEventName(editEventName.getText().toString());
+            event.setStartTime(startTime);
+            event.setEndTime(endTime);
+            event.setMemo(editMemo.getText().toString());
+            event.setAddress(editAddress.getText().toString());
+
+            int checkedId = editCategory.getCheckedRadioButtonId();
+            if(checkedId != -1) {
+                RadioButton radioButton = (RadioButton)findViewById(checkedId);
+                event.setCategory(radioButton.getText().toString());
+            }
+
+            DatabaseReference mDatabase;
+            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+
+            //push()でキーの自動生成
+            mDatabase.setValue(event);
+
+            finish();
+        }
+
+
+
 
     }
 
