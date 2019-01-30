@@ -22,6 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
@@ -78,8 +79,14 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
                 }
 
-                // TODO: 写真をsortKeyを基準にソート
 
+                // 写真をsortKeyの昇順でソート
+                photoList.sort(new Comparator<Photo>() {
+                    @Override
+                    public int compare(Photo o1, Photo o2) {
+                        return o1.getSortKey().compareTo(o2.getSortKey());
+                    }
+                });
 
                 setRecyclerAdapter(context,photoList);
             }
