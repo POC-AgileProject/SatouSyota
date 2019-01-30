@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
@@ -34,6 +35,7 @@ import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 public class EventEditActivity extends AppCompatActivity {
 
     private String eventKey;
+    private List<Photo> addPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,9 @@ public class EventEditActivity extends AppCompatActivity {
         // イベントキーを取得
         Intent intent = getIntent();
         eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
+
+        // 追加分の写真データリストを初期化
+        addPhotos = new ArrayList<>();
 
     }
 
@@ -104,18 +109,25 @@ public class EventEditActivity extends AppCompatActivity {
                 photo.setPhoto(bmpstr);
                 photo.setSortKey(snapData);
 
-                // / Firebaseからインスタンスを取得
-                DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE );
+                addPhotos.add(photo);
 
-                // データを追加
-                mDatabase.push().setValue(photo);
+                //ToDo : 保存ボタン押下後に移動
+//                // / Firebaseからインスタンスを取得
+//                DatabaseReference mDatabase;
+//                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE );
+//
+//
+//                // データを追加
+//                mDatabase.push().setValue(photo);
+
+                // 写真をViewに追加
+                CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
+                //photoView.loadPhotoData();
+                CardRecyclerAdapter4Photos photoAdapter = (CardRecyclerAdapter4Photos)photoView.getAdapter();
+                photoAdapter.addPhotoData(photo);
+                photoAdapter.notifyDataSetChanged();
 
             }
-
-            // 写真を再度読み込み
-            CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
-            photoView.loadPhotoData();
 
 
         }

@@ -93,4 +93,13 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
             layout = (LinearLayout) v.findViewById(R.id.layout);
         }
     }
+
+
+    public void addPhotoData(Photo photo){
+
+        photoList.add(photo);
+
+    }
+
+
 }
