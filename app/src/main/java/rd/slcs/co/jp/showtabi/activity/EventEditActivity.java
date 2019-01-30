@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +24,19 @@ import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
+import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class EventEditActivity extends AppCompatActivity {
+
+    private PlanDisp planInfo;
+    private String planKey;
+    private String eventName;
+    private String eventDate;
+    private String startTime;
+    private String endTime;
+    private String eventCategory;
+    private String eventMemo;
+    private String eventAddress;
 
     /** イベントDisp */
     private EventDisp eventDisp;
@@ -42,6 +55,36 @@ public class EventEditActivity extends AppCompatActivity {
 
         // イベントキーの値を取得
         eventKey = eventDisp.getKey();
+
+        // 編集画面の各値を設定
+        EditText viewEventName = findViewById(R.id.editEventName);
+        eventName = eventDisp.getEventName();
+        viewEventName.setText(eventName);
+
+        EditText viewEventDate = findViewById(R.id.editEventDate);
+        eventDate = eventDisp.getStartTime().substring(0, 8);
+        viewEventDate.setText(eventDate);
+
+        EditText viewStartTime = findViewById(R.id.editStartTime);
+        startTime = eventDisp.getStartTime().substring(8);
+        viewStartTime.setText(startTime);
+
+        EditText viewEndTime = findViewById(R.id.editEndTime);
+        endTime = eventDisp.getEndTime().substring(8);
+        viewEndTime.setText(endTime);
+
+        RadioGroup viewEventCategory = findViewById(R.id.editCategory);
+        eventCategory = eventDisp.getCategory();
+
+        viewEventCategory.check(Const.categoryToRadioButtonId.get(eventCategory));
+
+        EditText viewEventMemo = findViewById(R.id.editMemo);
+        eventMemo = eventDisp.getMemo();
+        viewEventMemo.setText(eventMemo);
+
+        EditText viewEventAddress = findViewById(R.id.editAddress);
+        eventAddress = eventDisp.getAddress();
+        viewEventAddress.setText(eventAddress);
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
