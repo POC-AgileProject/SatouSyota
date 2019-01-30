@@ -93,7 +93,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
             @Override
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(context, EventEditActivity.class);
-                intent.putExtra(Const.DB_EVENTTABLE_EVENTKEY,eventList.get(position).getKey());
+                intent.putExtra(Const.EVENTDISP, eventList.get(position));
                 context.startActivity(intent);
                 return true;
             }
