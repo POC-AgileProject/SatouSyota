@@ -1,5 +1,6 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -84,7 +85,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
             public void onClick(View v) {
                 Intent intent = new Intent(context, EventReferenceActivity.class);
                 intent.putExtra(Const.EVENTDISP, eventList.get(position));
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, Const.SCREEN_EVENTREFERENCE);
             }
         });
 
@@ -94,7 +95,7 @@ public class CardRecyclerAdapter4Event extends RecyclerView.Adapter<CardRecycler
             public boolean onLongClick(View view) {
                 Intent intent = new Intent(context, EventEditActivity.class);
                 intent.putExtra(Const.EVENTDISP, eventList.get(position));
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, Const.SCREEN_EVENTEDIT);
                 return true;
             }
         });

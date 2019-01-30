@@ -69,4 +69,10 @@ public class Const {
             put("その他", R.id.radio_other);
         }
     });
+
+    /** 画面コード */
+    public static final int SCREEN_EVENTLIST = 1;
+    public static final int SCREEN_EVENTREFERENCE = 2;
+    public static final int SCREEN_EVENTEDIT = 3;
+
 }
