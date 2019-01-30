@@ -69,6 +69,6 @@ public class POC_4_Test {
         // -------------------------------------------------------------
         // プラン登録画面が表示されていることを確認
         // -------------------------------------------------------------
-        onView(withText("プラン作成")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("プランの新規作成")).check(matches(ViewMatchers.isDisplayed()));
     }
 }
