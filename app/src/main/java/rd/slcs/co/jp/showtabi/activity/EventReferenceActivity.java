@@ -173,8 +173,8 @@ public class EventReferenceActivity extends AppCompatActivity {
 
                     // イベント参照画面に遷移
                     Intent intent = new Intent(getApplicationContext(), EventEditActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    intent.putExtra("eventDisp",eventInfo);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("eventDisp",eventInfo);
                     startActivity(intent);
 //                }
                 break;
