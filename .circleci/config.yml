@@ -27,7 +27,7 @@ jobs:
               sudo apt-get update && sudo apt-get --only-upgrade install kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-cloud-build-local google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
               sudo apt-get install google-cloud-sdk
               gcloud config set project poc-firebase-test
-              
+
       # Decoded json for connecting Firebase Realtime Database
       - run:
           name: decoded json for Realtime Database
@@ -40,9 +40,21 @@ jobs:
       - run:
           command: sudo chmod +x ./gradlew
 
+#       - run: sdkmanager --install "ndk-bundle"
+
+      - run: yes | sdkmanager --licenses || exit 0
+ 
+      - run: yes | sdkmanager --update || exit 0
+
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: |
+              # echo $ANDROID_HOME
+              # ls -lR $ANDROID_HOME
+              # pwd
+              # mkdir $ANDROID_HOME/licenses
+              # cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
+              ./gradlew androidDependencies
 
       # Download AndroidSDK
       - run:
@@ -98,15 +110,15 @@ jobs:
 #          name: Run EspressoTests
 #          command: ./gradlew connectedAndroidTest
 
-      # Run firebase Test Lab
-      - run:
-          name: robo test
-          command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
-
       # InstrumentationTest
       - run:
           name: instrumentation test
           command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
+
+      # Run firebase Test Lab
+      - run:
+          name: robo test
+          command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
 
       # Update results to CircleCI
       - store_artifacts:

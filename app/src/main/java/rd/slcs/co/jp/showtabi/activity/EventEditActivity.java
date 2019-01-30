@@ -1,5 +1,7 @@
 package rd.slcs.co.jp.showtabi.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,13 +36,19 @@ import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
 public class EventEditActivity extends AppCompatActivity {
 
+    /** イベントキー */
     private String eventKey;
+
     private List<Photo> addPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_edit);
+
+        // イベントキーの値を取得
+        Intent intentEventList = getIntent();
+        eventKey = (String)intentEventList.getSerializableExtra(Const.DB_EVENTTABLE_EVENTKEY);
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
@@ -58,6 +66,39 @@ public class EventEditActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 削除ボタン押下時処理
+     * @param v View
+     */
+    public void onClickDelButton(View v) {
+
+        new AlertDialog.Builder(EventEditActivity.this)
+                .setTitle(R.string.alertDialog_title)
+                .setMessage(R.string.msg_warning_0001)
+                .setPositiveButton(
+                        R.string.alertDialog_positiveButton,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                DatabaseReference mDatabase;
+                                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+                                mDatabase.removeValue();
+
+                                Intent intent = new Intent(EventEditActivity.this, EventListActivity.class);
+                                startActivity(intent);
+
+                            }
+                        })
+                .setNegativeButton(
+                        R.string.alertDialog_negativeButton,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                .show();
+    }
 
     /*
         遷移先から戻った際の結果受け取り処理
