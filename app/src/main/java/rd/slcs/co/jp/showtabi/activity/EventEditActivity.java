@@ -145,6 +145,8 @@ public class EventEditActivity extends AppCompatActivity {
             finish();
         }
 
+        // 写真の追加分を保存
+        savePhoto();
 
     }
 
@@ -235,14 +237,6 @@ public class EventEditActivity extends AppCompatActivity {
 
                 addPhotos.add(photo);
 
-                //ToDo : 保存ボタン押下後に移動
-//                // / Firebaseからインスタンスを取得
-//                DatabaseReference mDatabase;
-//                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE );
-//
-//
-//                // データを追加
-//                mDatabase.push().setValue(photo);
 
                 // 写真をViewに追加
                 CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
@@ -286,5 +280,26 @@ public class EventEditActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void savePhoto() {
+
+        for (Photo photo : addPhotos) {
+
+
+            // / Firebaseからインスタンスを取得
+            DatabaseReference mDatabase;
+            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
+
+            // データを追加
+            mDatabase.push().setValue(photo);
+
+
+        }
+
+    }
+
+
+
 }
 
