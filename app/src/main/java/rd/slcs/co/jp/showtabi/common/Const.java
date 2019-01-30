@@ -59,5 +59,14 @@ public class Const {
         }
     });
 
-
+    /* カテゴリーラジオボタン */
+    // category文字列とラジオボタンのidの対応Map
+    public static final Map<String, Integer> categoryToRadioButtonId = Collections.unmodifiableMap(new HashMap(){
+        {put("移動", R.id.radio_move);
+            put("食事", R.id.radio_eat);
+            put("観光", R.id.radio_sightseeing);
+            put("宿泊", R.id.radio_stay);
+            put("その他", R.id.radio_other);
+        }
+    });
 }
