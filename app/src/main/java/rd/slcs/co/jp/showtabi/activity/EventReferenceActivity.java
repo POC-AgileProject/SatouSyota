@@ -1,5 +1,6 @@
 package rd.slcs.co.jp.showtabi.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -175,9 +176,10 @@ public class EventReferenceActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), EventEditActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.putExtra("eventDisp",eventInfo);
-                    startActivity(intent);
+                    startActivityForResult(intent, Const.SCREEN_EVENTEDIT);
+                    return true;
 //                }
-                break;
+//                break;
 
             // 戻るボタン押下時
             case android.R.id.home:

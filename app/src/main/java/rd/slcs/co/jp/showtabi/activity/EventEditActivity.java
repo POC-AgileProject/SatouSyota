@@ -105,6 +105,9 @@ public class EventEditActivity extends AppCompatActivity {
             //push()でキーの自動生成
             mDatabase.setValue(event);
 
+            Intent intent = new Intent();
+            setResult(RESULT_OK);
+
             finish();
         }
 
