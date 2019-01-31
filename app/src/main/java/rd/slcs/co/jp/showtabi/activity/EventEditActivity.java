@@ -117,10 +117,6 @@ public class EventEditActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.title_eventEdit);
 
 
-        // イベントキーを取得
-        Intent intent = getIntent();
-        eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
-
         // 追加分の写真データリストを初期化
         addPhotos = new ArrayList<>();
 

@@ -29,12 +29,13 @@ import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.Photo;
 
 public class CardRecyclerView4EventPhotos extends RecyclerView {
 
     List<Photo> photoList;
-    final String eventKey;  // この写真のリストが紐づくイベントのキー
+    final EventDisp eventDisp;  // この写真のリストが紐づくイベント
     final Context context;  // この写真のリストが表示される画面
 
     public CardRecyclerView4EventPhotos(final Context context, AttributeSet attrs) {
@@ -43,7 +44,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
         // 選択されたイベントのイベントキーを取得
         Intent intent = ((Activity) context).getIntent();
-        eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
+        eventDisp = (EventDisp)intent.getSerializableExtra(Const.EVENTDISP);
 
         photoList = new ArrayList<>();
 
@@ -67,7 +68,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
         //  Photosテーブルから選択されたイベントに該当する写真情報を抽出
-        Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventKey);
+        Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventDisp.getKey());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
