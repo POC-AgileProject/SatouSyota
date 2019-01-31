@@ -94,40 +94,40 @@ public class POC_38_Test {
                 .check(matches(withText("田舎に泊まろう　第三回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_startYMD))
-                .check(matches(withText("20191224")));
+                .check(matches(withText("2019/12/24(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_endYMD))
-                .check(matches(withText("20191231")));
+                .check(matches(withText("2019/12/31(火)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_planName))
                 .check(matches(withText("田舎に泊まろう　第二回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_startYMD))
-                .check(matches(withText("20181010")));
+                .check(matches(withText("2018/10/10(水)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_endYMD))
-                .check(matches(withText("20181012")));
+                .check(matches(withText("2018/10/12(金)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_planName))
                 .check(matches(withText("田舎に泊まろう　第一回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_startYMD))
-                .check(matches(withText("20180410")));
+                .check(matches(withText("2018/4/10(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_endYMD))
-                .check(matches(withText("20180420")));
+                .check(matches(withText("2018/4/20(金)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(3, R.id.textView_planName))
                 .check(matches(withText("テストプラン")));
         onView(recyclerViewMatcher
                 .atPositionOnView(3, R.id.textView_startYMD))
-                .check(matches(withText("20170501")));
+                .check(matches(withText("2017/5/1(月)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(3, R.id.textView_endYMD))
-                .check(matches(withText("20170505")));
+                .check(matches(withText("2017/5/5(金)")));
     }
 
     /**
