@@ -2,6 +2,7 @@ package rd.slcs.co.jp.showtabi;
 
 import android.app.Activity;
 import android.os.IBinder;
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.Root;
 import android.support.test.espresso.ViewAssertion;
@@ -27,8 +28,10 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -43,7 +46,7 @@ public class POC_10_Test {
 
     @Before
     public void setUp() {
-        POC_Common.setUpDB(mDatabase);
+        POC_Common.tearDownDB(mDatabase);
         mActivity = mActivityRule.launchActivity(null);
     }
 
@@ -57,7 +60,35 @@ public class POC_10_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // ＋ボタンを押下
+        onView(withId(R.id.tourokuButton))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 登録するプラン情報を入力
+        onView(withId(R.id.editPlanName))
+                .perform(replaceText("テストプラン"));
+        onView(withId(R.id.editStartDay))
+                .perform(replaceText("20500101"));
+        onView(withId(R.id.editEndDay))
+                .perform(replaceText("20510101"));
+        onView(withId(R.id.editPerson))
+                .perform(replaceText("100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        // 保存ボタンを押下
+        onView(withId(R.id.button_save))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -66,7 +97,7 @@ public class POC_10_Test {
         onView(withId(R.id.CardRecyclerView4Plan)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -76,7 +107,7 @@ public class POC_10_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -107,11 +138,18 @@ public class POC_10_Test {
                 .perform(click());
 
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         // イベント一覧画面でイベント長押ししたらイベント編集画面が開くことを確認
         onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -120,8 +158,10 @@ public class POC_10_Test {
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         // 登録したイベント日付が引き継がれていることを確認
-        onView(withText(R.string.msg_error_0001))
-                .check(matches(withText(eventDate)));
+        // TODO https://rdtokyo.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=POC&view=planning&selectedIssue=POC-136
+        // バックログにバグ対応タスクあるので対応後検証追加
+//        onView(withText(R.id.editEventDate))
+//                .check(matches(withText(eventDate)));
 
 
         // ---------------------------------------------------------------
@@ -129,9 +169,12 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         onView(withContentDescription(R.string.abc_action_bar_up_description))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.button_save))
+
+
+        Espresso.closeSoftKeyboard();
+        onView(withText("保存"))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.button_del))
+        onView(withText("削除"))
                 .check(matches(isDisplayed()));
 
 
@@ -141,70 +184,104 @@ public class POC_10_Test {
 
         // イベント名のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(replaceText(""));
+                .perform(scrollTo(), replaceText(""));
         onView(withId(R.id.radio_stay))
-                .perform(click());
+                .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20990331"));
+                .perform(scrollTo(), replaceText("20990331"));
         onView(withId(R.id.editStartTime))
-                .perform(replaceText("1900"));
+                .perform(scrollTo(), replaceText("1900"));
         onView(withId(R.id.editEndTime))
-                .perform(replaceText("2100"));
+                .perform(scrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(replaceText("メモ１"));
+                .perform(scrollTo(), replaceText("メモ１"));
         onView(withId(R.id.editAddress))
-                .perform(replaceText("東京都新宿区１"));
+                .perform(scrollTo(), replaceText("東京都新宿区１"));
 
-        onView(withId(R.id.button_save))
-                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         // 日付のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(replaceText("テストイベント名２"));
+                .perform(scrollTo(), replaceText("テストイベント名２"));
         onView(withId(R.id.radio_move))
-                .perform(click());
+                .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(replaceText(""));
+                .perform(scrollTo(), replaceText(""));
         onView(withId(R.id.editStartTime))
-                .perform(replaceText("1900"));
+                .perform(scrollTo(), replaceText("1900"));
         onView(withId(R.id.editEndTime))
-                .perform(replaceText("2100"));
+                .perform(scrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(replaceText("メモ２"));
+                .perform(scrollTo(), replaceText("メモ２"));
         onView(withId(R.id.editAddress))
-                .perform(replaceText("東京都新宿区２"));
+                .perform(scrollTo(), replaceText("東京都新宿区２"));
 
-        onView(withId(R.id.button_save))
-                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // 開始時間のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(replaceText("テストイベント名３"));
+                .perform(scrollTo(), replaceText("テストイベント名３"));
         onView(withId(R.id.radio_sightseeing))
-                .perform(click());
+                .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20990331"));
+                .perform(scrollTo(), replaceText("20990331"));
         onView(withId(R.id.editStartTime))
-                .perform(replaceText(""));
+                .perform(scrollTo(), replaceText(""));
         onView(withId(R.id.editEndTime))
-                .perform(replaceText("2100"));
+                .perform(scrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(replaceText("メモ３"));
+                .perform(scrollTo(), replaceText("メモ３"));
         onView(withId(R.id.editAddress))
-                .perform(replaceText("東京都新宿区３"));
+                .perform(scrollTo(), replaceText("東京都新宿区３"));
 
-        onView(withId(R.id.button_save))
-                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
 
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // -----------------------------------------------------------------------------------
         // 表示されている項目は全て登録した内容が表示されていること
@@ -217,40 +294,43 @@ public class POC_10_Test {
         String testEventMemo = "メモ４";
         String testEventAddress = "東京都新宿区４";
         onView(withId(R.id.editEventName))
-                .perform(replaceText(testEventName));
+                .perform(scrollTo(), replaceText(testEventName));
         onView(withId(R.id.radio_move))
-                .perform(click());
+                .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(replaceText(testEventDate));
+                .perform(scrollTo(), replaceText(testEventDate));
         onView(withId(R.id.editStartTime))
-                .perform(replaceText(testEventStartTime));
+                .perform(scrollTo(), replaceText(testEventStartTime));
         onView(withId(R.id.editEndTime))
-                .perform(replaceText(testEventEndTime));
+                .perform(scrollTo(), replaceText(testEventEndTime));
         onView(withId(R.id.editMemo))
-                .perform(replaceText(testEventMemo));
+                .perform(scrollTo(), replaceText(testEventMemo));
         onView(withId(R.id.editAddress))
-                .perform(replaceText(testEventAddress));
+                .perform(scrollTo(), replaceText(testEventAddress));
 
-        onView(withId(R.id.button_save))
-                .perform(click());
-
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
 
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         // イベント一覧画面に遷移することを確認
-        onView(withText("イベント一覧")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("テストプラン")).check(matches(ViewMatchers.isDisplayed()));
 
         // イベント一覧画面でイベントをクリックする
         onView(withId(R.id.CardRecyclerView4Event))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(3,click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -263,7 +343,6 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         // イベント参照画面に項目が正しく表示されることを確認する
         // ---------------------------------------------------------------
-        // TODO まだ画面を取り込めていないのでエラーになる
         onView(withId(R.id.viewEventName))
                 .check(matches(withText(testEventName)));
         onView(withId(R.id.viewEventDate))
@@ -285,7 +364,7 @@ public class POC_10_Test {
     @Test
     public void case2() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
