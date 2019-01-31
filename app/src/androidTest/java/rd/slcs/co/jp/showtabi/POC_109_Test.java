@@ -82,7 +82,7 @@ public class POC_109_Test {
         // ---------------------------------------------------------------
         // イベント編集画面が表示されていることを確認する
         // ---------------------------------------------------------------
-        onView(withText("イベントの編集")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         // ---------------------------------------------------------------
         // 登録済みのイベントの内容が表示されることを確認する
@@ -121,7 +121,7 @@ public class POC_109_Test {
         // ---------------------------------------------------------------
         onView(withContentDescription(R.string.abc_action_bar_up_description))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.menu_list_options_Edit))
+        onView(withId(R.id.button_save))
                 .check(matches(isDisplayed()));
         onView(withId(R.id.button_del))
                 .check(matches(isDisplayed()));
