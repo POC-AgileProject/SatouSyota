@@ -31,10 +31,11 @@
     <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
     <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>
     <string name="menu_list_options_Save">保存</string>
+    <string name="menu_list_options_Edit">編集</string>
 
     <!-- 各ページのタイトル -->
     <string name="title_planList">プラン一覧</string>
-    <string name="title_planAdd">プランの新規作成</string>
+    <string name="title_planAdd">プラン作成</string>
     <string name="title_planEdit">プランの編集画面</string>
     <string name="title_eventList">イベント一覧</string>
     <string name="title_eventAdd">イベントの新規作成</string>
