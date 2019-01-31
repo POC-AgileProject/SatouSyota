@@ -114,7 +114,7 @@ public class POC_10_Test {
 
 
         // ---------------------------------------------------------------
-        // 適当にイベント編集
+        // 適当にイベント登録
         // ---------------------------------------------------------------
         String eventDate = "20170401"; // 日付引継ぎ確認用
 
@@ -157,11 +157,8 @@ public class POC_10_Test {
         // イベント編集画面への遷移を確認
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
-        // 登録したイベント日付が引き継がれていることを確認
-        // TODO https://rdtokyo.atlassian.net/secure/RapidBoard.jspa?rapidView=11&projectKey=POC&view=planning&selectedIssue=POC-136
-        // バックログにバグ対応タスクあるので対応後検証追加
-//        onView(withText(R.id.editEventDate))
-//                .check(matches(withText(eventDate)));
+        //        ※イベント一覧画面の日付を初期設定を確認
+        onView(withText(R.id.editEventDate)).check(matches(withText("20500101")));
 
 
         // ---------------------------------------------------------------
@@ -369,11 +366,39 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
+        // ＋ボタンを押下
+        onView(withId(R.id.tourokuButton))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 登録するプラン情報を入力
+        onView(withId(R.id.editPlanName))
+                .perform(replaceText("テストプラン"));
+        onView(withId(R.id.editStartDay))
+                .perform(replaceText("20500101"));
+        onView(withId(R.id.editEndDay))
+                .perform(replaceText("20510101"));
+        onView(withId(R.id.editPerson))
+                .perform(replaceText("100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        // 保存ボタンを押下
+        onView(withId(R.id.button_save))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // プラン一覧画面でプランをクリックする
         onView(withId(R.id.CardRecyclerView4Plan)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -383,14 +408,14 @@ public class POC_10_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
 
         // ---------------------------------------------------------------
-        // 適当にイベント編集
+        // 適当にイベント登録
         // ---------------------------------------------------------------
         String eventDate = "20170401"; // 日付引継ぎ確認用
 
@@ -414,38 +439,46 @@ public class POC_10_Test {
                 .perform(click());
 
 
-        // イベント一覧画面でイベント長押ししたらイベント編集画面が開くことを確認
-        onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
-
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+
+        // イベント一覧画面でイベント長押ししたらイベント編集画面が開く
+        onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
+
+
         String testEventName = "テスト編集イベント名４";
-        String testEventDate = "29990331";
+        String testEventDate = "20210331";
         String testEventStartTime = "0400";
         String testEventEndTime = "2300";
         String testEventMemo = "メモ４";
         String testEventAddress = "東京都新宿区４";
         onView(withId(R.id.editEventName))
-                .perform(replaceText(testEventName));
+                .perform(scrollTo(), replaceText(testEventName));
         onView(withId(R.id.radio_move))
-                .perform(click());
+                .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(replaceText(testEventDate));
+                .perform(scrollTo(), replaceText(testEventDate));
         onView(withId(R.id.editStartTime))
-                .perform(replaceText(testEventStartTime));
+                .perform(scrollTo(), replaceText(testEventStartTime));
         onView(withId(R.id.editEndTime))
-                .perform(replaceText(testEventEndTime));
+                .perform(scrollTo(), replaceText(testEventEndTime));
         onView(withId(R.id.editMemo))
-                .perform(replaceText(testEventMemo));
+                .perform(scrollTo(), replaceText(testEventMemo));
         onView(withId(R.id.editAddress))
-                .perform(replaceText(testEventAddress));
+                .perform(scrollTo(), replaceText(testEventAddress));
 
-        onView(withContentDescription(R.string.abc_action_bar_up_description))
-                .perform(click());
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // 登録したイベントが変更されていないことを確認
         onView(withText("テストイベント")).check(matches(ViewMatchers.isDisplayed()));
