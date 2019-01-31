@@ -40,14 +40,20 @@ jobs:
       - run:
           command: sudo chmod +x ./gradlew
 
+#       - run: sdkmanager --install "ndk-bundle"
+
+      - run: yes | sdkmanager --licenses || exit 0
+ 
+      - run: yes | sdkmanager --update || exit 0
+
       - run:
           name: Download Dependencies
           command: |
-              echo $ANDROID_HOME
-              ls -lR $ANDROID_HOME
-              pwd
+              # echo $ANDROID_HOME
+              # ls -lR $ANDROID_HOME
+              # pwd
               # mkdir $ANDROID_HOME/licenses
-              cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
+              # cat licenses/android-sdk-license > $ANDROID_HOME/licenses/android-sdk-license
               ./gradlew androidDependencies
 
       # Download AndroidSDK
@@ -104,15 +110,15 @@ jobs:
 #          name: Run EspressoTests
 #          command: ./gradlew connectedAndroidTest
 
-      # Run firebase Test Lab
-      - run:
-          name: robo test
-          command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
-
       # InstrumentationTest
       - run:
           name: instrumentation test
           command: gcloud firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6P,version=27,locale=ja_JP
+
+      # Run firebase Test Lab
+      - run:
+          name: robo test
+          command: gcloud firebase test android run --type robo --app app/build/outputs/apk/debug/app-debug.apk --device model=Nexus6P,version=27,locale=ja_JP,orientation=portrait
 
       # Update results to CircleCI
       - store_artifacts:
