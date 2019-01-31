@@ -13,12 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.activity.EventListActivity;
 import rd.slcs.co.jp.showtabi.activity.PlanEditActivity;
 import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 
@@ -42,9 +45,14 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
 
     @Override
     public void onBindViewHolder(ViewHolder vh, final int position) {
+
+        Date startYMD = Util.convertToDate(planList.get(position).getStartYMD());
+        Date endYMD = Util.convertToDate(planList.get(position).getEndYMD());
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/M/d'('E')'");
+
         vh.textView_planName.setText(planList.get(position).getPlanName());
-        vh.textView_startYMD.setText(planList.get(position).getStartYMD());
-        vh.textView_endYMD.setText(planList.get(position).getEndYMD());
+        vh.textView_startYMD.setText(fmt.format(startYMD));
+        vh.textView_endYMD.setText(fmt.format(endYMD));
 
         byte[] decodedString = {};
 
