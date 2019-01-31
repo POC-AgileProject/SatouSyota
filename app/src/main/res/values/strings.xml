@@ -17,7 +17,7 @@
     <string name="column_startTime">開始時間</string>
     <string name="column_endTime">終了時間</string>
     <string name="column_category">イベントカテゴリ</string>
-    <string name="column_address">住所</string>
+    <string name="column_address">場所</string>
 
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>
