@@ -110,44 +110,47 @@ public class EventEditActivity extends AppCompatActivity {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
-        } else {
+            return;
 
-            // 日付と時間の連結
-            String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-            String endTime = "";
-            // 終了時間が入力されている場合
-            if (!"".equals(editEndTime.getText().toString())) {
-                endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
-            }
-
-            Event event = new Event();
-
-            // イベントの設定
-            event.setPlanKey(eventDisp.getPlanKey());
-            event.setEventName(editEventName.getText().toString());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            event.setMemo(editMemo.getText().toString());
-            event.setAddress(editAddress.getText().toString());
-
-            int checkedId = editCategory.getCheckedRadioButtonId();
-            if (checkedId != -1) {
-                RadioButton radioButton = (RadioButton) findViewById(checkedId);
-                event.setCategory(radioButton.getText().toString());
-            }
-
-            DatabaseReference mDatabase;
-            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
-
-            //push()でキーの自動生成
-            mDatabase.setValue(event);
-
-            finish();
         }
+
+        // 日付と時間の連結
+        String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+        String endTime = "";
+        // 終了時間が入力されている場合
+        if (!"".equals(editEndTime.getText().toString())) {
+            endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+        }
+
+        Event event = new Event();
+
+        // イベントの設定
+        event.setPlanKey(eventDisp.getPlanKey());
+        event.setEventName(editEventName.getText().toString());
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setMemo(editMemo.getText().toString());
+        event.setAddress(editAddress.getText().toString());
+
+        int checkedId = editCategory.getCheckedRadioButtonId();
+        if (checkedId != -1) {
+            RadioButton radioButton = (RadioButton) findViewById(checkedId);
+            event.setCategory(radioButton.getText().toString());
+        }
+
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+
+        // イベントデータを再登録
+        mDatabase.setValue(event);
 
         // 写真の追加分を保存
         savePhoto();
 
+        Intent intent = new Intent();
+        setResult(RESULT_OK);
+
+        finish();
     }
 
     /**
@@ -286,14 +289,12 @@ public class EventEditActivity extends AppCompatActivity {
 
         for (Photo photo : addPhotos) {
 
-
             // / Firebaseからインスタンスを取得
             DatabaseReference mDatabase;
             mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
             // データを追加
             mDatabase.push().setValue(photo);
-
 
         }
 

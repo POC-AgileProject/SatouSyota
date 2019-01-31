@@ -33,7 +33,7 @@ import rd.slcs.co.jp.showtabi.object.Photo;
 
 public class CardRecyclerView4EventPhotos extends RecyclerView {
 
-    List<Photo> photoList = new ArrayList<>();
+    List<Photo> photoList;
     final String eventKey;  // この写真のリストが紐づくイベントのキー
     final Context context;  // この写真のリストが表示される画面
 
@@ -44,6 +44,8 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
         // 選択されたイベントのイベントキーを取得
         Intent intent = ((Activity) context).getIntent();
         eventKey = intent.getStringExtra(Const.DB_EVENTTABLE_EVENTKEY);
+
+        photoList = new ArrayList<>();
 
         // DBから写真リストを読み込み＆アダプターにセット
         loadPhotoData();
