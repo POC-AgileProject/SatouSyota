@@ -132,7 +132,7 @@ public class POC_109_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20170403"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -149,7 +149,7 @@ public class POC_109_Test {
         onView(withId(R.id.editEventName))
                 .check(matches(withText("テストイベント")));
         onView(withId(R.id.editEventDate))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20170403")));
         onView(withId(R.id.editStartTime))
                 .check(matches(withText("1700")));
         onView(withId(R.id.editEndTime))
