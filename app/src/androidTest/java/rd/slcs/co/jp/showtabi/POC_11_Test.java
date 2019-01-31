@@ -138,8 +138,8 @@ public class POC_11_Test {
                 .check(matches(withText("1000")));
         onView(withId(R.id.editEndTime))
                 .check(matches(withText("1230")));
-        onView(withId(R.id.editCategory))
-                .check(matches(withText("移動")));
+        onView(withId(R.id.radio_move))
+                .perform(click());
         onView(withId(R.id.editMemo))
                 .check(matches(withText("特急あずさ７号（９番ホーム発）")));
         onView(withId(R.id.editAddress))
@@ -181,19 +181,19 @@ public class POC_11_Test {
         onView(withText("イベントの編集画面")).check(isNotDisplayed());
 
         // イベント内容が正しく表示されていることを確認
-        onView(withId(R.id.editEventName))
+        onView(withId(R.id.viewEventName))
                 .check(matches(withText("電車移動")));
-        onView(withId(R.id.editEventDate))
+        onView(withId(R.id.viewEventDate))
                 .check(matches(withText("20170401")));
-        onView(withId(R.id.editStartTime))
+        onView(withId(R.id.viewStartTime))
                 .check(matches(withText("1000")));
-        onView(withId(R.id.editEndTime))
+        onView(withId(R.id.viewEndTime))
                 .check(matches(withText("1230")));
-        onView(withId(R.id.editCategory))
+        onView(withId(R.id.viewEventCategory))
                 .check(matches(withText("移動")));
-        onView(withId(R.id.editMemo))
+        onView(withId(R.id.viewMemo))
                 .check(matches(withText("特急あずさ７号（９番ホーム発）")));
-        onView(withId(R.id.editAddress))
+        onView(withId(R.id.viewAddress))
                 .check(matches(withText("")));
 
     }
