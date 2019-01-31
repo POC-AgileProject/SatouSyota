@@ -1,12 +1,17 @@
 package rd.slcs.co.jp.showtabi;
 
 import android.app.Activity;
+import android.os.IBinder;
+import android.support.test.espresso.Root;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
+import android.view.WindowManager;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,6 +24,7 @@ import rd.slcs.co.jp.showtabi.object.Plan;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -46,7 +52,7 @@ public class POC_4_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,7 +68,7 @@ public class POC_4_Test {
         onView(withId(R.id.tourokuButton))
                 .perform(click());
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -71,4 +77,5 @@ public class POC_4_Test {
         // -------------------------------------------------------------
         onView(withText("プラン作成")).check(matches(ViewMatchers.isDisplayed()));
     }
+
 }

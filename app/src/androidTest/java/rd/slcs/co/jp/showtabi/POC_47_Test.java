@@ -55,7 +55,7 @@ public class POC_47_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -63,7 +63,7 @@ public class POC_47_Test {
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(1,longClick()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -79,7 +79,7 @@ public class POC_47_Test {
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
