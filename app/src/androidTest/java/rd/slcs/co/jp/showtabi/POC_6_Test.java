@@ -122,6 +122,7 @@ public class POC_6_Test {
     /**
      * プラン編集処理　必須チェック
      */
+    @Test
     public void case2() {
         try {
             Thread.sleep(3000);
