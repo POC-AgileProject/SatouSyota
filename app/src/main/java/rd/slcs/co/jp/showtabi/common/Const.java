@@ -41,6 +41,7 @@ public class Const {
 
     /** モデル名 */
     public static final String PLANDISP = "planDisp";
+    public static final String EVENTDISP = "eventDisp";
 
 
     /** 日付フォーマット */
@@ -58,5 +59,20 @@ public class Const {
         }
     });
 
+    /* カテゴリーラジオボタン */
+    // category文字列とラジオボタンのidの対応Map
+    public static final Map<String, Integer> categoryToRadioButtonId = Collections.unmodifiableMap(new HashMap(){
+        {put("移動", R.id.radio_move);
+            put("食事", R.id.radio_eat);
+            put("観光", R.id.radio_sightseeing);
+            put("宿泊", R.id.radio_stay);
+            put("その他", R.id.radio_other);
+        }
+    });
+
+    /** 画面コード */
+    public static final int SCREEN_EVENTLIST = 1;
+    public static final int SCREEN_EVENTREFERENCE = 2;
+    public static final int SCREEN_EVENTEDIT = 3;
 
 }
