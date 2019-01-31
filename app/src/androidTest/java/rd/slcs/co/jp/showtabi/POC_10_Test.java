@@ -12,10 +12,13 @@ import android.support.test.espresso.util.HumanReadables;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
@@ -149,7 +152,7 @@ public class POC_10_Test {
         onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -158,7 +161,7 @@ public class POC_10_Test {
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         //        ※イベント一覧画面の日付を初期設定を確認
-        onView(withText(R.id.editEventDate)).check(matches(withText("20500101")));
+        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo("20500101")));
 
 
         // ---------------------------------------------------------------
@@ -514,6 +517,35 @@ public class POC_10_Test {
                     throw new AssertionError("View is present in the hierarchy and Displayed: "
                             + HumanReadables.describe(view));
                 }
+            }
+        };
+    }
+
+    public static Matcher<View> isEditTextValueEqualTo(final String content) {
+
+        return new TypeSafeMatcher<View>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Match Edit Text Value with View ID Value : :  " + content);
+            }
+
+            @Override
+            public boolean matchesSafely(View view) {
+                if (!(view instanceof TextView) && !(view instanceof EditText)) {
+                    return false;
+                }
+                if (view != null) {
+                    String text;
+                    if (view instanceof TextView) {
+                        text =((TextView) view).getText().toString();
+                    } else {
+                        text =((EditText) view).getText().toString();
+                    }
+
+                    return (text.equalsIgnoreCase(content));
+                }
+                return false;
             }
         };
     }
