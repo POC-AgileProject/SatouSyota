@@ -8,8 +8,8 @@
     <string name="alertDialog_negativeButton">いいえ</string>
 
     <string name="column_planName">プラン名</string>
-    <string name="column_startDay">開始日</string>
-    <string name="column_endDay">終了日</string>
+    <string name="column_startDay">出発日</string>
+    <string name="column_endDay">最終日</string>
     <string name="column_memo">メモ</string>
     <string name="column_person">人数</string>
     <string name="column_eventName">イベント名</string>
@@ -17,7 +17,7 @@
     <string name="column_startTime">開始時間</string>
     <string name="column_endTime">終了時間</string>
     <string name="column_category">イベントカテゴリ</string>
-    <string name="column_address">住所</string>
+    <string name="column_address">場所</string>
 
     <string name="button_save">保存</string>
     <string name="button_del">削除</string>

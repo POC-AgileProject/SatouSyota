@@ -14,11 +14,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Plan;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
@@ -44,7 +46,13 @@ public class CardRecyclerView4Plan extends RecyclerView{
                     planDispList.add(planDisp);
                 }
 
-                //TODO: プランを降順にソート
+                // プランを出発日の降順でソート
+                planDispList.sort(new Comparator<PlanDisp>() {
+                    @Override
+                    public int compare(PlanDisp o1, PlanDisp o2) {
+                        return o2.getStartYMD().compareTo(o1.getStartYMD());
+                    }
+                });
 
                 // 保存した情報を用いた描画処理などを記載する。
                 setRecyclerAdapter(context,planDispList);
