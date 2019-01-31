@@ -53,7 +53,7 @@ public class POC_38_Test {
             e.printStackTrace();
         }
         // ＋ボタンを押下
-        onView(withId(R.id.tourokuButton))
+        onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
         try {
             Thread.sleep(5000);

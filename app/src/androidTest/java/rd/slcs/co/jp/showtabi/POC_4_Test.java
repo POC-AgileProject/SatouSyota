@@ -59,7 +59,7 @@ public class POC_4_Test {
         // ＋ボタンを押下してプラン登録画面に遷移することを確認
         // -------------------------------------------------------------
         // ＋ボタンを押下
-        onView(withId(R.id.tourokuButton))
+        onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
         try {
             Thread.sleep(5000);
