@@ -55,7 +55,9 @@ public class PlanAddActivity extends AppCompatActivity {
 
         //TODO:開始日と終了日の前後チェック
         // 入力チェック
-        if ("".equals(plan.getPlanName()) || "".equals(plan.getStartYMD())) {
+        if ("".equals(plan.getPlanName())
+                || "".equals(plan.getStartYMD())
+                || "".equals(plan.getEndYMD())) {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 

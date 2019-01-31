@@ -56,7 +56,7 @@ public class POC_8_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class POC_8_Test {
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class POC_8_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class POC_8_Test {
                 .perform(click());
 
         // イベント一覧画面に遷移することを確認
-        onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
 
         // 登録したイベントが表示されていることを確認
         RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Event);
@@ -176,7 +176,7 @@ public class POC_8_Test {
     @Test
     public void case2() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -185,7 +185,7 @@ public class POC_8_Test {
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -195,7 +195,7 @@ public class POC_8_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -224,31 +224,12 @@ public class POC_8_Test {
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
 
-        // イベント名のみを未入力で登録ボタンを押下する
-        onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
-        onView(withId(R.id.editStartTime))
-                .perform(replaceText("1700"));
-        onView(withId(R.id.editEndTime))
-                .perform(replaceText("1900"));
-        onView(withId(R.id.radio_sightseeing))
-                .perform(click());
-        onView(withId(R.id.editMemo))
-                .perform(replaceText("テストメモ"));
-        onView(withId(R.id.editAddress))
-                .perform(replaceText("東京都新宿区"));
-
-        onView(withId(R.id.menuListOption_Event_Add))
-                .perform(click());
-
-        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
-                .check(matches(withText("必須項目を入力してください")));
-
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
 
         // イベント日付のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
@@ -273,7 +254,7 @@ public class POC_8_Test {
                 .check(matches(withText("必須項目を入力してください")));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -305,7 +286,7 @@ public class POC_8_Test {
     @Test
     public void case3() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -314,7 +295,7 @@ public class POC_8_Test {
         onView(withId(R.id.CardRecyclerView4Plan)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -324,7 +305,7 @@ public class POC_8_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
