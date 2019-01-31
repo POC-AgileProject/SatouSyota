@@ -48,24 +48,25 @@ public class POC_3_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         // ------------------------------------------------
         // プラン一覧画面が表示されていることを確認
+        // 出発日の降順であること
         // ------------------------------------------------
         RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Plan);
 
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第一回目")));
+                .check(matches(withText("田舎に泊まろう　第三回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_startYMD))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20191224")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_endYMD))
-                .check(matches(withText("20170403")));
+                .check(matches(withText("20191231")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_planName))
@@ -79,16 +80,16 @@ public class POC_3_Test {
 
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第三回目")));
+                .check(matches(withText("田舎に泊まろう　第一回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_startYMD))
-                .check(matches(withText("20191115")));
+                .check(matches(withText("20180410")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_endYMD))
-                .check(matches(withText("")));
+                .check(matches(withText("20180420")));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

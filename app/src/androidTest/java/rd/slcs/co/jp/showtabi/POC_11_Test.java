@@ -54,7 +54,7 @@ public class POC_11_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -63,7 +63,7 @@ public class POC_11_Test {
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class POC_11_Test {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class POC_11_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20191224")));
         onView(withId(R.id.viewStartTime))
                 .check(matches(withText("1000")));
         onView(withId(R.id.viewEndTime))
@@ -118,7 +118,7 @@ public class POC_11_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -133,7 +133,7 @@ public class POC_11_Test {
         onView(withId(R.id.editEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.editEventDate))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20191224")));
         onView(withId(R.id.editStartTime))
                 .check(matches(withText("1000")));
         onView(withId(R.id.editEndTime))
@@ -169,7 +169,7 @@ public class POC_11_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -184,7 +184,7 @@ public class POC_11_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20191224")));
         onView(withId(R.id.viewStartTime))
                 .check(matches(withText("1000")));
         onView(withId(R.id.viewEndTime))
