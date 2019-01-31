@@ -178,9 +178,7 @@ public class EventEditActivity extends AppCompatActivity {
                                 mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
                                 mDatabase.removeValue();
 
-                                Intent intent = new Intent(EventEditActivity.this, EventListActivity.class);
-                                startActivity(intent);
-
+                                finish();
                             }
                         })
                 .setNegativeButton(

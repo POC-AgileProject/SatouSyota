@@ -52,6 +52,12 @@ public class POC_9_Test {
         POC_Common.tearDownDB(mDatabase);
     }
 
+
+    /**
+     * イベント一覧
+     * ⇒イベント編集　イベント削除
+     * ⇒イベント一覧
+     */
     @Test
     public void case1() {
         try {
@@ -82,7 +88,7 @@ public class POC_9_Test {
         // ---------------------------------------------------------------
         // イベント編集画面が表示されていることを確認する
         // ---------------------------------------------------------------
-        onView(withText("イベントの編集")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
 
         // ---------------------------------------------------------------
@@ -97,6 +103,126 @@ public class POC_9_Test {
         // 削除ボタンを押下する
         onView(withId(R.id.button_del))
                 .perform(click());
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText("はい")).perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // イベント一覧画面に遷移することを確認
+        onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
+
+        // 削除したイベントが表示されていないことを確認
+        onView(withText("電車移動")).check(isNotDisplayed());
+
+        // 削除したイベント以外が表示されていることを確認
+        RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Event);
+
+        onView(recyclerViewMatcher
+                .atPositionOnView(0, R.id.textView_startTime))
+                .check(matches(withText("12:30")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(0, R.id.textView_period2))
+                .check(matches(withText("～")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(0, R.id.textView_endTime))
+                .check(matches(withText("13:30")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(0, R.id.textView_eventName))
+                .check(matches(withText("お昼ご飯")));
+
+        onView(recyclerViewMatcher
+                .atPositionOnView(1, R.id.textView_startTime))
+                .check(matches(withText("14:00")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(1, R.id.textView_period2))
+                .check(matches(withText("～")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(1, R.id.textView_endTime))
+                .check(matches(withText("15:00")));
+        onView(recyclerViewMatcher
+                .atPositionOnView(1, R.id.textView_eventName))
+                .check(matches(withText("機織り工場の見学")));
+    }
+
+    /**
+     * イベント一覧
+     * ⇒イベント参照　編集
+     * ⇒イベント編集　削除
+     * ⇒イベント参照？
+     */
+    @Test
+    public void case2() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // プラン一覧画面でプランをクリックする
+        onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // イベント一覧画面でイベントをクリックする
+        onView(withId(R.id.CardRecyclerView4Event))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // イベント参照画面で編集ボタンをクリックうする
+        onView(withId(R.id.menuListOption_Event_Reference))
+                .perform(click());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // ---------------------------------------------------------------
+        // イベント編集画面が表示されていることを確認する
+        // ---------------------------------------------------------------
+        onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
+
+
+        // ---------------------------------------------------------------
+        // 削除ボタンが表示されていることを確認
+        // ---------------------------------------------------------------
+        onView(withId(R.id.button_del))
+                .check(matches(isDisplayed()));
+
+        // ---------------------------------------------------------------
+        // 削除ボタンを押下するとデータが削除され、イベント一覧画面に戻ることを確認
+        // ---------------------------------------------------------------
+        // 削除ボタンを押下する
+        onView(withId(R.id.button_del))
+                .perform(click());
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        onView(withText("はい")).perform(click());
 
         try {
             Thread.sleep(5000);
