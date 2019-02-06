@@ -119,7 +119,7 @@ public class POC_9_Test {
         }
 
         // イベント一覧画面に遷移することを確認
-        onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
 
         // 削除したイベントが表示されていないことを確認
         onView(withText("電車移動")).check(isNotDisplayed());
@@ -231,7 +231,7 @@ public class POC_9_Test {
         }
 
         // イベント一覧画面に遷移することを確認
-        onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
 
         // 削除したイベントが表示されていないことを確認
         onView(withText("電車移動")).check(isNotDisplayed());
