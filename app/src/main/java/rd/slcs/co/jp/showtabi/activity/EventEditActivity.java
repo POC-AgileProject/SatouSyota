@@ -184,7 +184,7 @@ public class EventEditActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 intent.putExtra("hanteiKey",Const.HANTEIKEY_DEL);
                                 setResult(RESULT_OK, intent);
-
+                                
                                 finish();
                             }
                         })
