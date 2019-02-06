@@ -46,12 +46,12 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
@@ -62,7 +62,14 @@
                     android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
-
+            <ImageButton
+                android:id="@+id/bottom_DatePicker_startDay"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_calendar_black_24dp"
+                android:onClick="showDatePickerDialog"
+                />
             <TextView
                 android:id="@+id/textPeriod"
                 android:layout_width="50dp"
@@ -73,7 +80,7 @@
 
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
@@ -84,6 +91,14 @@
                     android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
+            <ImageButton
+                android:id="@+id/bottom_DatePicker_endDay"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_calendar_black_24dp"
+                android:onClick="showDatePickerDialog"
+                />
         </LinearLayout>
 
         <LinearLayout

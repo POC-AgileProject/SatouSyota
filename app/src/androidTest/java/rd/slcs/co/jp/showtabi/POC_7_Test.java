@@ -50,14 +50,14 @@ public class POC_7_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         // １番目のプランをクリック
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,9 +68,9 @@ public class POC_7_Test {
         RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Event);
 
         // プラン名が表示されていることを確認
-        onView(withText("田舎に泊まろう　第一回目")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
         // プラン開始日が初期表示されていることを確認
-        onView(withText("2017/04/01")).check(matches(ViewMatchers.isDisplayed()));
+        onView(withText("2019/12/24")).check(matches(ViewMatchers.isDisplayed()));
 
         // イベント一覧画面の表示内容を確認
         onView(recyclerViewMatcher
@@ -115,7 +115,7 @@ public class POC_7_Test {
         // １番目のイベントを長押し
         onView(withId(R.id.CardRecyclerView4Event)) .perform(RecyclerViewActions.actionOnItemAtPosition(0,longClick()));
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -131,7 +131,7 @@ public class POC_7_Test {
                 .perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

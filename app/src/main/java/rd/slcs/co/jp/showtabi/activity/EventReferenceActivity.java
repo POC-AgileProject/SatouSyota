@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -19,9 +20,13 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
@@ -190,4 +195,53 @@ public class EventReferenceActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if(resultCode == RESULT_OK) {
+            // イベント編集画面から保存ボタンを押下した際の処理
+            if(Const.HANTEIKEY_SAVE == data.getIntExtra("hanteiKey", 0)) {
+
+                setContentView(R.layout.activity_event_reference);
+
+                // イベント情報の取得
+                Intent intentEventList = getIntent();
+                eventInfo = (EventDisp) data.getSerializableExtra(Const.EVENTDISP);
+
+                TextView viewEventName = findViewById(R.id.viewEventName);
+                eventName = eventInfo.getEventName();
+                viewEventName.setText(eventName);
+
+                TextView viewEventDate = findViewById(R.id.viewEventDate);
+                eventDate = eventInfo.getStartTime().substring(0, 8);
+                viewEventDate.setText(eventDate);
+
+                TextView viewStartTime = findViewById(R.id.viewStartTime);
+                startTime = eventInfo.getStartTime().substring(8);
+                viewStartTime.setText(startTime);
+
+                TextView viewEndTime = findViewById(R.id.viewEndTime);
+                endTime = eventInfo.getEndTime().substring(8);
+                viewEndTime.setText(endTime);
+
+                TextView viewEventCategory = findViewById(R.id.viewEventCategory);
+                eventCategory = eventInfo.getCategory();
+                viewEventCategory.setText(eventCategory);
+
+                TextView viewEventMemo = findViewById(R.id.viewMemo);
+                eventMemo = eventInfo.getMemo();
+                viewEventMemo.setText(eventMemo);
+
+                TextView viewEventAddress = findViewById(R.id.viewAddress);
+                eventAddress = eventInfo.getAddress();
+                viewEventAddress.setText(eventAddress);
+            }
+            // イベント編集画面から削除ボタンを押下した際の処理
+            else if(Const.HANTEIKEY_DEL == data.getIntExtra("hanteiKey", 0)){
+                finish();
+            }
+        }
+    }
+
 }
