@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editStartDay"
+                    android:id="@+id/viewStartDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/column_startDay"
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editEndDay"
+                    android:id="@+id/viewEndDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/column_endDay"

@@ -34,7 +34,6 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -79,9 +78,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -380,9 +379,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -507,9 +506,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));

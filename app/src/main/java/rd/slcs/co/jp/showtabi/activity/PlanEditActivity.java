@@ -77,10 +77,10 @@ public class PlanEditActivity extends AppCompatActivity {
                 EditText editPlanName = findViewById(R.id.editPlanName);
                 editPlanName.setText(plan.getPlanName());
 
-                EditText editStartDay = findViewById(R.id.editStartDay);
+                EditText editStartDay = findViewById(R.id.viewStartDay);
                 editStartDay.setText(plan.getStartYMD());
 
-                EditText editEndDay = findViewById(R.id.editEndDay);
+                EditText editEndDay = findViewById(R.id.viewEndDay);
                 editEndDay.setText(plan.getEndYMD());
 
                 EditText editPerson = findViewById(R.id.editPerson);
@@ -138,10 +138,10 @@ public class PlanEditActivity extends AppCompatActivity {
         EditText editPlanName = findViewById(R.id.editPlanName);
         plan.setPlanName(editPlanName.getText().toString());
 
-        EditText editStartDay = findViewById(R.id.editStartDay);
+        EditText editStartDay = findViewById(R.id.viewStartDay);
         plan.setStartYMD(editStartDay.getText().toString());
 
-        EditText editEndDay = findViewById(R.id.editEndDay);
+        EditText editEndDay = findViewById(R.id.viewEndDay);
         plan.setEndYMD(editEndDay.getText().toString());
 
         EditText editPerson = findViewById(R.id.editPerson);

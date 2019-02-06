@@ -8,7 +8,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.WindowManager;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -18,15 +17,11 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import rd.slcs.co.jp.showtabi.activity.MainActivity;
-import rd.slcs.co.jp.showtabi.common.Const;
-import rd.slcs.co.jp.showtabi.common.Env;
-import rd.slcs.co.jp.showtabi.object.Plan;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -67,9 +62,9 @@ public class POC_6_Test {
         // プラン情報を編集
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -139,9 +134,9 @@ public class POC_6_Test {
         // プラン名の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText(""));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -163,9 +158,9 @@ public class POC_6_Test {
         // 出発日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText(""));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -187,9 +182,9 @@ public class POC_6_Test {
         // 最終日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.editStartDay))
+        onView(withId(R.id.viewStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.editEndDay))
+        onView(withId(R.id.viewEndDay))
                 .perform(replaceText(""));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
