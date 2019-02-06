@@ -78,9 +78,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -379,9 +379,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -506,9 +506,9 @@ public class POC_10_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20500101"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20510101"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));

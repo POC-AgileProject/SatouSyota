@@ -62,9 +62,9 @@ public class POC_38_Test {
         // 登録するプラン情報を入力
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -154,9 +154,9 @@ public class POC_38_Test {
         // プラン名の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText(""));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -178,9 +178,9 @@ public class POC_38_Test {
         // 出発日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText(""));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -202,9 +202,9 @@ public class POC_38_Test {
         // 最終日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText(""));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));

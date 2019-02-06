@@ -62,9 +62,9 @@ public class POC_6_Test {
         // プラン情報を編集
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -134,9 +134,9 @@ public class POC_6_Test {
         // プラン名の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText(""));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -158,9 +158,9 @@ public class POC_6_Test {
         // 出発日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText(""));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));
@@ -182,9 +182,9 @@ public class POC_6_Test {
         // 最終日の必須チェック
         onView(withId(R.id.editPlanName))
                 .perform(replaceText("テストプラン"));
-        onView(withId(R.id.viewStartDay))
+        onView(withId(R.id.editStartDay))
                 .perform(replaceText("20170501"));
-        onView(withId(R.id.viewEndDay))
+        onView(withId(R.id.editEndDay))
                 .perform(replaceText(""));
         onView(withId(R.id.editPerson))
                 .perform(replaceText("100"));

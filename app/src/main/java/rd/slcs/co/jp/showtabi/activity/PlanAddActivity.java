@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -18,15 +17,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
-import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
+import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragmentPlanAdd;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.object.Plan;
 
 public class PlanAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private TextView editStartDay;
-    private TextView editEndDay;
-
+    /** 出発日 */
+    private EditText editStartDay;
+    /** 最終日 */
+    private EditText editEndDay;
+    /** 押下ボタン判別キー */
     private int id_clickDate;
 
     @Override
@@ -34,8 +35,8 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plan_add);
 
-        editStartDay = findViewById(R.id.viewStartDay);
-        editEndDay = findViewById(R.id.viewEndDay);
+        editStartDay = findViewById(R.id.editStartDay);
+        editEndDay = findViewById(R.id.editEndDay);
 
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
@@ -57,10 +58,10 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         EditText editPlanName = findViewById(R.id.editPlanName);
         plan.setPlanName(editPlanName.getText().toString());
 
-        editStartDay = findViewById(R.id.viewStartDay);
+        editStartDay = findViewById(R.id.editStartDay);
         plan.setStartYMD(editStartDay.getText().toString());
 
-        editEndDay = findViewById(R.id.viewEndDay);
+        editEndDay = findViewById(R.id.editEndDay);
         plan.setEndYMD(editEndDay.getText().toString());
 
         EditText editPerson = findViewById(R.id.editPerson);
@@ -102,7 +103,7 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         // 出発日、最終日の識別するIDを取得
         id_clickDate = v.getId();
 
-        DialogFragment newFragment = new DatePickerDialogFragment();
+        DialogFragment newFragment = new DatePickerDialogFragmentPlanAdd();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
@@ -125,10 +126,10 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         }
 
         // 出発日の場合
-        if(R.id.viewStartDay == id_clickDate) {
+        if(R.id.bottom_DatePicker_startDay == id_clickDate) {
             editStartDay.setText( strYear + strMonth +  strDate);
         }
-        else if (R.id.viewEndDay == id_clickDate) {
+        else if (R.id.bottom_DatePicker_endDay == id_clickDate) {
             editEndDay.setText( strYear + strMonth +  strDate);
         }
     }

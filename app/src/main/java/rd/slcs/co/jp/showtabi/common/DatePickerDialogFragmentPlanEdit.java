@@ -9,10 +9,10 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.activity.PlanAddActivity;
+import rd.slcs.co.jp.showtabi.activity.PlanEditActivity;
 
-public class DatePickerDialogFragmentPlanAdd extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class DatePickerDialogFragmentPlanEdit extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     @NonNull
@@ -23,7 +23,7 @@ public class DatePickerDialogFragmentPlanAdd extends DialogFragment implements D
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         return new DatePickerDialog(getActivity(),
-                (PlanAddActivity)getActivity(),  year, month, day);
+                (PlanEditActivity)getActivity(),  year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
