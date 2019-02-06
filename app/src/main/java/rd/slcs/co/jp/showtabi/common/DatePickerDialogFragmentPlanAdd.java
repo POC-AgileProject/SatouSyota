@@ -12,7 +12,7 @@ import java.util.Calendar;
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.activity.PlanAddActivity;
 
-public class DatePickerDialogFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class DatePickerDialogFragmentPlanAdd extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     @NonNull
