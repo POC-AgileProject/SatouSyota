@@ -55,7 +55,7 @@ public class POC_109_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,7 @@ public class POC_109_Test {
         onView(withId(R.id.CardRecyclerView4Plan)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -74,7 +74,7 @@ public class POC_109_Test {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class POC_109_Test {
         onView(withId(R.id.editEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.editEventDate))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("20191224")));
         onView(withId(R.id.editStartTime))
                 .check(matches(withText("1000")));
         onView(withId(R.id.editEndTime))

@@ -47,7 +47,7 @@ public class POC_5_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -61,39 +61,39 @@ public class POC_5_Test {
 
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第一回目")));
+                .check(matches(withText("田舎に泊まろう　第三回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_startYMD))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("2019/12/24(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_endYMD))
-                .check(matches(withText("20170403")));
+                .check(matches(withText("2019/12/31(火)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_planName))
                 .check(matches(withText("田舎に泊まろう　第二回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_startYMD))
-                .check(matches(withText("20181010")));
+                .check(matches(withText("2018/10/10(水)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_endYMD))
-                .check(matches(withText("20181012")));
+                .check(matches(withText("2018/10/12(金)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第三回目")));
+                .check(matches(withText("田舎に泊まろう　第一回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_startYMD))
-                .check(matches(withText("20191115")));
+                .check(matches(withText("2018/4/10(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(2, R.id.textView_endYMD))
-                .check(matches(withText("")));
+                .check(matches(withText("2018/4/20(金)")));
 
         // ２番目のプランを長押し
         onView(withId(R.id.CardRecyclerView4Plan)) .perform(RecyclerViewActions.actionOnItemAtPosition(1,longClick()));
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -101,10 +101,16 @@ public class POC_5_Test {
         onView(withId(R.id.button_del))
                 .perform(click());
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         onView(withText("はい")).perform(click());
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -115,23 +121,23 @@ public class POC_5_Test {
 
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第一回目")));
+                .check(matches(withText("田舎に泊まろう　第三回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_startYMD))
-                .check(matches(withText("20170401")));
+                .check(matches(withText("2019/12/24(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(0, R.id.textView_endYMD))
-                .check(matches(withText("20170403")));
+                .check(matches(withText("2019/12/31(火)")));
 
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_planName))
-                .check(matches(withText("田舎に泊まろう　第三回目")));
+                .check(matches(withText("田舎に泊まろう　第一回目")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_startYMD))
-                .check(matches(withText("20191115")));
+                .check(matches(withText("2018/4/10(火)")));
         onView(recyclerViewMatcher
                 .atPositionOnView(1, R.id.textView_endYMD))
-                .check(matches(withText("")));
+                .check(matches(withText("2018/4/20(金)")));
 
     }
 
