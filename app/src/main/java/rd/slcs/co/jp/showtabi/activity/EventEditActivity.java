@@ -3,25 +3,47 @@ package rd.slcs.co.jp.showtabi.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.model.Image;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
+import rd.slcs.co.jp.showtabi.object.Photo;
+import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
+
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
@@ -43,6 +65,8 @@ public class EventEditActivity extends AppCompatActivity {
 
     /** イベントキー */
     private String eventKey;
+
+    private List<Photo> addPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +116,15 @@ public class EventEditActivity extends AppCompatActivity {
         // 画面のタイトルを設定
         actionBar.setTitle(R.string.title_eventEdit);
 
+
+        // 追加分の写真データリストを初期化
+        addPhotos = new ArrayList<>();
+
     }
+
     /**
      * 保存ボタン押下時処理
+     *
      * @param v View
      */
     public void onClickSaveButton(View v) {
@@ -116,54 +146,55 @@ public class EventEditActivity extends AppCompatActivity {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
-        } else {
+            return;
 
-            // 日付と時間の連結
-            String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-            String endTime ="";
-            // 終了時間が入力されている場合
-            if(!"".equals(editEndTime.getText().toString())) {
-                endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
-            }
-
-            Event event = new Event();
-
-            // イベントの設定
-            event.setPlanKey(eventDisp.getPlanKey());
-            event.setEventName(editEventName.getText().toString());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            event.setMemo(editMemo.getText().toString());
-            event.setAddress(editAddress.getText().toString());
-
-            int checkedId = editCategory.getCheckedRadioButtonId();
-            if(checkedId != -1) {
-                RadioButton radioButton = (RadioButton)findViewById(checkedId);
-                event.setCategory(radioButton.getText().toString());
-            }
-
-            DatabaseReference mDatabase;
-            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
-
-            //push()でキーの自動生成
-            mDatabase.setValue(event);
-
-            Intent intent = new Intent();
-            EventDisp eventDisp = new EventDisp(event, eventKey);
-            intent.putExtra("eventDisp",eventDisp);
-            intent.putExtra("hanteiKey", Const.HANTEIKEY_SAVE);
-            setResult(RESULT_OK, intent);
-
-            finish();
         }
 
+        // 日付と時間の連結
+        String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+        String endTime = "";
+        // 終了時間が入力されている場合
+        if (!"".equals(editEndTime.getText().toString())) {
+            endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+        }
 
+        Event event = new Event();
 
+        // イベントの設定
+        event.setPlanKey(eventDisp.getPlanKey());
+        event.setEventName(editEventName.getText().toString());
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setMemo(editMemo.getText().toString());
+        event.setAddress(editAddress.getText().toString());
 
+        int checkedId = editCategory.getCheckedRadioButtonId();
+        if (checkedId != -1) {
+            RadioButton radioButton = (RadioButton) findViewById(checkedId);
+            event.setCategory(radioButton.getText().toString());
+        }
+
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+
+        // イベントデータを再登録
+        mDatabase.setValue(event);
+
+        // 写真の追加分を保存
+        savePhoto();
+
+        Intent intent = new Intent();
+        EventDisp eventDisp = new EventDisp(event, eventKey);
+        intent.putExtra("eventDisp", eventDisp);
+        intent.putExtra("hanteiKey", Const.HANTEIKEY_SAVE);
+        setResult(RESULT_OK, intent);
+
+        finish();
     }
 
     /**
      * 削除ボタン押下時処理
+     *
      * @param v View
      */
     public void onClickDelButton(View v) {
@@ -204,52 +235,73 @@ public class EventEditActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        /*
+
         // ImagePickerからの結果受け取り
         if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
             ArrayList<Image> images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
             // do your logic here...
 
-            List<String> photoList = new ArrayList<>();
-
             Bitmap bmp;
             String imgPath;
 
-            //　TODO:Image→BMPの変換
-            for(Image image: images){
+            // Imageからbyteデータ、撮影日時の抽出と、DBへのpush
+            for (Image image : images) {
 
                 imgPath = image.getPath();
                 bmp = BitmapFactory.decodeFile(imgPath);
 
+                // 写真データをbyte[]へ
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 byte[] bytes = baos.toByteArray();
+                String bmpstr = Base64.encodeToString(bytes, 1);
 
-                String bmpstr = new String(bytes);
-                photoList.add(bmpstr);
+                // 撮影日時格納用
+                String snapData = "";
+
+                // 撮影日時の取得
+                try {
+                    ExifInterface exifInfo = new ExifInterface(image.getPath());
+
+                    String snapDateformat = exifInfo.getAttribute(ExifInterface.TAG_DATETIME);
+                    snapData = snapDateformat.replaceAll(":", "");
+                    snapData = snapData.substring(0, 8);
+                    //Toast.makeText(this, snapDate, Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    Log.d("error", "写真にアクセスできませんでした。");
+                } catch (NullPointerException e) {
+                    Log.d("error", "写真に撮影日がありません。");
+                }
+
+
+                Photo photo = new Photo();
+                photo.setEventKey(eventKey);
+                photo.setPhoto(bmpstr);
+                photo.setSortKey(snapData);
+
+                addPhotos.add(photo);
+
+
+                // 写真をViewに追加
+                CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
+                //photoView.loadPhotoData();
+                CardRecyclerAdapter4Photos photoAdapter = (CardRecyclerAdapter4Photos) photoView.getAdapter();
+                photoAdapter.addPhotoData(photo);
+                photoAdapter.notifyDataSetChanged();
 
             }
 
-            // recyclerViewのクラスへBMPリストを渡す。
-
-
-
-
         }
 
-        */
-
-        //super.onActivityResult(requestCode, resultCode, data);  // You MUST have this line to be here
+        super.onActivityResult(requestCode, resultCode, data);  // You MUST have this line to be here
 
     }
-
-
 
 
     /*
         写真を追加したい場合に押下される
      */
-    public void onClickPhotoIcon(View view){
+    public void onClickPhotoIcon(View view) {
 
         //ImagePickerを起動
         UseImagePicker.start(this);
@@ -257,12 +309,11 @@ public class EventEditActivity extends AppCompatActivity {
     }
 
 
-
     /*
         メニューのアイコンが押下された場合の処理を行います。
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         int itemID = item.getItemId();
 
@@ -273,5 +324,25 @@ public class EventEditActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void savePhoto() {
+
+        // / Firebaseからインスタンスを取得
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
+
+
+        for (Photo photo : addPhotos) {
+
+            // データを追加
+            mDatabase.push().setValue(photo);
+
+        }
+
+    }
+
+
+
 }
 
