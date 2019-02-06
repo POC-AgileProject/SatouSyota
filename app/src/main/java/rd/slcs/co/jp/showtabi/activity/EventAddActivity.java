@@ -94,8 +94,31 @@ public class EventAddActivity extends AppCompatActivity {
                         || "".equals(editStartTime.getText().toString())) {
 
                     Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
+                    return false;
 
-                } else {
+                }
+                // プラン出発日・最終日とイベント日付の整合性チェック
+                String planStartYmd = planInfo.getStartYMD();
+                String planEndYmd = planInfo.getEndYMD();
+
+
+                // 数値チェック
+                try{
+                    int iPlanStartYmd = Integer.parseInt(planStartYmd);
+                    int iPlanEndYmd = Integer.parseInt(planEndYmd);
+                    int ieditStartTime = Integer.parseInt(editStartTime.getText().toString());
+                    int ieditEndTime = Integer.parseInt(editEndTime.getText().toString());
+
+                    Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                if ( > editEventDate) {
+
+                }
+                else {
 
                     // 日付と時間の連結
                     String startTime = eventDate + editStartTime.getText().toString();

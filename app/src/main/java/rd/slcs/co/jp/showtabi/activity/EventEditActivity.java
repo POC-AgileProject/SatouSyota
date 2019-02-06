@@ -44,6 +44,11 @@ public class EventEditActivity extends AppCompatActivity {
     /** イベントキー */
     private String eventKey;
 
+    /** プラン情報　出発日 */
+    private String planStartDay;
+    /** プラン情報　最終日 */
+    private String planEndDay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
