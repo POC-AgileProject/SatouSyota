@@ -286,7 +286,6 @@ public class EventEditActivity extends AppCompatActivity {
 
             }
 
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);  // You MUST have this line to be here
@@ -323,11 +322,12 @@ public class EventEditActivity extends AppCompatActivity {
 
     public void savePhoto() {
 
-        for (Photo photo : addPhotos) {
+        // / Firebaseからインスタンスを取得
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
-            // / Firebaseからインスタンスを取得
-            DatabaseReference mDatabase;
-            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
+
+        for (Photo photo : addPhotos) {
 
             // データを追加
             mDatabase.push().setValue(photo);

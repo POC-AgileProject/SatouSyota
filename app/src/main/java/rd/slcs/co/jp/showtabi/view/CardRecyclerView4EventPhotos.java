@@ -47,9 +47,12 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
         eventDisp = (EventDisp)intent.getSerializableExtra(Const.EVENTDISP);
 
         photoList = new ArrayList<>();
+        setRecyclerAdapter(context, photoList);
 
         // DBから写真リストを読み込み＆アダプターにセット
         loadPhotoData();
+
+        this.getAdapter().notifyDataSetChanged();
 
     }
 
@@ -68,7 +71,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
         //  Photosテーブルから選択されたイベントに該当する写真情報を抽出
-        Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventDisp.getKey());
+           Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventDisp.getKey());
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -79,9 +82,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
                     // イベントに紐づく写真を取得
                     Photo photoData = dataSnapshot.getValue(Photo.class);
                     photoList.add(photoData);
-
                 }
-
 
                 // 写真をsortKeyの昇順でソート
                 photoList.sort(new Comparator<Photo>() {
@@ -91,7 +92,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
                     }
                 });
 
-                setRecyclerAdapter(context,photoList);
+
             }
 
             @Override
