@@ -1,6 +1,7 @@
 package rd.slcs.co.jp.showtabi.activity;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
@@ -28,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
-import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragmentPlanEdit;
+import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.object.Plan;
 
@@ -190,7 +191,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
     }
 
     /**
-     * 日付入力項目押下時
+     * カレンダーアイコン押下時
      * @param v
      */
     public void showDatePickerDialog(View v) {
@@ -198,7 +199,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
         // 出発日、最終日の識別するIDを取得
         id_clickDate = v.getId();
 
-        DialogFragment newFragment = new DatePickerDialogFragmentPlanEdit();
+        DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 

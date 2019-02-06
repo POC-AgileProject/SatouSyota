@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/column_startDay"
-                    android:inputType="time" />
+                    android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
             <ImageButton
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/column_endDay"
-                    android:inputType="time" />
+                    android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
             <ImageButton
