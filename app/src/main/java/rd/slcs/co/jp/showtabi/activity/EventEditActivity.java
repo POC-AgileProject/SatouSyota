@@ -151,6 +151,7 @@ public class EventEditActivity extends AppCompatActivity {
             Intent intent = new Intent();
             EventDisp eventDisp = new EventDisp(event, eventKey);
             intent.putExtra("eventDisp",eventDisp);
+            intent.putExtra("hanteiKey", Const.HANTEIKEY_SAVE);
             setResult(RESULT_OK, intent);
 
             finish();
@@ -180,6 +181,10 @@ public class EventEditActivity extends AppCompatActivity {
                                 mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
                                 mDatabase.removeValue();
 
+                                Intent intent = new Intent();
+                                intent.putExtra("hanteiKey",Const.HANTEIKEY_DEL);
+                                setResult(RESULT_OK, intent);
+                                
                                 finish();
                             }
                         })
