@@ -52,7 +52,7 @@ public class POC_4_Test {
     @Test
     public void case1() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -67,8 +67,9 @@ public class POC_4_Test {
         // ＋ボタンを押下
         onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
+
         try {
-            Thread.sleep(3000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

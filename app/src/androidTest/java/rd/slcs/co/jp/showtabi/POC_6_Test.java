@@ -8,7 +8,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.view.WindowManager;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -18,15 +17,11 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import rd.slcs.co.jp.showtabi.activity.MainActivity;
-import rd.slcs.co.jp.showtabi.common.Const;
-import rd.slcs.co.jp.showtabi.common.Env;
-import rd.slcs.co.jp.showtabi.object.Plan;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
