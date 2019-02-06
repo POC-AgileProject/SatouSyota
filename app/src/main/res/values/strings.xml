@@ -28,6 +28,7 @@
     <string name="category_stay">宿泊</string>
     <string name="category_other">その他</string>
 
+    <string name="menu_list_options_plan_list">プラン一覧のオプションメニュー</string>
     <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
     <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>
     <string name="menu_list_options_Save">保存</string>

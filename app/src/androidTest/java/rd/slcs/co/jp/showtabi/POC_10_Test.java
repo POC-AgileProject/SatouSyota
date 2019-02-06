@@ -68,7 +68,7 @@ public class POC_10_Test {
         }
 
         // ＋ボタンを押下
-        onView(withId(R.id.tourokuButton))
+        onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
         try {
             Thread.sleep(3000);
@@ -369,7 +369,7 @@ public class POC_10_Test {
         }
 
         // ＋ボタンを押下
-        onView(withId(R.id.tourokuButton))
+        onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
         try {
             Thread.sleep(3000);
@@ -496,7 +496,7 @@ public class POC_10_Test {
         }
 
         // ＋ボタンを押下
-        onView(withId(R.id.tourokuButton))
+        onView(withId(R.id.menuListOption_Plan_List))
                 .perform(click());
         try {
             Thread.sleep(3000);
