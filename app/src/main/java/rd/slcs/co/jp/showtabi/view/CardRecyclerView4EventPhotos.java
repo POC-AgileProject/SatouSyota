@@ -92,6 +92,7 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
                     }
                 });
 
+                setRecyclerAdapter(context, photoList);
 
             }
 
