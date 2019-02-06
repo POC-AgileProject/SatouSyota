@@ -75,4 +75,8 @@ public class Const {
     public static final int SCREEN_EVENTREFERENCE = 2;
     public static final int SCREEN_EVENTEDIT = 3;
 
+    /** 判定キー */
+    public  static final int HANTEIKEY_SAVE = 1;
+    public  static final int HANTEIKEY_DEL = 2;
+
 }

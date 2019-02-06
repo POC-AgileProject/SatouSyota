@@ -199,42 +199,48 @@ public class EventReferenceActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        // イベント編集画面から保存ボタンを押下した際の処理
         if(resultCode == RESULT_OK) {
+            // イベント編集画面から保存ボタンを押下した際の処理
+            if(Const.HANTEIKEY_SAVE == data.getIntExtra("hanteiKey", 0)) {
 
-            setContentView(R.layout.activity_event_reference);
+                setContentView(R.layout.activity_event_reference);
 
-            // イベント情報の取得
-            Intent intentEventList = getIntent();
-            eventInfo = (EventDisp) data.getSerializableExtra(Const.EVENTDISP);
+                // イベント情報の取得
+                Intent intentEventList = getIntent();
+                eventInfo = (EventDisp) data.getSerializableExtra(Const.EVENTDISP);
 
-            TextView viewEventName = findViewById(R.id.viewEventName);
-            eventName = eventInfo.getEventName();
-            viewEventName.setText(eventName);
+                TextView viewEventName = findViewById(R.id.viewEventName);
+                eventName = eventInfo.getEventName();
+                viewEventName.setText(eventName);
 
-            TextView viewEventDate = findViewById(R.id.viewEventDate);
-            eventDate = eventInfo.getStartTime().substring(0, 8);
-            viewEventDate.setText(eventDate);
+                TextView viewEventDate = findViewById(R.id.viewEventDate);
+                eventDate = eventInfo.getStartTime().substring(0, 8);
+                viewEventDate.setText(eventDate);
 
-            TextView viewStartTime = findViewById(R.id.viewStartTime);
-            startTime = eventInfo.getStartTime().substring(8);
-            viewStartTime.setText(startTime);
+                TextView viewStartTime = findViewById(R.id.viewStartTime);
+                startTime = eventInfo.getStartTime().substring(8);
+                viewStartTime.setText(startTime);
 
-            TextView viewEndTime = findViewById(R.id.viewEndTime);
-            endTime = eventInfo.getEndTime().substring(8);
-            viewEndTime.setText(endTime);
+                TextView viewEndTime = findViewById(R.id.viewEndTime);
+                endTime = eventInfo.getEndTime().substring(8);
+                viewEndTime.setText(endTime);
 
-            TextView viewEventCategory = findViewById(R.id.viewEventCategory);
-            eventCategory = eventInfo.getCategory();
-            viewEventCategory.setText(eventCategory);
+                TextView viewEventCategory = findViewById(R.id.viewEventCategory);
+                eventCategory = eventInfo.getCategory();
+                viewEventCategory.setText(eventCategory);
 
-            TextView viewEventMemo = findViewById(R.id.viewMemo);
-            eventMemo = eventInfo.getMemo();
-            viewEventMemo.setText(eventMemo);
+                TextView viewEventMemo = findViewById(R.id.viewMemo);
+                eventMemo = eventInfo.getMemo();
+                viewEventMemo.setText(eventMemo);
 
-            TextView viewEventAddress = findViewById(R.id.viewAddress);
-            eventAddress = eventInfo.getAddress();
-            viewEventAddress.setText(eventAddress);
+                TextView viewEventAddress = findViewById(R.id.viewAddress);
+                eventAddress = eventInfo.getAddress();
+                viewEventAddress.setText(eventAddress);
+            }
+            // イベント編集画面から削除ボタンを押下した際の処理
+            else if(Const.HANTEIKEY_DEL == data.getIntExtra("hanteiKey", 0)){
+                finish();
+            }
         }
     }
 
