@@ -149,7 +149,9 @@ public class EventEditActivity extends AppCompatActivity {
             mDatabase.setValue(event);
 
             Intent intent = new Intent();
-            setResult(RESULT_OK);
+            EventDisp eventDisp = new EventDisp(event, eventKey);
+            intent.putExtra("eventDisp",eventDisp);
+            setResult(RESULT_OK, intent);
 
             finish();
         }
@@ -262,6 +264,7 @@ public class EventEditActivity extends AppCompatActivity {
         int itemID = item.getItemId();
 
         if(itemID == android.R.id.home){
+            setResult(RESULT_CANCELED);
             finish();
         }
 
