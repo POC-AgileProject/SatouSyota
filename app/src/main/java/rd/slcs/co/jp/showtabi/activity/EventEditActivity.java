@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -15,8 +16,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
@@ -24,12 +33,11 @@ import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
+import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
 public class EventEditActivity extends AppCompatActivity {
 
-    private PlanDisp planInfo;
-    private String planKey;
     private String eventName;
     private String eventDate;
     private String startTime;
@@ -44,10 +52,8 @@ public class EventEditActivity extends AppCompatActivity {
     /** イベントキー */
     private String eventKey;
 
-    /** プラン情報　出発日 */
-    private String planStartDay;
-    /** プラン情報　最終日 */
-    private String planEndDay;
+    List<String> planStartYmdList = new ArrayList<>();
+    List<String> planEndYmdList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +97,32 @@ public class EventEditActivity extends AppCompatActivity {
         eventAddress = eventDisp.getAddress();
         viewEventAddress.setText(eventAddress);
 
+        // Firebaseからインスタンスを取得
+        DatabaseReference mDatabasePlan;
+        mDatabasePlan = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE );
+
+        //  Plansテーブルからイベントに紐づく情報を抽出
+        Query query = mDatabasePlan.orderByChild(Const.DB_PLANTABLE_PLANKEY).equalTo(eventDisp.getPlanKey());
+
+        // クエリを使用してデータベースの内容を一度だけ取得する
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Plan plan = dataSnapshot.getValue(Plan.class);
+                    PlanDisp planDisp = new PlanDisp(plan, dataSnapshot.getKey());
+                    planStartYmdList.add(planDisp.getStartYMD());
+                    planEndYmdList.add(planDisp.getEndYMD());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         // 戻るメニューの有効化
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -113,7 +145,7 @@ public class EventEditActivity extends AppCompatActivity {
         EditText editMemo = findViewById(R.id.editMemo);
         EditText editAddress = findViewById(R.id.editAddress);
 
-        //TODO:開始日と終了日の前後チェック
+        //TODO:開始時間と終了時間の前後チェック
         // 入力チェック
         if ("".equals(editEventName.getText().toString())
                 || "".equals(editEventDate.getText().toString())
@@ -121,7 +153,37 @@ public class EventEditActivity extends AppCompatActivity {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
-        } else {
+            return;
+        }
+
+        String planStartYmd = planStartYmdList.get(0);
+        String planEndYmd = planEndYmdList.get(0);
+
+        int iPlanStartYmd;
+        int iPlanEndYmd;
+        int ieditEventDate;
+
+        // 数値チェック
+        try{
+            iPlanStartYmd = Integer.parseInt(planStartYmd);
+            iPlanEndYmd = Integer.parseInt(planEndYmd);
+            ieditEventDate = Integer.parseInt(editEventDate.getText().toString());
+
+        }catch (Exception e){
+            Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // プラン出発日・最終日とイベント日付の整合性チェック
+        // イベント日付がプラン出発日より前
+        if (ieditEventDate < iPlanStartYmd) {
+            Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
+        }
+        // イベント日付がプラン最終日より後
+        else if (ieditEventDate > iPlanEndYmd) {
+            Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
+        }
+        else {
 
             // 日付と時間の連結
             String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();

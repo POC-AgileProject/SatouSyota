@@ -87,7 +87,7 @@ public class EventAddActivity extends AppCompatActivity {
                 EditText editMemo = findViewById(R.id.editMemo);
                 EditText editAddress = findViewById(R.id.editAddress);
 
-                //TODO:開始日と終了日の前後チェック
+                //TODO:開始時間と終了時間の前後チェック
                 // 入力チェック
                 if ("".equals(editEventName.getText().toString())
                         || "".equals(editEventDate.getText().toString())
@@ -97,26 +97,33 @@ public class EventAddActivity extends AppCompatActivity {
                     return false;
 
                 }
-                // プラン出発日・最終日とイベント日付の整合性チェック
+
                 String planStartYmd = planInfo.getStartYMD();
                 String planEndYmd = planInfo.getEndYMD();
 
+                int iPlanStartYmd;
+                int iPlanEndYmd;
+                int ieditEventDate;
 
                 // 数値チェック
                 try{
-                    int iPlanStartYmd = Integer.parseInt(planStartYmd);
-                    int iPlanEndYmd = Integer.parseInt(planEndYmd);
-                    int ieditStartTime = Integer.parseInt(editStartTime.getText().toString());
-                    int ieditEndTime = Integer.parseInt(editEndTime.getText().toString());
-
-                    Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
+                    iPlanStartYmd = Integer.parseInt(planStartYmd);
+                    iPlanEndYmd = Integer.parseInt(planEndYmd);
+                    ieditEventDate = Integer.parseInt(editEventDate.getText().toString());
 
                 }catch (Exception e){
-                    e.printStackTrace();
+                    Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
+                    return false;
                 }
 
-                if ( > editEventDate) {
-
+                // プラン出発日・最終日とイベント日付の整合性チェック
+                // イベント日付がプラン出発日より前
+                if (ieditEventDate < iPlanStartYmd) {
+                    Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
+                }
+                // イベント日付がプラン最終日より後
+                else if (ieditEventDate > iPlanEndYmd) {
+                    Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
                 }
                 else {
 
