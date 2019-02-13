@@ -4,21 +4,28 @@ import android.app.Activity;
 import android.os.IBinder;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.NoMatchingViewException;
+import android.support.test.espresso.PerformException;
 import android.support.test.espresso.Root;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.espresso.util.HumanReadables;
 import android.support.test.rule.ActivityTestRule;
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.view.ViewParent;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Before;
@@ -33,8 +40,11 @@ import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -183,19 +193,19 @@ public class POC_10_Test {
 
         // イベント名のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText(""));
+                .perform(nestedScrollTo(), replaceText(""));
         onView(withId(R.id.radio_stay))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText("20990331"));
+                .perform(nestedScrollTo(), replaceText("20990331"));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText("1900"));
+                .perform(nestedScrollTo(), replaceText("1900"));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText("2100"));
+                .perform(nestedScrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText("メモ１"));
+                .perform(nestedScrollTo(), replaceText("メモ１"));
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText("東京都新宿区１"));
+                .perform(replaceText("東京都新宿区１"));
 
         try {
             Thread.sleep(3000);
@@ -203,7 +213,7 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -218,26 +228,26 @@ public class POC_10_Test {
 
         // 日付のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText("テストイベント名２"));
+                .perform(nestedScrollTo(), replaceText("テストイベント名２"));
         onView(withId(R.id.radio_move))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText(""));
+                .perform(nestedScrollTo(), replaceText(""));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText("1900"));
+                .perform(nestedScrollTo(), replaceText("1900"));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText("2100"));
+                .perform(nestedScrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText("メモ２"));
+                .perform(nestedScrollTo(), replaceText("メモ２"));
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText("東京都新宿区２"));
+                .perform(nestedScrollTo(), replaceText("東京都新宿区２"));
 
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -251,26 +261,26 @@ public class POC_10_Test {
 
         // 開始時間のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText("テストイベント名３"));
+                .perform(nestedScrollTo(), replaceText("テストイベント名３"));
         onView(withId(R.id.radio_sightseeing))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText("20990331"));
+                .perform(nestedScrollTo(), replaceText("20990331"));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText(""));
+                .perform(nestedScrollTo(), replaceText(""));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText("2100"));
+                .perform(nestedScrollTo(), replaceText("2100"));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText("メモ３"));
+                .perform(nestedScrollTo(), replaceText("メモ３"));
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText("東京都新宿区３"));
+                .perform(nestedScrollTo(), replaceText("東京都新宿区３"));
 
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -293,26 +303,26 @@ public class POC_10_Test {
         String testEventMemo = "メモ４";
         String testEventAddress = "東京都新宿区４";
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText(testEventName));
+                .perform(nestedScrollTo(), replaceText(testEventName));
         onView(withId(R.id.radio_move))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText(testEventDate));
+                .perform(nestedScrollTo(), replaceText(testEventDate));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText(testEventStartTime));
+                .perform(nestedScrollTo(), replaceText(testEventStartTime));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText(testEventEndTime));
+                .perform(nestedScrollTo(), replaceText(testEventEndTime));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText(testEventMemo));
+                .perform(nestedScrollTo(), replaceText(testEventMemo));
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText(testEventAddress));
+                .perform(nestedScrollTo(), replaceText(testEventAddress));
 
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
 
         try {
@@ -452,6 +462,12 @@ public class POC_10_Test {
         onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
 
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String testEventName = "テスト編集イベント名４";
         String testEventDate = "20210331";
         String testEventStartTime = "0400";
@@ -459,19 +475,20 @@ public class POC_10_Test {
         String testEventMemo = "メモ４";
         String testEventAddress = "東京都新宿区４";
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText(testEventName));
+                .perform(nestedScrollTo(), replaceText(testEventName));
         onView(withId(R.id.radio_move))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText(testEventDate));
+                .perform(nestedScrollTo(), replaceText(testEventDate));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText(testEventStartTime));
+                .perform(nestedScrollTo(), replaceText(testEventStartTime));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText(testEventEndTime));
+                .perform(nestedScrollTo(), replaceText(testEventEndTime));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText(testEventMemo));
+                .perform(nestedScrollTo(), replaceText(testEventMemo));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText(testEventAddress));
+                .perform(nestedScrollTo(), replaceText(testEventAddress));
 
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
 
@@ -487,7 +504,7 @@ public class POC_10_Test {
     }
 
     // TODO 参照画面→編集画面→変更を保存→参照画面で内容がリロードされないバグがあり、対応完了すれば@Testアノテーション外してください
-//    @Test
+    @Test
     public void case3() {
         try {
             Thread.sleep(3000);
@@ -604,26 +621,27 @@ public class POC_10_Test {
         String testEventMemo = "メモ４";
         String testEventAddress = "東京都新宿区４";
         onView(withId(R.id.editEventName))
-                .perform(scrollTo(), replaceText(testEventName));
+                .perform(nestedScrollTo(), replaceText(testEventName));
         onView(withId(R.id.radio_move))
-                .perform(scrollTo(), click());
+                .perform(nestedScrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText(testEventDate));
+                .perform(nestedScrollTo(), replaceText(testEventDate));
         onView(withId(R.id.editStartTime))
-                .perform(scrollTo(), replaceText(testEventStartTime));
+                .perform(nestedScrollTo(), replaceText(testEventStartTime));
         onView(withId(R.id.editEndTime))
-                .perform(scrollTo(), replaceText(testEventEndTime));
+                .perform(nestedScrollTo(), replaceText(testEventEndTime));
         onView(withId(R.id.editMemo))
-                .perform(scrollTo(), replaceText(testEventMemo));
+                .perform(nestedScrollTo(), replaceText(testEventMemo));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.editAddress))
-                .perform(scrollTo(), replaceText(testEventAddress));
+                .perform(nestedScrollTo(), replaceText(testEventAddress));
 
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
 
         try {
@@ -719,6 +737,68 @@ public class POC_10_Test {
                 return false;
             }
         };
+    }
+
+    public static ViewAction nestedScrollTo() {
+        return new ViewAction() {
+
+            @Override
+            public Matcher<View> getConstraints() {
+                return Matchers.allOf(
+                        isDescendantOfA(isAssignableFrom(NestedScrollView.class)),
+                        withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE));
+            }
+
+            @Override
+            public String getDescription() {
+                return "View is not NestedScrollView";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                try {
+                    NestedScrollView nestedScrollView = (NestedScrollView)
+                            findFirstParentLayoutOfClass(view, NestedScrollView.class);
+                    if (nestedScrollView != null) {
+                        nestedScrollView.scrollTo(0, view.getTop());
+                    } else {
+                        throw new Exception("Unable to find NestedScrollView parent.");
+                    }
+                } catch (Exception e) {
+                    throw new PerformException.Builder()
+                            .withActionDescription(this.getDescription())
+                            .withViewDescription(HumanReadables.describe(view))
+                            .withCause(e)
+                            .build();
+                }
+                uiController.loopMainThreadUntilIdle();
+            }
+
+        };
+    }
+
+    private static View findFirstParentLayoutOfClass(View view, Class<? extends View> parentClass) {
+        ViewParent parent = new FrameLayout(view.getContext());
+        ViewParent incrementView = null;
+        int i = 0;
+        while (parent != null && !(parent.getClass() == parentClass)) {
+            if (i == 0) {
+                parent = findParent(view);
+            } else {
+                parent = findParent(incrementView);
+            }
+            incrementView = parent;
+            i++;
+        }
+        return (View) parent;
+    }
+
+    private static ViewParent findParent(View view) {
+        return view.getParent();
+    }
+
+    private static ViewParent findParent(ViewParent view) {
+        return view.getParent();
     }
 
 }
