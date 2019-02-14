@@ -71,7 +71,7 @@ public class POC_38_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
         try {
             Thread.sleep(3000);
@@ -163,7 +163,7 @@ public class POC_38_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
@@ -187,7 +187,7 @@ public class POC_38_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
@@ -211,7 +211,7 @@ public class POC_38_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
