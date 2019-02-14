@@ -27,7 +27,6 @@ public class EventAddActivity extends AppCompatActivity {
 
     private PlanDisp planInfo;
     private String planKey;
-    private String eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class EventAddActivity extends AppCompatActivity {
 
         // 日付の取得
         EditText editEventDate = findViewById(R.id.editEventDate);
-        eventDate = planInfo.getStartYMD();
+        String eventDate = planInfo.getStartYMD();
         editEventDate.setText(eventDate);
 
         // 戻るメニューの有効化
@@ -98,11 +97,11 @@ public class EventAddActivity extends AppCompatActivity {
                 } else {
 
                     // 日付と時間の連結
-                    String startTime = eventDate + editStartTime.getText().toString();
+                    String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
                     String endTime ="";
                     // 終了時間が入力されている場合
                     if(!"".equals(editEndTime.getText().toString())) {
-                        endTime = eventDate + editEndTime.getText().toString();
+                        endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
                     }
 
                     Event event = new Event();
