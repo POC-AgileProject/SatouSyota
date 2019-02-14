@@ -42,7 +42,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
 
-
+/**
+ * POC1のテストクラス.
+ */
 public class POC_1_Test {
 
     private DatabaseReference mDatabase;
@@ -63,8 +65,14 @@ public class POC_1_Test {
         POC_Common.tearDownDB(mDatabase);
     }
 
+
+    /**
+     * TOP画面からプラン一覧画面に自動遷移することを確認する.<br />
+     * <p>
+     * TOP画面の画像表示のアサーションは@TestがonCreate後に実行されるっぽいので検証困難とした.
+     */
     @Test
-    public void case1() {
+    public void TOP画面からプラン一覧画面に自動遷移することを確認する() {
 
 //        ここのテスト、onCreateの処理完了後（top画面→プラン一覧画面への遷移後）に
 //        評価されるっぽいので不正なテストでは？
