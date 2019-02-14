@@ -72,7 +72,7 @@ public class POC_1_Test {
      * TOP画面の画像表示のアサーションは@TestがonCreate後に実行されるっぽいので検証困難とした.
      */
     @Test
-    public void TOP画面からプラン一覧画面に自動遷移することを確認する() {
+    public void testTOP画面からプラン一覧画面に自動遷移することを確認する() {
 
 //        ここのテスト、onCreateの処理完了後（top画面→プラン一覧画面への遷移後）に
 //        評価されるっぽいので不正なテストでは？
