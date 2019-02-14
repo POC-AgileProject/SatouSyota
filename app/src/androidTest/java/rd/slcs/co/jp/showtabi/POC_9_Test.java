@@ -110,6 +110,9 @@ public class POC_9_Test {
             e.printStackTrace();
         }
 
+        // メッセージの確認
+        onView(withText(R.string.msg_warning_0002)).check(matches(ViewMatchers.isDisplayed()));
+
         onView(withText("はい")).perform(click());
 
         try {
@@ -221,6 +224,9 @@ public class POC_9_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        // メッセージの確認
+        onView(withText(R.string.msg_warning_0002)).check(matches(ViewMatchers.isDisplayed()));
 
         onView(withText("はい")).perform(click());
 
