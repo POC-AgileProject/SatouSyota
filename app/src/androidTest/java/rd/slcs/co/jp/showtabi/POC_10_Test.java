@@ -788,7 +788,7 @@ public class POC_10_Test {
         onView(withId(R.id.editEventDate))
                 .perform(replaceText(beforeEventDate));
 
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
         onView(withText(R.string.msg_error_0003)).inRoot(new ToastMatcher())
                 .check(matches(withText(message_before)));
@@ -805,7 +805,7 @@ public class POC_10_Test {
         onView(withId(R.id.editEventDate))
                 .perform(replaceText(afterEventDate));
 
-        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
 
         onView(withText(R.string.msg_error_0004)).inRoot(new ToastMatcher())
                 .check(matches(withText(message_after)));

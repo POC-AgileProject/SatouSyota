@@ -120,49 +120,49 @@ public class EventAddActivity extends AppCompatActivity {
                 // イベント日付がプラン出発日より前
                 if (ieditEventDate < iPlanStartYmd) {
                     Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
+                    return false;
                 }
                 // イベント日付がプラン最終日より後
-                else if (ieditEventDate > iPlanEndYmd) {
+                if (ieditEventDate > iPlanEndYmd) {
                     Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
+                    return false;
                 }
-                else {
-
-                    // 日付と時間の連結
-                    String startTime = eventDate + editStartTime.getText().toString();
-                    String endTime ="";
-                    // 終了時間が入力されている場合
-                    if(!"".equals(editEndTime.getText().toString())) {
-                        endTime = eventDate + editEndTime.getText().toString();
-                    }
-
-                    Event event = new Event();
-
-                    // イベントの設定
-                    event.setPlanKey(planKey);
-                    event.setEventName(editEventName.getText().toString());
-                    event.setStartTime(startTime);
-                    event.setEndTime(endTime);
-                    event.setMemo(editMemo.getText().toString());
-                    event.setAddress(editAddress.getText().toString());
-
-                    int checkedId = editCategory.getCheckedRadioButtonId();
-                    if(checkedId != -1) {
-                        RadioButton radioButton = (RadioButton)findViewById(checkedId);
-                        event.setCategory(radioButton.getText().toString());
-                    }
-
-                    DatabaseReference mDatabase;
-                    mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE);
-
-                    //push()でキーの自動生成
-                    mDatabase.push().setValue(event);
-
-                    // イベントリスト画面に遷移
-                    Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra(Const.PLANDISP,planInfo);
-                    startActivity(intent);
+                // 日付と時間の連結
+                String startTime = eventDate + editStartTime.getText().toString();
+                String endTime ="";
+                // 終了時間が入力されている場合
+                if(!"".equals(editEndTime.getText().toString())) {
+                    endTime = eventDate + editEndTime.getText().toString();
                 }
+
+                Event event = new Event();
+
+                // イベントの設定
+                event.setPlanKey(planKey);
+                event.setEventName(editEventName.getText().toString());
+                event.setStartTime(startTime);
+                event.setEndTime(endTime);
+                event.setMemo(editMemo.getText().toString());
+                event.setAddress(editAddress.getText().toString());
+
+                int checkedId = editCategory.getCheckedRadioButtonId();
+                if(checkedId != -1) {
+                    RadioButton radioButton = (RadioButton)findViewById(checkedId);
+                    event.setCategory(radioButton.getText().toString());
+                }
+
+                DatabaseReference mDatabase;
+                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE);
+
+                //push()でキーの自動生成
+                mDatabase.push().setValue(event);
+
+                // イベントリスト画面に遷移
+                Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra(Const.PLANDISP,planInfo);
+                startActivity(intent);
+
                 break;
 
             // 戻るボタン押下時

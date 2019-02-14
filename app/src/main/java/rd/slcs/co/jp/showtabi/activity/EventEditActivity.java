@@ -200,10 +200,12 @@ public class EventEditActivity extends AppCompatActivity {
         // イベント日付がプラン出発日より前
         if (checkEditEventDate < planStartYmd) {
             Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
+            return;
         }
         // イベント日付がプラン最終日より後
         else if (checkEditEventDate > planEndYmd) {
             Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
+            return;
         }
         else {
 
