@@ -51,5 +51,6 @@
 
     <!-- ワーニングメッセージ -->
     <string name="msg_warning_0001">プランを削除します。よろしいですか？</string>
+    <string name="msg_warning_0002">イベントを削除します。よろしいですか？</string>
 
 </resources>

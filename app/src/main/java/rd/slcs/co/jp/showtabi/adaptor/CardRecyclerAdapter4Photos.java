@@ -1,24 +1,33 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.Util;
+import rd.slcs.co.jp.showtabi.object.Photo;
 
 public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecyclerAdapter4Photos.ViewHolder> {
 
-    private List<Bitmap> photoList;
+    private List<Photo> photoList;
     private Context context;
 
-    public CardRecyclerAdapter4Photos(Context context, List<Bitmap> photoList) {
+    public CardRecyclerAdapter4Photos(Context context, List<Photo> photoList) {
         super();
         this.photoList = photoList;
         this.context = context;
@@ -32,8 +41,20 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
     @Override
     public void onBindViewHolder(ViewHolder vh, final int position) {
 
-        vh.imageView_photo.setImageBitmap(photoList.get(position));
-        //ToDo
+        // 写真1枚あたりのimageViewの大きさを調整
+        Point point = Util.getDisplaySize((Activity)context);
+        vh.imageView_photo.getLayoutParams().height = point.x / Const.GRID_SPAN;
+
+
+        Photo photodata = photoList.get(position);
+
+        // byte[]→Bitmapに変換
+        byte[] decodedString = Base64.decode(photodata.getPhoto().getBytes(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        // imageViewに画像をバインド
+        vh.imageView_photo.setImageBitmap(decodedByte);
+
 
         // タッチ時の処理
         vh.layout.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +72,6 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
                 return true;
             }
         });
-
 
     }
 
@@ -73,4 +93,13 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
             layout = (LinearLayout) v.findViewById(R.id.layout);
         }
     }
+
+
+    public void addPhotoData(Photo photo){
+
+        photoList.add(photo);
+
+    }
+
+
 }
