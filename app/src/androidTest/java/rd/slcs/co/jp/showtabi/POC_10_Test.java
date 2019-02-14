@@ -118,7 +118,7 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         // 適当にイベント登録
         // ---------------------------------------------------------------
-        String eventDate = "20170401"; // 日付引継ぎ確認用
+        String eventDate = "20500102"; // 日付引継ぎ確認用
 
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
@@ -187,7 +187,7 @@ public class POC_10_Test {
         onView(withId(R.id.radio_stay))
                 .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText("20990331"));
+                .perform(scrollTo(), replaceText("20500103"));
         onView(withId(R.id.editStartTime))
                 .perform(scrollTo(), replaceText("1900"));
         onView(withId(R.id.editEndTime))
@@ -255,7 +255,7 @@ public class POC_10_Test {
         onView(withId(R.id.radio_sightseeing))
                 .perform(scrollTo(), click());
         onView(withId(R.id.editEventDate))
-                .perform(scrollTo(), replaceText("20990331"));
+                .perform(scrollTo(), replaceText("20500103"));
         onView(withId(R.id.editStartTime))
                 .perform(scrollTo(), replaceText(""));
         onView(withId(R.id.editEndTime))
@@ -287,7 +287,7 @@ public class POC_10_Test {
         // -----------------------------------------------------------------------------------
 
         String testEventName = "テスト編集イベント名４";
-        String testEventDate = "29990331";
+        String testEventDate = "20500103";
         String testEventStartTime = "0400";
         String testEventEndTime = "2300";
         String testEventMemo = "メモ４";
@@ -419,7 +419,7 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         // 適当にイベント登録
         // ---------------------------------------------------------------
-        String eventDate = "20170401"; // 日付引継ぎ確認用
+        String eventDate = "20500102"; // 日付引継ぎ確認用
 
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
@@ -453,7 +453,7 @@ public class POC_10_Test {
 
 
         String testEventName = "テスト編集イベント名４";
-        String testEventDate = "20210331";
+        String testEventDate = "20500103";
         String testEventStartTime = "0400";
         String testEventEndTime = "2300";
         String testEventMemo = "メモ４";
@@ -546,7 +546,7 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         // 適当にイベント登録
         // ---------------------------------------------------------------
-        String eventDate = "20170401"; // 日付引継ぎ確認用
+        String eventDate = "20500102"; // 日付引継ぎ確認用
 
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
@@ -598,7 +598,7 @@ public class POC_10_Test {
         // -----------------------------------------------------------------------------------
 
         String testEventName = "テスト編集イベント名４";
-        String testEventDate = "29990331";
+        String testEventDate = "20500103";
         String testEventStartTime = "0400";
         String testEventEndTime = "2300";
         String testEventMemo = "メモ４";
@@ -654,6 +654,148 @@ public class POC_10_Test {
                 .check(matches(withText(testEventMemo)));
         onView(withId(R.id.viewAddress))
                 .check(matches(withText(testEventAddress)));
+
+
+    }
+
+    @Test
+    public void testイベント日付の範囲チェックの確認() {
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // ＋ボタンを押下
+        onView(withId(R.id.menuListOption_Plan_List))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 登録するプラン情報を入力
+        onView(withId(R.id.editPlanName))
+                .perform(replaceText("テストプラン"));
+        onView(withId(R.id.editStartDay))
+                .perform(replaceText("20500102"));
+        onView(withId(R.id.editEndDay))
+                .perform(replaceText("20500105"));
+        onView(withId(R.id.editPerson))
+                .perform(replaceText("100"));
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        // 保存ボタンを押下
+        onView(withId(R.id.button_save))
+                .perform(click());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // プラン一覧画面でプランをクリックする
+        onView(withId(R.id.CardRecyclerView4Plan)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // イベント一覧画面の登録ボタンを押下する
+        onView(withId(R.id.menuListOption_Event_List))
+                .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        // ---------------------------------------------------------------
+        // 適当にイベント登録
+        // ---------------------------------------------------------------
+        String eventDate = "20500103"; // 日付引継ぎ確認用
+
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText(eventDate));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        // 保存ボタンを押下する
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        // イベント一覧画面でイベント長押ししたらイベント編集画面が開く
+        onView(withId(R.id.CardRecyclerView4Event)).perform(RecyclerViewActions.actionOnItemAtPosition(0, longClick()));
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        String beforeEventDate = "20500101"; // プラン出発前
+        String afterEventDate = "20500106"; // プラン最終日後
+
+        String message_before = "出発日以降の日付を入力してください";    // プラン出発前のエラーメッセージ
+        String message_after = "最終日以前の日付を入力してください";    // プラン最終日後のエラーメッセージ
+
+        // ---------------------------------------------------------------
+        // プラン出発前のチェック
+        // ---------------------------------------------------------------
+
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText(beforeEventDate));
+
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+
+        onView(withText(R.string.msg_error_0003)).inRoot(new ToastMatcher())
+                .check(matches(withText(message_before)));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // ---------------------------------------------------------------
+        // プラン最終日後ののチェック
+        // ---------------------------------------------------------------
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText(afterEventDate));
+
+        onView(withId(R.id.button_save)).perform(scrollTo(), click());
+
+        onView(withText(R.string.msg_error_0004)).inRoot(new ToastMatcher())
+                .check(matches(withText(message_after)));
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
     }

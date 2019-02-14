@@ -137,7 +137,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -206,7 +206,7 @@ public class POC_8_Test {
 
         // イベント名のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -263,7 +263,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText(""));
         onView(withId(R.id.editEndTime))
@@ -314,7 +314,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))

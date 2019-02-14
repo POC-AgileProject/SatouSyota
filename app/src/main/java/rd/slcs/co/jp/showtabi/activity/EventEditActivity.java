@@ -7,25 +7,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
@@ -52,8 +45,10 @@ public class EventEditActivity extends AppCompatActivity {
     /** イベントキー */
     private String eventKey;
 
-    List<String> planStartYmdList = new ArrayList<>();
-    List<String> planEndYmdList = new ArrayList<>();
+    /** 出発日 */
+    private String planStartYmd;
+    /** 最終日 */
+    private String planEndYmd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,22 +94,18 @@ public class EventEditActivity extends AppCompatActivity {
 
         // Firebaseからインスタンスを取得
         DatabaseReference mDatabasePlan;
-        mDatabasePlan = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE );
-
-        //  Plansテーブルからイベントに紐づく情報を抽出
-        Query query = mDatabasePlan.orderByChild(Const.DB_PLANTABLE_PLANKEY).equalTo(eventDisp.getPlanKey());
+        mDatabasePlan = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE  + "/" + eventDisp.getPlanKey());
 
         // クエリを使用してデータベースの内容を一度だけ取得する
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabasePlan.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Plan plan = dataSnapshot.getValue(Plan.class);
-                    PlanDisp planDisp = new PlanDisp(plan, dataSnapshot.getKey());
-                    planStartYmdList.add(planDisp.getStartYMD());
-                    planEndYmdList.add(planDisp.getEndYMD());
-                }
+                Plan plan = snapshot.getValue(Plan.class);
+                PlanDisp planDisp = new PlanDisp(plan, snapshot.getKey());
+
+                planStartYmd = planDisp.getStartYMD();
+                planEndYmd = planDisp.getEndYMD();
             }
 
             @Override
@@ -156,18 +147,15 @@ public class EventEditActivity extends AppCompatActivity {
             return;
         }
 
-        String planStartYmd = planStartYmdList.get(0);
-        String planEndYmd = planEndYmdList.get(0);
-
-        int iPlanStartYmd;
-        int iPlanEndYmd;
-        int ieditEventDate;
+        int planStartYmd;
+        int planEndYmd;
+        int checkEditEventDate;
 
         // 数値チェック
         try{
-            iPlanStartYmd = Integer.parseInt(planStartYmd);
-            iPlanEndYmd = Integer.parseInt(planEndYmd);
-            ieditEventDate = Integer.parseInt(editEventDate.getText().toString());
+            planStartYmd = Integer.parseInt(this.planStartYmd);
+            planEndYmd = Integer.parseInt(this.planEndYmd);
+            checkEditEventDate = Integer.parseInt(editEventDate.getText().toString());
 
         }catch (Exception e){
             Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
@@ -176,11 +164,11 @@ public class EventEditActivity extends AppCompatActivity {
 
         // プラン出発日・最終日とイベント日付の整合性チェック
         // イベント日付がプラン出発日より前
-        if (ieditEventDate < iPlanStartYmd) {
+        if (checkEditEventDate < planStartYmd) {
             Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
         }
         // イベント日付がプラン最終日より後
-        else if (ieditEventDate > iPlanEndYmd) {
+        else if (checkEditEventDate > planEndYmd) {
             Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
         }
         else {
