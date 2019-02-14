@@ -141,30 +141,4 @@
     </LinearLayout>
 
 
-    <!-- 下部の保存・削除ボタン -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:onClick="onClickSaveButton"
-            android:text="@string/button_save" />
-
-        <Button
-            android:id="@+id/button_del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="onClickDelButton"
-            android:text="@string/button_del" />
-
-    </LinearLayout>
-
-
 </LinearLayout>
