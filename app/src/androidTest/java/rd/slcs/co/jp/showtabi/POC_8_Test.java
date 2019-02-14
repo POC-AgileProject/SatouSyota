@@ -137,7 +137,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20200401"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
