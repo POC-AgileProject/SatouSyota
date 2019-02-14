@@ -31,7 +31,6 @@ public class EventAddActivity extends AppCompatActivity {
 
     private PlanDisp planInfo;
     private String planKey;
-    private String eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class EventAddActivity extends AppCompatActivity {
 
         // 日付の取得
         EditText editEventDate = findViewById(R.id.editEventDate);
-        eventDate = planInfo.getStartYMD();
+        String eventDate = planInfo.getStartYMD();
         editEventDate.setText(eventDate);
 
         // 戻るメニューの有効化
