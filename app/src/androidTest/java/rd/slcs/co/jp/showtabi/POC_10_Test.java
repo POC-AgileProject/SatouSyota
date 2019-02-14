@@ -170,7 +170,7 @@ public class POC_10_Test {
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         //        ※イベント一覧画面の日付を初期設定を確認
-        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo("20500101")));
+        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo(eventDate)));
 
 
         // ---------------------------------------------------------------
