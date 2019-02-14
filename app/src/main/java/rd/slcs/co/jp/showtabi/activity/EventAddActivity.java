@@ -14,9 +14,13 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 
@@ -98,41 +102,40 @@ public class EventAddActivity extends AppCompatActivity {
 
                 }
 
-                String planStartYmd = planInfo.getStartYMD();
-                String planEndYmd = planInfo.getEndYMD();
+                Date planStartYmd = Util.convertToDate(planInfo.getStartYMD());
+                Date planEndYmd = Util.convertToDate(planInfo.getEndYMD());
+                Date eventDate = Util.convertToDate(editEventDate.getText().toString());
 
-                int iPlanStartYmd;
-                int iPlanEndYmd;
-                int ieditEventDate;
-
-                // 数値チェック
-                try{
-                    iPlanStartYmd = Integer.parseInt(planStartYmd);
-                    iPlanEndYmd = Integer.parseInt(planEndYmd);
-                    ieditEventDate = Integer.parseInt(editEventDate.getText().toString());
-
-                }catch (Exception e){
+                // 日付形式での入力チェック
+                if(planStartYmd == null ||
+                        planEndYmd == null ||
+                        eventDate == null) {
                     Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
                     return false;
                 }
 
                 // プラン出発日・最終日とイベント日付の整合性チェック
                 // イベント日付がプラン出発日より前
-                if (ieditEventDate < iPlanStartYmd) {
+                if (eventDate.compareTo(planStartYmd) < 0) {
                     Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
                     return false;
                 }
                 // イベント日付がプラン最終日より後
-                if (ieditEventDate > iPlanEndYmd) {
+                if (eventDate.compareTo(planEndYmd) > 0) {
                     Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
                     return false;
                 }
+
+                // イベント日付（文字列）
+                SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+                String sEventDate = fmt.format(eventDate);
+
                 // 日付と時間の連結
-                String startTime = eventDate + editStartTime.getText().toString();
+                String startTime = sEventDate + editStartTime.getText().toString();
                 String endTime ="";
                 // 終了時間が入力されている場合
                 if(!"".equals(editEndTime.getText().toString())) {
-                    endTime = eventDate + editEndTime.getText().toString();
+                    endTime = sEventDate + editEndTime.getText().toString();
                 }
 
                 Event event = new Event();

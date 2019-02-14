@@ -6,19 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -31,13 +24,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
@@ -45,13 +39,13 @@ import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
-import rd.slcs.co.jp.showtabi.object.Photo;
-import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
-
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
+import rd.slcs.co.jp.showtabi.object.Photo;
 import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
+import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
 public class EventEditActivity extends AppCompatActivity {
 
@@ -181,61 +175,40 @@ public class EventEditActivity extends AppCompatActivity {
 
         }
 
-        int planStartYmd;
-        int planEndYmd;
-        int checkEditEventDate;
+        Date planStartYmd = Util.convertToDate(this.planStartYmd);
+        Date planEndYmd = Util.convertToDate(this.planEndYmd);
+        Date eventDate = Util.convertToDate(editEventDate.getText().toString());
 
-        // 数値チェック
-        try{
-            planStartYmd = Integer.parseInt(this.planStartYmd);
-            planEndYmd = Integer.parseInt(this.planEndYmd);
-            checkEditEventDate = Integer.parseInt(editEventDate.getText().toString());
-
-        }catch (Exception e){
+        // 日付形式での入力チェック
+        if(planStartYmd == null ||
+                planEndYmd == null ||
+                eventDate == null) {
             Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
             return;
         }
 
         // プラン出発日・最終日とイベント日付の整合性チェック
         // イベント日付がプラン出発日より前
-        if (checkEditEventDate < planStartYmd) {
+        if (eventDate.compareTo(planStartYmd) < 0) {
             Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
             return;
         }
         // イベント日付がプラン最終日より後
-        else if (checkEditEventDate > planEndYmd) {
+        if (eventDate.compareTo(planEndYmd) > 0) {
             Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
             return;
         }
-        else {
 
-            // 日付と時間の連結
-            String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-            String endTime ="";
-            // 終了時間が入力されている場合
-            if(!"".equals(editEndTime.getText().toString())) {
-                endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
-            }
-
-            Event event = new Event();
-
-            // イベントの設定
-            event.setPlanKey(eventDisp.getPlanKey());
-            event.setEventName(editEventName.getText().toString());
-            event.setStartTime(startTime);
-            event.setEndTime(endTime);
-            event.setMemo(editMemo.getText().toString());
-            event.setAddress(editAddress.getText().toString());
-
-
-        }
+        // イベント日付（文字列）
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        String sEventDate = fmt.format(eventDate);
 
         // 日付と時間の連結
-        String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+        String startTime = sEventDate + editStartTime.getText().toString();
         String endTime = "";
         // 終了時間が入力されている場合
         if (!"".equals(editEndTime.getText().toString())) {
-            endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+            endTime = sEventDate + editEndTime.getText().toString();
         }
 
         Event event = new Event();

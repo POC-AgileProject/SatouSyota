@@ -170,8 +170,7 @@ public class POC_10_Test {
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         //        ※イベント一覧画面の日付を初期設定を確認
-        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo("20500101")));
-
+        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo("20500102")));
 
         // ---------------------------------------------------------------
         // ボタン表示の確認
@@ -775,12 +774,30 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
+        String wrongEventDate = "2050010"; // 桁数不足（不正な入力値）
         String beforeEventDate = "20500101"; // プラン出発前
         String afterEventDate = "20500106"; // プラン最終日後
 
+        String message_wrong = "日付形式で入力してください";    // 日付形式以外の入力値のエラーメッセージ
         String message_before = "出発日以降の日付を入力してください";    // プラン出発前のエラーメッセージ
         String message_after = "最終日以前の日付を入力してください";    // プラン最終日後のエラーメッセージ
 
+        // ---------------------------------------------------------------
+        // イベント日付の数値チェック（日付形式で入力されているかのチェック）
+        // ---------------------------------------------------------------
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText(wrongEventDate));
+
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+
+        onView(withText(R.string.msg_error_0002)).inRoot(new ToastMatcher())
+                .check(matches(withText(message_wrong)));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // ---------------------------------------------------------------
         // プラン出発前のチェック
         // ---------------------------------------------------------------
