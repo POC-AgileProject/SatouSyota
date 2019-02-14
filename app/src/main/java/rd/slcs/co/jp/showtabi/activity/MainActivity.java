@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView topLogo = findViewById(R.id.carlos);
+        ImageView topLogo = findViewById(R.id.topLogo);
         fadein(topLogo);
 
         new Handler().postDelayed(new Runnable(){

@@ -7,7 +7,7 @@
     tools:context=".activity.MainActivity">
 
     <ImageView
-        android:id="@+id/carlos"
+        android:id="@+id/topLogo"
         android:src="@drawable/top_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
