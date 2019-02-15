@@ -146,11 +146,12 @@ public class EventEditActivity extends AppCompatActivity {
         EditText editMemo = findViewById(R.id.editMemo);
         EditText editAddress = findViewById(R.id.editAddress);
 
-        //TODO:開始日と終了日の前後チェック
+
         // 入力チェック
         if ("".equals(editEventName.getText().toString())
                 || "".equals(editEventDate.getText().toString())
-                || "".equals(editStartTime.getText().toString())) {
+                || "".equals(editStartTime.getText().toString())
+                || "".equals(editEndTime.getText().toString())) {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
@@ -160,11 +161,8 @@ public class EventEditActivity extends AppCompatActivity {
 
         // 日付と時間の連結
         String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-        String endTime = "";
-        // 終了時間が入力されている場合
-        if (!"".equals(editEndTime.getText().toString())) {
-            endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
-        }
+        String endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+
 
         Event event = new Event();
 
