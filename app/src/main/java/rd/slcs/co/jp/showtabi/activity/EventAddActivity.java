@@ -32,7 +32,6 @@ public class EventAddActivity extends AppCompatActivity {
 
     private PlanDisp planInfo;
     private String planKey;
-    private String eventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class EventAddActivity extends AppCompatActivity {
 
         // 日付の取得
         EditText editEventDate = findViewById(R.id.editEventDate);
-        eventDate = planInfo.getStartYMD();
+        String eventDate = planInfo.getStartYMD();
         editEventDate.setText(eventDate);
 
         // 戻るメニューの有効化
@@ -59,8 +58,9 @@ public class EventAddActivity extends AppCompatActivity {
 
     /**
      * オプションメニューを作成する
-     * @param menu  メニュー
-     * @return  true（オプションメニュー表示）
+     *
+     * @param menu メニュー
+     * @return true（オプションメニュー表示）
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         // menuにcustom_menuレイアウトを適用
@@ -71,8 +71,9 @@ public class EventAddActivity extends AppCompatActivity {
 
     /**
      * メニューのアイコン押下時
-     * @param menuItem  メニューアイテム
-     * @return  true
+     *
+     * @param menuItem メニューアイテム
+     * @return true
      */
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         Toast toast;
@@ -103,11 +104,11 @@ public class EventAddActivity extends AppCompatActivity {
                 } else {
 
                     // 日付と時間の連結
-                    String startTime = eventDate + editStartTime.getText().toString();
-                    String endTime ="";
+                    String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+                    String endTime = "";
                     // 終了時間が入力されている場合
-                    if(!"".equals(editEndTime.getText().toString())) {
-                        endTime = eventDate + editEndTime.getText().toString();
+                    if (!"".equals(editEndTime.getText().toString())) {
+                        endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
                     }
 
                     Event event = new Event();
@@ -121,8 +122,8 @@ public class EventAddActivity extends AppCompatActivity {
                     event.setAddress(editAddress.getText().toString());
 
                     int checkedId = editCategory.getCheckedRadioButtonId();
-                    if(checkedId != -1) {
-                        RadioButton radioButton = (RadioButton)findViewById(checkedId);
+                    if (checkedId != -1) {
+                        RadioButton radioButton = (RadioButton) findViewById(checkedId);
                         event.setCategory(radioButton.getText().toString());
                     }
 
@@ -135,7 +136,7 @@ public class EventAddActivity extends AppCompatActivity {
                     // イベントリスト画面に遷移
                     Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra(Const.PLANDISP,planInfo);
+                    intent.putExtra(Const.PLANDISP, planInfo);
                     startActivity(intent);
                 }
                 break;
@@ -153,9 +154,10 @@ public class EventAddActivity extends AppCompatActivity {
 
     /**
      * 時計アイコン押下時
+     *
      * @param view
      */
-    public void showTimePickDialog(View view){
+    public void showTimePickDialog(View view) {
 
         final int textView_id = view.getId();
 
@@ -168,7 +170,7 @@ public class EventAddActivity extends AppCompatActivity {
 
                 if (textView_id == R.id.TimePicker_startTime) {
                     textView = findViewById(R.id.editStartTime);
-                } else if (textView_id == R.id.TimePicker_endTime){
+                } else if (textView_id == R.id.TimePicker_endTime) {
                     textView = findViewById(R.id.editEndTime);
                 }
 
@@ -184,5 +186,6 @@ public class EventAddActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
 
 }

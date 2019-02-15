@@ -209,7 +209,7 @@ public class EventEditActivity extends AppCompatActivity {
 
         new AlertDialog.Builder(EventEditActivity.this)
                 .setTitle(R.string.alertDialog_title)
-                .setMessage(R.string.msg_warning_0001)
+                .setMessage(R.string.msg_warning_0002)
                 .setPositiveButton(
                         R.string.alertDialog_positiveButton,
                         new DialogInterface.OnClickListener() {

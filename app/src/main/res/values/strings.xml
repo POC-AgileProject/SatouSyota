@@ -32,6 +32,7 @@
     <string name="menu_list_options_event_list">イベント一覧のオプションメニュー</string>
     <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>
     <string name="menu_list_options_Save">保存</string>
+    <string name="menu_list_options_Del">削除</string>
     <string name="menu_list_options_Edit">編集</string>
 
     <!-- 各ページのタイトル -->
@@ -48,5 +49,6 @@
 
     <!-- ワーニングメッセージ -->
     <string name="msg_warning_0001">プランを削除します。よろしいですか？</string>
+    <string name="msg_warning_0002">イベントを削除します。よろしいですか？</string>
 
 </resources>

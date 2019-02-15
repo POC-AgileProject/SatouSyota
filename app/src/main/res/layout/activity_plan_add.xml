@@ -140,15 +140,4 @@
     </LinearLayout>
 
 
-    <!-- 下部の保存・削除ボタン -->
-
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_save"
-        android:onClick="onClickSaveButton"
-        />
-
-
 </LinearLayout>

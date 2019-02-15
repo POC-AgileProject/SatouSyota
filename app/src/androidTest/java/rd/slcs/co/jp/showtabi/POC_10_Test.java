@@ -97,7 +97,7 @@ public class POC_10_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
         try {
             Thread.sleep(3000);
@@ -170,7 +170,7 @@ public class POC_10_Test {
         onView(withText("イベントの編集画面")).check(matches(ViewMatchers.isDisplayed()));
 
         //        ※イベント一覧画面の日付を初期設定を確認
-        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo("20500101")));
+        onView(withId(R.id.editEventDate)).check(matches(isEditTextValueEqualTo(eventDate)));
 
 
         // ---------------------------------------------------------------
@@ -398,7 +398,7 @@ public class POC_10_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
         try {
             Thread.sleep(3000);
@@ -532,7 +532,7 @@ public class POC_10_Test {
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Plan_Add))
                 .perform(click());
         try {
             Thread.sleep(3000);
