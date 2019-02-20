@@ -165,23 +165,6 @@
             </android.support.design.widget.TextInputLayout>
 
 
-            <Button
-                android:id="@+id/button_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_save"
-                android:onClick="onClickSaveButton"
-                />
-
-            <Button
-                android:id="@+id/button_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_del"
-                android:onClick="onClickDelButton"
-                />
-
-
             <!-- ImagePicker起動のためのカメラアイコン -->
             <ImageView
                 android:layout_width="wrap_content"

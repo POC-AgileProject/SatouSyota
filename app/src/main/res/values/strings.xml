@@ -33,6 +33,7 @@
     <string name="menu_list_options_event_add">イベント登録のオプションメニュー</string>
     <string name="menu_list_options_Save">保存</string>
     <string name="menu_list_options_Edit">編集</string>
+    <string name="menu_list_options_Del">削除</string>
 
     <!-- 各ページのタイトル -->
     <string name="title_planList">プラン一覧</string>
