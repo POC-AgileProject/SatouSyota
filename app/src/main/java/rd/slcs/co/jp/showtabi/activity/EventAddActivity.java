@@ -1,15 +1,19 @@
 package rd.slcs.co.jp.showtabi.activity;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +29,7 @@ import java.util.Date;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
@@ -33,10 +38,11 @@ import rd.slcs.co.jp.showtabi.object.PlanDisp;
 /**
  * イベントの新規作成アクティビティークラスです。
  */
-public class EventAddActivity extends AppCompatActivity {
+public class EventAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private PlanDisp planInfo;
     private String planKey;
+    private EditText editEventDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class EventAddActivity extends AppCompatActivity {
         planKey = planInfo.getKey();
 
         // 日付の取得
-        EditText editEventDate = findViewById(R.id.editEventDate);
+        editEventDate = findViewById(R.id.editEventDate);
         String eventDate = planInfo.getStartYMD();
         editEventDate.setText(eventDate);
 
@@ -179,6 +185,43 @@ public class EventAddActivity extends AppCompatActivity {
             default:
         }
         return true;
+    }
+
+    /**
+     * カレンダーアイコン押下時
+     * @param v
+     */
+    public void showDatePickerDialog(View v) {
+
+        Date eventDate = Util.convertToDate(editEventDate.getText().toString());
+        if (eventDate == null) {
+            DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+        } else {
+            DialogFragment newFragment = new DatePickerDialogFragment((Activity)this,eventDate);
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+        String strYear = String.valueOf(year);
+        String strMonth = "00";
+        String strDate = "00";
+        if(monthOfYear + 1 < 10) {
+            strMonth = "0" + String.valueOf(monthOfYear + 1);
+        }
+        else {
+            strMonth = String.valueOf(monthOfYear + 1);
+        }
+        if (dayOfMonth < 10) {
+            strDate = "0" + String.valueOf(dayOfMonth);
+        }else {
+            strDate = String.valueOf(dayOfMonth);
+        }
+
+        editEventDate.setText( strYear + strMonth +  strDate);
     }
 
     /**
