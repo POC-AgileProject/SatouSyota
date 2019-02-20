@@ -311,7 +311,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
