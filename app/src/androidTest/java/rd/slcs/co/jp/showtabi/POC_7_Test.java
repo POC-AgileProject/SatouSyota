@@ -127,7 +127,7 @@ public class POC_7_Test {
                 .perform(replaceText("1600"));
 
         // 保存ボタンを押下
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Event_Edit_Save))
                 .perform(click());
 
         try {

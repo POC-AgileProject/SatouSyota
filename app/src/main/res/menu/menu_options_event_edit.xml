@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuListOption_Event_Edit_Save"
+        app:showAsAction="always"
+        android:title="@string/menu_list_options_Save">
+    </item>
+    <item
+        android:id="@+id/menuListOption_Event_Edit_Del"
+        app:showAsAction="always"
+        android:title="@string/menu_list_options_Del">
+    </item>
+
+
+</menu>

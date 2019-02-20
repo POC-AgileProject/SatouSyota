@@ -94,14 +94,14 @@ public class POC_9_Test {
         // ---------------------------------------------------------------
         // 削除ボタンが表示されていることを確認
         // ---------------------------------------------------------------
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .check(matches(isDisplayed()));
 
         // ---------------------------------------------------------------
         // 削除ボタンを押下するとデータが削除され、イベント一覧画面に戻ることを確認
         // ---------------------------------------------------------------
         // 削除ボタンを押下する
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .perform(click());
 
         try {
@@ -209,14 +209,14 @@ public class POC_9_Test {
         // ---------------------------------------------------------------
         // 削除ボタンが表示されていることを確認
         // ---------------------------------------------------------------
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .check(matches(isDisplayed()));
 
         // ---------------------------------------------------------------
         // 削除ボタンを押下するとデータが削除され、イベント一覧画面に戻ることを確認
         // ---------------------------------------------------------------
         // 削除ボタンを押下する
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .perform(click());
 
         try {

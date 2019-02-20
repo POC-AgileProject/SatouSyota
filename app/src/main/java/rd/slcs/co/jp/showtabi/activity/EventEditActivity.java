@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -151,9 +152,9 @@ public class EventEditActivity extends AppCompatActivity {
     }
 
     /**
-     * 保存ボタン押下時処理
-     *
-     * @param v View
+     * オプションメニューを作成する
+     * @param menu  メニュー
+     * @return  true（オプションメニュー表示）
      */
     public void onClickSaveButton(View v) {
 
@@ -368,9 +369,105 @@ public class EventEditActivity extends AppCompatActivity {
 
         int itemID = item.getItemId();
 
-        if(itemID == android.R.id.home){
-            setResult(RESULT_CANCELED);
-            finish();
+        // 押されたメニューのIDで処理を振り分ける
+        switch (itemID) {
+
+            // 保存ボタン押下時
+            case R.id.menuListOption_Event_Edit_Save:
+                // 画面の値を取得
+                EditText editEventName = findViewById(R.id.editEventName);
+                EditText editEventDate = findViewById(R.id.editEventDate);
+                EditText editStartTime = findViewById(R.id.editStartTime);
+                EditText editEndTime = findViewById(R.id.editEndTime);
+                RadioGroup editCategory = findViewById(R.id.editCategory);
+                EditText editMemo = findViewById(R.id.editMemo);
+                EditText editAddress = findViewById(R.id.editAddress);
+
+                // 入力チェック
+                if ("".equals(editEventName.getText().toString())
+                        || "".equals(editEventDate.getText().toString())
+                        || "".equals(editStartTime.getText().toString())
+                        || "".equals(editEndTime.getText().toString())) {
+
+                    Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
+                }else {
+                    // 日付と時間の連結
+                    String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
+                    String endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+
+                    Event event = new Event();
+
+                    // イベントの設定
+                    event.setPlanKey(eventDisp.getPlanKey());
+                    event.setEventName(editEventName.getText().toString());
+                    event.setStartTime(startTime);
+                    event.setEndTime(endTime);
+                    event.setMemo(editMemo.getText().toString());
+                    event.setAddress(editAddress.getText().toString());
+
+                    int checkedId = editCategory.getCheckedRadioButtonId();
+                    if (checkedId != -1) {
+                        RadioButton radioButton = (RadioButton) findViewById(checkedId);
+                        event.setCategory(radioButton.getText().toString());
+                    }
+
+                    DatabaseReference mDatabase;
+                    mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+
+                    // イベントデータを再登録
+                    mDatabase.setValue(event);
+
+                    // 写真の追加分を保存
+                    savePhoto();
+
+                    Intent intent = new Intent();
+                    EventDisp eventDisp = new EventDisp(event, eventKey);
+                    intent.putExtra("eventDisp", eventDisp);
+                    intent.putExtra("hanteiKey", Const.HANTEIKEY_SAVE);
+                    setResult(RESULT_OK, intent);
+
+                    finish();
+                }
+                break;
+
+            // 削除ボタン押下時
+            case R.id.menuListOption_Event_Edit_Del:
+                new AlertDialog.Builder(EventEditActivity.this)
+                        .setTitle(R.string.alertDialog_title)
+                        .setMessage(R.string.msg_warning_0002)
+                        .setPositiveButton(
+                                R.string.alertDialog_positiveButton,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        DatabaseReference mDatabase;
+                                        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
+                                        mDatabase.removeValue();
+
+                                        Intent intent = new Intent();
+                                        intent.putExtra("hanteiKey",Const.HANTEIKEY_DEL);
+                                        setResult(RESULT_OK, intent);
+
+                                        finish();
+                                    }
+                                })
+                        .setNegativeButton(
+                                R.string.alertDialog_negativeButton,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                        .show();
+                break;
+
+            // 戻るボタン押下時
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
         }
 
         return super.onOptionsItemSelected(item);
