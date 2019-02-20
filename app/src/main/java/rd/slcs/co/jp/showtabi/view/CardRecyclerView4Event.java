@@ -55,11 +55,16 @@ public class CardRecyclerView4Event extends RecyclerView{
                     eventDispList.add(eventDisp);
                 }
 
-                // イベントを開始時間の昇順でソート
+                // イベントを開始時間・終了時間の昇順でソート
                 eventDispList.sort(new Comparator<EventDisp>() {
                     @Override
                     public int compare(EventDisp o1, EventDisp o2) {
-                        return o1.getStartTime().compareTo(o2.getStartTime());
+
+                        if(o1.getStartTime().compareTo(o2.getStartTime()) != 0){
+                            return o1.getStartTime().compareTo(o2.getStartTime());
+                        }else{
+                            return o1.getEndTime().compareTo(o2.getEndTime());
+                        }
                     }
                 });
 
