@@ -1,11 +1,14 @@
 package rd.slcs.co.jp.showtabi.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +26,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +38,9 @@ import com.nguyenhoanglam.imagepicker.model.Image;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
@@ -41,6 +48,7 @@ import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
+import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Photo;
 import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
@@ -138,11 +146,12 @@ public class EventEditActivity extends AppCompatActivity {
         EditText editMemo = findViewById(R.id.editMemo);
         EditText editAddress = findViewById(R.id.editAddress);
 
-        //TODO:開始日と終了日の前後チェック
+
         // 入力チェック
         if ("".equals(editEventName.getText().toString())
                 || "".equals(editEventDate.getText().toString())
-                || "".equals(editStartTime.getText().toString())) {
+                || "".equals(editStartTime.getText().toString())
+                || "".equals(editEndTime.getText().toString())) {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
@@ -152,11 +161,8 @@ public class EventEditActivity extends AppCompatActivity {
 
         // 日付と時間の連結
         String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-        String endTime = "";
-        // 終了時間が入力されている場合
-        if (!"".equals(editEndTime.getText().toString())) {
-            endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
-        }
+        String endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
+
 
         Event event = new Event();
 
@@ -342,6 +348,41 @@ public class EventEditActivity extends AppCompatActivity {
 
     }
 
+
+
+    /**
+     * 時計アイコン押下時
+     * @param view
+     */
+    public void showTimePickDialog(View view){
+
+        final int textView_id = view.getId();
+
+    //TimePicker選択時の処理
+    TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+
+            TextView textView = null;
+
+            if (textView_id == R.id.TimePicker_startTime) {
+                textView = findViewById(R.id.editStartTime);
+            } else if (textView_id == R.id.TimePicker_endTime){
+                textView = findViewById(R.id.editEndTime);
+            }
+
+            String strHour = String.format("%02d", hour);
+            String strMinute = String.format("%02d", minute);
+
+            textView.setText(strHour + strMinute);
+        }
+    };
+
+        TimePickerDialog dialog = new TimePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT,
+                                                        listener, Const.DEFAULT_HOUR, Const.DEFAULT_MINUTE, true);
+        dialog.show();
+
+    }
 
 
 }
