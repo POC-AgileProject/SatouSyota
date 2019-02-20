@@ -7,6 +7,10 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,6 +230,16 @@
                 android:layout_height="wrap_content" />
 
         </android.support.design.widget.TextInputLayout>
+
+
+        <rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos
+            android:id="@+id/CardRecyclerView4Photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos>
+
+
     </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

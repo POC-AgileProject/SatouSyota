@@ -44,7 +44,7 @@ public class CardRecyclerAdapter4Photos extends RecyclerView.Adapter<CardRecycle
         // 写真1枚あたりのimageViewの大きさを調整
         Point point = Util.getDisplaySize((Activity)context);
         vh.imageView_photo.getLayoutParams().height = point.x / Const.GRID_SPAN;
-
+        vh.imageView_photo.getLayoutParams().width = point.x / Const.GRID_SPAN;
 
         Photo photodata = photoList.get(position);
 
