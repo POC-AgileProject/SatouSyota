@@ -178,12 +178,9 @@ public class POC_10_Test {
         // ---------------------------------------------------------------
         onView(withContentDescription(R.string.abc_action_bar_up_description))
                 .check(matches(isDisplayed()));
-
-
-        Espresso.closeSoftKeyboard();
-        onView(withText("保存"))
+        onView(withId(R.id.menuListOption_Event_Edit_Save))
                 .check(matches(isDisplayed()));
-        onView(withText("削除"))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .check(matches(isDisplayed()));
 
 
@@ -213,7 +210,7 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -247,7 +244,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -280,7 +277,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -314,7 +311,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
@@ -356,7 +353,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
 
         try {
@@ -675,7 +672,7 @@ public class POC_10_Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+        onView(withId(R.id.menuListOption_Event_Edit_Save)).perform(click());
 
 
         try {
