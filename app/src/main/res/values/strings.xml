@@ -46,6 +46,9 @@
 
     <!-- エラーメッセージ -->
     <string name="msg_error_0001">必須項目を入力してください</string>
+    <string name="msg_error_0002">日付形式で入力してください</string>
+    <string name="msg_error_0003">出発日以降の日付を入力してください</string>
+    <string name="msg_error_0004">最終日以前の日付を入力してください</string>
 
     <!-- ワーニングメッセージ -->
     <string name="msg_warning_0001">プランを削除します。よろしいですか？</string>
