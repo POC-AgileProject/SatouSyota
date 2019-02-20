@@ -1,6 +1,7 @@
 package rd.slcs.co.jp.showtabi.activity;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -163,16 +166,15 @@ public class EventEditActivity extends AppCompatActivity {
         EditText editMemo = findViewById(R.id.editMemo);
         EditText editAddress = findViewById(R.id.editAddress);
 
-        //TODO:開始時間と終了時間の前後チェック
         // 入力チェック
         if ("".equals(editEventName.getText().toString())
                 || "".equals(editEventDate.getText().toString())
-                || "".equals(editStartTime.getText().toString())) {
+                || "".equals(editStartTime.getText().toString())
+                || "".equals(editEndTime.getText().toString())) {
 
             Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
 
             return;
-
         }
 
         Date planStartYmd = Util.convertToDate(this.planStartYmd);
@@ -205,11 +207,7 @@ public class EventEditActivity extends AppCompatActivity {
 
         // 日付と時間の連結
         String startTime = sEventDate + editStartTime.getText().toString();
-        String endTime = "";
-        // 終了時間が入力されている場合
-        if (!"".equals(editEndTime.getText().toString())) {
-            endTime = sEventDate + editEndTime.getText().toString();
-        }
+        String endTime = sEventDate + editEndTime.getText().toString();
 
         Event event = new Event();
 
@@ -395,6 +393,41 @@ public class EventEditActivity extends AppCompatActivity {
 
     }
 
+
+
+    /**
+     * 時計アイコン押下時
+     * @param view
+     */
+    public void showTimePickDialog(View view){
+
+        final int textView_id = view.getId();
+
+    //TimePicker選択時の処理
+    TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+
+            TextView textView = null;
+
+            if (textView_id == R.id.TimePicker_startTime) {
+                textView = findViewById(R.id.editStartTime);
+            } else if (textView_id == R.id.TimePicker_endTime){
+                textView = findViewById(R.id.editEndTime);
+            }
+
+            String strHour = String.format("%02d", hour);
+            String strMinute = String.format("%02d", minute);
+
+            textView.setText(strHour + strMinute);
+        }
+    };
+
+        TimePickerDialog dialog = new TimePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT,
+                                                        listener, Const.DEFAULT_HOUR, Const.DEFAULT_MINUTE, true);
+        dialog.show();
+
+    }
 
 
 }

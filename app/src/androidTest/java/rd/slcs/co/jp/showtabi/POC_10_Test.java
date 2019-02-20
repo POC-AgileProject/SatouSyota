@@ -292,6 +292,40 @@ public class POC_10_Test {
             e.printStackTrace();
         }
 
+
+        // 終了時間のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(nestedScrollTo(), replaceText("テストイベント名4"));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(nestedScrollTo(), click());
+        onView(withId(R.id.editEventDate))
+                .perform(nestedScrollTo(), replaceText("20990331"));
+        onView(withId(R.id.editStartTime))
+                .perform(nestedScrollTo(), replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(nestedScrollTo(), replaceText(""));
+        onView(withId(R.id.editMemo))
+                .perform(nestedScrollTo(), replaceText("メモ３"));
+        onView(withId(R.id.editAddress))
+                .perform(nestedScrollTo(), replaceText("東京都新宿区３"));
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        onView(withId(R.id.button_save)).perform(nestedScrollTo(), click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // -----------------------------------------------------------------------------------
         // 表示されている項目は全て登録した内容が表示されていること
         // -----------------------------------------------------------------------------------

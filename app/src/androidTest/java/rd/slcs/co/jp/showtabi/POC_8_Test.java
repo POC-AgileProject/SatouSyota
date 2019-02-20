@@ -287,6 +287,31 @@ public class POC_8_Test {
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
 
+
+
+        // 終了時間のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20170401"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText(""));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+
         // ---------------------------------------------------------------
         // イベント日付の範囲チェックが機能していることを確認する
         // ---------------------------------------------------------------
