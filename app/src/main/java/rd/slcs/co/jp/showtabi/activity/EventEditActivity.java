@@ -156,130 +156,13 @@ public class EventEditActivity extends AppCompatActivity {
      * @param menu  メニュー
      * @return  true（オプションメニュー表示）
      */
-    public void onClickSaveButton(View v) {
-
-        // 画面の値を取得
-        EditText editEventName = findViewById(R.id.editEventName);
-        EditText editEventDate = findViewById(R.id.editEventDate);
-        EditText editStartTime = findViewById(R.id.editStartTime);
-        EditText editEndTime = findViewById(R.id.editEndTime);
-        RadioGroup editCategory = findViewById(R.id.editCategory);
-        EditText editMemo = findViewById(R.id.editMemo);
-        EditText editAddress = findViewById(R.id.editAddress);
-
-        // 入力チェック
-        if ("".equals(editEventName.getText().toString())
-                || "".equals(editEventDate.getText().toString())
-                || "".equals(editStartTime.getText().toString())
-                || "".equals(editEndTime.getText().toString())) {
-
-            Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
-
-            return;
-        }
-
-        Date planStartYmd = Util.convertToDate(this.planStartYmd);
-        Date planEndYmd = Util.convertToDate(this.planEndYmd);
-        Date eventDate = Util.convertToDate(editEventDate.getText().toString());
-
-        // 日付形式での入力チェック
-        if(planStartYmd == null ||
-                planEndYmd == null ||
-                eventDate == null) {
-            Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // プラン出発日・最終日とイベント日付の整合性チェック
-        // イベント日付がプラン出発日より前
-        if (eventDate.compareTo(planStartYmd) < 0) {
-            Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
-            return;
-        }
-        // イベント日付がプラン最終日より後
-        if (eventDate.compareTo(planEndYmd) > 0) {
-            Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // イベント日付（文字列）
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        String sEventDate = fmt.format(eventDate);
-
-        // 日付と時間の連結
-        String startTime = sEventDate + editStartTime.getText().toString();
-        String endTime = sEventDate + editEndTime.getText().toString();
-
-        Event event = new Event();
-
-        // イベントの設定
-        event.setPlanKey(eventDisp.getPlanKey());
-        event.setEventName(editEventName.getText().toString());
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
-        event.setMemo(editMemo.getText().toString());
-        event.setAddress(editAddress.getText().toString());
-
-        int checkedId = editCategory.getCheckedRadioButtonId();
-        if (checkedId != -1) {
-            RadioButton radioButton = (RadioButton) findViewById(checkedId);
-            event.setCategory(radioButton.getText().toString());
-        }
-
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
-
-        // イベントデータを再登録
-        mDatabase.setValue(event);
-
-        // 写真の追加分を保存
-        savePhoto();
-
-        Intent intent = new Intent();
-        EventDisp eventDisp = new EventDisp(event, eventKey);
-        intent.putExtra("eventDisp", eventDisp);
-        intent.putExtra("hanteiKey", Const.HANTEIKEY_SAVE);
-        setResult(RESULT_OK, intent);
-
-        finish();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // menuにcustom_menuレイアウトを適用
+        getMenuInflater().inflate(R.menu.menu_options_event_edit, menu);
+        // オプションメニュー表示する場合はtrue
+        return true;
     }
 
-    /**
-     * 削除ボタン押下時処理
-     *
-     * @param v View
-     */
-    public void onClickDelButton(View v) {
-
-        new AlertDialog.Builder(EventEditActivity.this)
-                .setTitle(R.string.alertDialog_title)
-                .setMessage(R.string.msg_warning_0002)
-                .setPositiveButton(
-                        R.string.alertDialog_positiveButton,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                                DatabaseReference mDatabase;
-                                mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
-                                mDatabase.removeValue();
-
-                                Intent intent = new Intent();
-                                intent.putExtra("hanteiKey",Const.HANTEIKEY_DEL);
-                                setResult(RESULT_OK, intent);
-                                
-                                finish();
-                            }
-                        })
-                .setNegativeButton(
-                        R.string.alertDialog_negativeButton,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                .show();
-    }
 
     /**
      * 遷移先から戻った際の結果受け取り処理
@@ -391,10 +274,38 @@ public class EventEditActivity extends AppCompatActivity {
 
                     Toast.makeText(this, R.string.msg_error_0001, Toast.LENGTH_LONG).show();
                 }else {
-                    // 日付と時間の連結
-                    String startTime = editEventDate.getText().toString() + editStartTime.getText().toString();
-                    String endTime = editEventDate.getText().toString() + editEndTime.getText().toString();
 
+                    Date planStartYmd = Util.convertToDate(this.planStartYmd);
+                    Date planEndYmd = Util.convertToDate(this.planEndYmd);
+                    Date eventDate = Util.convertToDate(editEventDate.getText().toString());
+
+                    // 日付形式での入力チェック
+                    if(planStartYmd == null ||
+                            planEndYmd == null ||
+                            eventDate == null) {
+                        Toast.makeText(this, R.string.msg_error_0002, Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+
+                    // プラン出発日・最終日とイベント日付の整合性チェック
+                    // イベント日付がプラン出発日より前
+                    if (eventDate.compareTo(planStartYmd) < 0) {
+                        Toast.makeText(this, R.string.msg_error_0003, Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+                    // イベント日付がプラン最終日より後
+                    if (eventDate.compareTo(planEndYmd) > 0) {
+                        Toast.makeText(this, R.string.msg_error_0004, Toast.LENGTH_LONG).show();
+                        return false;
+                    }
+
+                    // イベント日付（文字列）
+                    SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+                    String sEventDate = fmt.format(eventDate);
+
+                    // 日付と時間の連結
+                    String startTime = sEventDate + editStartTime.getText().toString();
+                    String endTime = sEventDate + editEndTime.getText().toString();
                     Event event = new Event();
 
                     // イベントの設定
