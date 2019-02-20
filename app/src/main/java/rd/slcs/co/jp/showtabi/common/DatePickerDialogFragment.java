@@ -69,8 +69,6 @@ public class DatePickerDialogFragment extends DialogFragment implements DatePick
             month = Integer.parseInt(sMonth) - 1;
             day = Integer.parseInt(sDay);
 
-            // 初期日付の初期化
-            date = null;
         }
         return new DatePickerDialog(getActivity(),
                 (DatePickerDialog.OnDateSetListener)activity,  year, month, day);
