@@ -2,12 +2,8 @@ package rd.slcs.co.jp.showtabi;
 
 import android.app.Activity;
 import android.support.test.espresso.contrib.RecyclerViewActions;
-import android.support.test.espresso.NoMatchingViewException;
-import android.support.test.espresso.ViewAssertion;
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.espresso.util.HumanReadables;
 import android.support.test.rule.ActivityTestRule;
-import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -23,10 +19,12 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.longClick;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
+/**
+ * イベント一覧画面
+ */
 public class POC_7_Test {
 
     private DatabaseReference mDatabase;
@@ -67,10 +65,12 @@ public class POC_7_Test {
         // ------------------------------------------------
         RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Event);
 
+        String planDay = "2019/12/24(火)～2019/12/31(火)";
+
         // プラン名が表示されていることを確認
         onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
-        // プラン開始日が初期表示されていることを確認
-        onView(withText("2019/12/24")).check(matches(ViewMatchers.isDisplayed()));
+        // プラン出発日・最終日が初期表示されていることを確認
+        onView(withText(planDay)).check(matches(ViewMatchers.isDisplayed()));
 
         // イベント一覧画面の表示内容を確認
         onView(recyclerViewMatcher
