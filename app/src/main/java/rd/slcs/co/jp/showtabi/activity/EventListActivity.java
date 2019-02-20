@@ -1,38 +1,21 @@
 package rd.slcs.co.jp.showtabi.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
-import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Event;
 import rd.slcs.co.jp.showtabi.common.Const;
-import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.Util;
-import rd.slcs.co.jp.showtabi.object.Event;
-import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
-
-import static rd.slcs.co.jp.showtabi.R.id.CardRecyclerView4Event;
 
 public class EventListActivity extends AppCompatActivity {
 
@@ -95,20 +78,19 @@ public class EventListActivity extends AppCompatActivity {
 
     }
 
-    /*
-        画面の初期設定をおこないます。
+    /**
+     *  画面の初期設定をおこないます。
      */
     private void initScreen(){
 
         setContentView(R.layout.activity_event_list);
 
         Date startYMD = Util.convertToDate(planInfo.getStartYMD());
-        // 出発日を表示
+        Date endYMD = Util.convertToDate(planInfo.getEndYMD());
+        // 「出発日～最終日」を表示
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
-        TextView textView = findViewById(R.id.textView_startYMD);
-        textView.setText(fmt.format(startYMD));
-
-
-
+        TextView textView = findViewById(R.id.textView_planYMD);
+        String planYmd = fmt.format(startYMD) + Const.PERIOD + fmt.format(endYMD);
+        textView.setText(planYmd);
     }
 }
