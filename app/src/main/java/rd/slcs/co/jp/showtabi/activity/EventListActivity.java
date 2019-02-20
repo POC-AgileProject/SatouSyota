@@ -88,7 +88,7 @@ public class EventListActivity extends AppCompatActivity {
         Date startYMD = Util.convertToDate(planInfo.getStartYMD());
         Date endYMD = Util.convertToDate(planInfo.getEndYMD());
         // 「出発日～最終日」を表示
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy/M/d'('E')'");
         TextView textView = findViewById(R.id.textView_planYMD);
         String planYmd = fmt.format(startYMD) + Const.PERIOD + fmt.format(endYMD);
         textView.setText(planYmd);

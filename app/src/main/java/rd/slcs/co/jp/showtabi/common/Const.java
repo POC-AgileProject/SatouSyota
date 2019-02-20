@@ -57,7 +57,7 @@ public class Const {
     public static final int DEFAULT_MINUTE = 0;
 
     /** 画面の「～」 */
-    public static final String PERIOD = "　～　";
+    public static final String PERIOD = "～";
 
     /* カテゴリーアイコン */
     // category文字列とアイコン画像の対応Map

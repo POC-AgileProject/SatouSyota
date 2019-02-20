@@ -65,7 +65,7 @@ public class POC_7_Test {
         // ------------------------------------------------
         RecyclerViewMatcher recyclerViewMatcher = new RecyclerViewMatcher(R.id.CardRecyclerView4Event);
 
-        String planDay = "2019/12/24　～　2019/12/31";
+        String planDay = "2019/12/24(火)～2019/12/31(火)";
 
         // プラン名が表示されていることを確認
         onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
