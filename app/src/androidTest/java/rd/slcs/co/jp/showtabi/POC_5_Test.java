@@ -98,7 +98,7 @@ public class POC_5_Test {
             e.printStackTrace();
         }
         // プラン編集画面の削除ボタンを押下
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Plan_Edit_Del))
                 .perform(click());
 
         try {
