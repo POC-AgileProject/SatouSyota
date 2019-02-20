@@ -287,7 +287,11 @@ public class POC_8_Test {
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
 
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // 終了時間のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventName))
