@@ -69,7 +69,7 @@ public class POC_7_Test {
 
         // プラン名が表示されていることを確認
         onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
-        // プラン開始日が初期表示されていることを確認
+        // プラン出発日・最終日が初期表示されていることを確認
         onView(withText(planDay)).check(matches(ViewMatchers.isDisplayed()));
 
         // イベント一覧画面の表示内容を確認
