@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -84,6 +85,13 @@ public class EventReferenceActivity extends AppCompatActivity {
         TextView viewEventCategory = findViewById(R.id.viewEventCategory);
         eventCategory = eventInfo.getCategory();
         viewEventCategory.setText(eventCategory);
+
+        ImageView viewEventCategoryImage = findViewById(R.id.imageView_category);
+
+        // データ定義を考慮すればこのif文で囲む必要はない。
+        if(Const.categoryToIconMap.containsKey(eventCategory)) {
+            viewEventCategoryImage.setImageResource(Const.categoryToIconMap.get(eventCategory));
+        }
 
         TextView viewEventMemo = findViewById(R.id.viewMemo);
         eventMemo = eventInfo.getMemo();
