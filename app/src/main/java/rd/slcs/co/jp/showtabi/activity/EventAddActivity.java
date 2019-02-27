@@ -6,10 +6,16 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,28 +27,49 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.nguyenhoanglam.imagepicker.model.Config;
+import com.nguyenhoanglam.imagepicker.model.Image;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import rd.slcs.co.jp.showtabi.R;
+import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.common.UseImagePicker;
 import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
+import rd.slcs.co.jp.showtabi.object.EventDisp;
+import rd.slcs.co.jp.showtabi.object.Photo;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
+import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
 /**
  * イベントの新規作成アクティビティークラスです。
  */
 public class EventAddActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
+    /** プランDisp */
     private PlanDisp planInfo;
+    /** プランキー */
     private String planKey;
+    /** イベント日付 */
     private EditText editEventDate;
+
+    private List<Photo> addPhotos;
+    /** 写真登録用イベントキー */
+    private String eventKey4Photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +92,9 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
         actionBar.setDisplayHomeAsUpEnabled(true);
         // 画面のタイトルを設定
         actionBar.setTitle(R.string.title_eventAdd);
+
+        // 追加分の写真データリストを初期化
+        addPhotos = new ArrayList<>();
     }
 
     /**
@@ -79,6 +109,85 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
         // オプションメニュー表示する場合はtrue
         return true;
     }
+
+    /**
+     * 遷移先から戻った際の結果受け取り処理
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        // ImagePickerからの結果受け取り
+        if (requestCode == Config.RC_PICK_IMAGES && resultCode == RESULT_OK && data != null) {
+            ArrayList<Image> images = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
+            // do your logic here...
+
+            Bitmap bmp;
+            String imgPath;
+
+            // Imageからbyteデータ、撮影日時の抽出と、DBへのpush
+            for (Image image : images) {
+
+                imgPath = image.getPath();
+                bmp = BitmapFactory.decodeFile(imgPath);
+
+                // 写真データをbyte[]へ
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                byte[] bytes = baos.toByteArray();
+                String bmpstr = Base64.encodeToString(bytes, 1);
+
+                // 撮影日時格納用
+                String snapData = "";
+
+                // 撮影日時の取得
+                try {
+                    ExifInterface exifInfo = new ExifInterface(image.getPath());
+
+                    String snapDateformat = exifInfo.getAttribute(ExifInterface.TAG_DATETIME);
+                    snapData = snapDateformat.replaceAll(":", "");
+                    snapData = snapData.substring(0, 8);
+                    //Toast.makeText(this, snapDate, Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    Log.d("error", "写真にアクセスできませんでした。");
+                } catch (NullPointerException e) {
+                    Log.d("error", "写真に撮影日がありません。");
+                }
+
+
+                Photo photo = new Photo();
+                photo.setPhoto(bmpstr);
+                photo.setSortKey(snapData);
+
+                addPhotos.add(photo);
+
+
+                // 写真をViewに追加
+                CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
+                //photoView.loadPhotoData();
+                CardRecyclerAdapter4Photos photoAdapter = (CardRecyclerAdapter4Photos) photoView.getAdapter();
+                photoAdapter.addPhotoData(photo);
+                photoAdapter.notifyDataSetChanged();
+
+            }
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);  // You MUST have this line to be here
+
+    }
+
+
+    /**
+     * 写真を追加したい場合に押下される
+     */
+    public void onClickPhotoIcon(View view) {
+
+        //ImagePickerを起動
+        UseImagePicker.start(this);
+
+    }
+
 
     /**
      * メニューのアイコン押下時
@@ -167,7 +276,28 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
                 mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE);
 
                 //push()でキーの自動生成
-                mDatabase.push().setValue(event);
+                DatabaseReference mDatabaseEventKey;
+                mDatabaseEventKey = mDatabase.push();
+                mDatabaseEventKey.setValue(event);
+
+                // Photoテーブルにデータを保存
+                mDatabaseEventKey.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        Event event = snapshot.getValue(Event.class);
+                        EventDisp eventDisp = new EventDisp(event, snapshot.getKey());
+                        eventKey4Photo = eventDisp.getKey();
+                        // 写真の追加分を保存
+                        savePhoto();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
                 // イベントリスト画面に遷移
                 Intent intent = new Intent(getApplicationContext(), EventListActivity.class);
@@ -185,6 +315,22 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
             default:
         }
         return true;
+    }
+
+    /**
+     * 写真保存処理
+     */
+    public void savePhoto() {
+
+        // / Firebaseからインスタンスを取得
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
+
+        for (Photo photo : addPhotos) {
+            photo.setEventKey(eventKey4Photo);
+            // データを追加
+            mDatabase.push().setValue(photo);
+        }
     }
 
     /**
@@ -258,5 +404,4 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
         dialog.show();
 
     }
-
 }

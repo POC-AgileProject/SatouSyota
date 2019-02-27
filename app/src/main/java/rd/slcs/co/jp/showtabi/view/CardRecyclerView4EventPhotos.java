@@ -58,62 +58,60 @@ public class CardRecyclerView4EventPhotos extends RecyclerView {
 
 
 
-    /*
-        DBから写真情報を読み込む
+    /**
+     * DBから写真情報を読み込む
      */
     public void loadPhotoData() {
 
         // PhotoListを初期化
         photoList.clear();
 
-        // Firebaseからインスタンスを取得
-        DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
+        if(eventDisp != null) {
+            // Firebaseからインスタンスを取得
+            DatabaseReference mDatabase;
+            mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
-        //  Photosテーブルから選択されたイベントに該当する写真情報を抽出
-           Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventDisp.getKey());
+            //  Photosテーブルから選択されたイベントに該当する写真情報を抽出
+            Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventDisp.getKey());
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    // イベントに紐づく写真を取得
-                    Photo photoData = dataSnapshot.getValue(Photo.class);
-                    photoList.add(photoData);
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        // イベントに紐づく写真を取得
+                        Photo photoData = dataSnapshot.getValue(Photo.class);
+                        photoList.add(photoData);
+                    }
+
+                    // 写真をsortKeyの昇順でソート
+                    photoList.sort(new Comparator<Photo>() {
+                        @Override
+                        public int compare(Photo o1, Photo o2) {
+                            return o1.getSortKey().compareTo(o2.getSortKey());
+                        }
+                    });
+
+                    setRecyclerAdapter(context, photoList);
+
                 }
 
-                // 写真をsortKeyの昇順でソート
-                photoList.sort(new Comparator<Photo>() {
-                    @Override
-                    public int compare(Photo o1, Photo o2) {
-                        return o1.getSortKey().compareTo(o2.getSortKey());
-                    }
-                });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                setRecyclerAdapter(context, photoList);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+                }
+            });
+        }
     }
 
 
 
-    /*
-        レイアウト及びアダプターを生成し、紐づける
+    /**
+     *  レイアウト及びアダプターを生成し、紐づける
      */
     public void setRecyclerAdapter(Context context, List<Photo> photoList) {
         setLayoutManager(new GridLayoutManager(context, Const.GRID_SPAN));
         setAdapter(new CardRecyclerAdapter4Photos(context, photoList));
     }
-
-
-
 }
