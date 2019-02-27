@@ -19,8 +19,14 @@
     <string name="column_category">イベントカテゴリ</string>
     <string name="column_address">場所</string>
 
-    <string name="button_save">保存</string>
-    <string name="button_del">削除</string>
+    <string name="column_required_planName"><font size="4">プラン名(必須)</font></string>
+    <string name="column_required_startDay"><font size="4">出発日(必須)</font></string>
+    <string name="column_required_endDay"><font size="4">最終日(必須)</font></string>
+
+    <string name="column_required_eventName"><font size="4">イベント名(必須)</font></string>
+    <string name="column_required_eventDate"><font size="4">日付(必須)</font></string>
+    <string name="column_required_startTime"><font size="4">開始時間(必須)</font></string>
+    <string name="column_required_endTime"><font size="4">終了時間(必須)</font></string>
 
     <string name="category_move">移動</string>
     <string name="category_sightseeing">観光</string>
