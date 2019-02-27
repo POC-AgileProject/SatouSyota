@@ -10,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -50,6 +52,13 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         actionBar.setDisplayHomeAsUpEnabled(true);
         // 画面のタイトルを設定
         actionBar.setTitle(R.string.title_planAdd);
+
+        // 人数を選択するSpinnerを初期化
+        Spinner spinner = (Spinner) findViewById(R.id.PersonNumber);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.person_number_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
     }
 
@@ -180,8 +189,9 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
                 editEndDay = findViewById(R.id.editEndDay);
                 plan.setEndYMD(editEndDay.getText().toString());
 
-                EditText editPerson = findViewById(R.id.editPerson);
-                plan.setPerson(editPerson.getText().toString());
+                Spinner spinner = (Spinner) findViewById(R.id.PersonNumber);
+                String selectedNumber = spinner.getSelectedItem().toString();
+                plan.setPerson(selectedNumber);
 
                 EditText editMemo = findViewById(R.id.editMemo);
                 plan.setMemo(editMemo.getText().toString());

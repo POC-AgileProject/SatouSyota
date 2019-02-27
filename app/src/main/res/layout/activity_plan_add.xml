@@ -107,11 +107,30 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editPerson"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="right"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/column_person" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/column_person"/>
+
+                    <Spinner
+                        android:id="@+id/PersonNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawSelectorOnTop="true"
+                        android:spinnerMode="dialog"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/column_person_unit" />
+
+                </LinearLayout>
 
             </android.support.design.widget.TextInputLayout>
 
