@@ -28,7 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
@@ -94,10 +97,14 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 editPlanName.setText(plan.getPlanName());
 
                 editStartDay = findViewById(R.id.editStartDay);
-                editStartDay.setText(plan.getStartYMD());
+                Date startYMD = Util.convertToDate(plan.getStartYMD());
+                SimpleDateFormat startDateFmt = new SimpleDateFormat("yyyy/MM/dd");
+                editStartDay.setText(startDateFmt.format(startYMD));
 
                 editEndDay = findViewById(R.id.editEndDay);
-                editEndDay.setText(plan.getEndYMD());
+                Date endYMD = Util.convertToDate(plan.getStartYMD());
+                SimpleDateFormat endDateFmt = new SimpleDateFormat("yyyy/MM/dd");
+                editEndDay.setText(endDateFmt.format(endYMD));
 
                 EditText editPerson = findViewById(R.id.editPerson);
                 editPerson.setText(plan.getPerson());
@@ -141,7 +148,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
 
         // 出発日の場合
         if(R.id.bottom_DatePicker_startDay == id_clickDate) {
-            Date planStartDay = Util.convertToDate(editStartDay.getText().toString());
+            Date planStartDay = Util.convertToDate(removeString(editStartDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planStartDay == null) {
                 DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
@@ -154,7 +161,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
             }
 
             // 日付初期設定フラグの更新
-            Date planEndDay = Util.convertToDate(editEndDay.getText().toString());
+            Date planEndDay = Util.convertToDate(removeString(editEndDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planEndDay == null) {
                 dateSetFlg = true;
@@ -162,7 +169,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
         }
         // 最終日の場合
         else if (R.id.bottom_DatePicker_endDay == id_clickDate) {
-            Date planEndDay = Util.convertToDate(editEndDay.getText().toString());
+            Date planEndDay = Util.convertToDate(removeString(editEndDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planEndDay == null) {
                 DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
@@ -175,7 +182,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
             }
 
             // 日付初期設定フラグの更新
-            Date planStartDay = Util.convertToDate(editStartDay.getText().toString());
+            Date planStartDay = Util.convertToDate(removeString(editStartDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planStartDay == null) {
                 dateSetFlg = true;
@@ -203,16 +210,16 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
 
         // 出発日の場合
         if(R.id.bottom_DatePicker_startDay == id_clickDate) {
-            editStartDay.setText( strYear + strMonth +  strDate);
+            editStartDay.setText( strYear + "/" + strMonth + "/" + strDate);
             if(dateSetFlg){
-                editEndDay.setText( strYear + strMonth +  strDate);
+                editEndDay.setText( strYear + "/" + strMonth + "/" + strDate);
             }
         }
         // 最終日の場合
         else if (R.id.bottom_DatePicker_endDay == id_clickDate) {
-            editEndDay.setText( strYear + strMonth +  strDate);
+            editEndDay.setText( strYear + "/" + strMonth + "/" + strDate);
             if(dateSetFlg){
-                editStartDay.setText( strYear + strMonth +  strDate);
+                editStartDay.setText( strYear + "/" + strMonth + "/" + strDate);
             }
         }
     }
@@ -237,10 +244,10 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 plan.setPlanName(editPlanName.getText().toString());
 
                 EditText editStartDay = findViewById(R.id.editStartDay);
-                plan.setStartYMD(editStartDay.getText().toString());
+                plan.setStartYMD(removeString(editStartDay.getText().toString(), "/"));
 
                 EditText editEndDay = findViewById(R.id.editEndDay);
-                plan.setEndYMD(editEndDay.getText().toString());
+                plan.setEndYMD(removeString(editEndDay.getText().toString(), "/"));
 
                 EditText editPerson = findViewById(R.id.editPerson);
                 plan.setPerson(editPerson.getText().toString());
@@ -312,6 +319,15 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+        指定文字列を削除します。
+     */
+    public String removeString(String strSrc, String strRemove) {
+        Pattern pattern = Pattern.compile(strRemove);
+        Matcher matcher = pattern.matcher(strSrc);
+        String strTmp = matcher.replaceAll("");
+        return strTmp;
+    }
 
     private void removePlan(String planKey) {
         PlanRemover planRemover = new PlanRemover(planKey);
