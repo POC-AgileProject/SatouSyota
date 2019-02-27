@@ -178,6 +178,19 @@
                 android:hint="@string/column_address" />
 
         </android.support.design.widget.TextInputLayout>
+
+        <!-- ImagePicker起動のためのカメラアイコン -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_a_photo_24dp"
+            android:onClick="onClickPhotoIcon"
+            />
+
+        <rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos
+            android:id="@+id/CardRecyclerView4Photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos>
     </LinearLayout>
 
 </LinearLayout>
