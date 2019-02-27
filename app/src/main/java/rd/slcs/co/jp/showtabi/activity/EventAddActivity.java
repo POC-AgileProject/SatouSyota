@@ -154,13 +154,11 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
                     Log.d("error", "写真に撮影日がありません。");
                 }
 
-
                 Photo photo = new Photo();
                 photo.setPhoto(bmpstr);
                 photo.setSortKey(snapData);
 
                 addPhotos.add(photo);
-
 
                 // 写真をViewに追加
                 CardRecyclerView4EventPhotos photoView = findViewById(R.id.CardRecyclerView4Photos);
@@ -170,13 +168,9 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
                 photoAdapter.notifyDataSetChanged();
 
             }
-
         }
-
         super.onActivityResult(requestCode, resultCode, data);  // You MUST have this line to be here
-
     }
-
 
     /**
      * 写真を追加したい場合に押下される
@@ -185,10 +179,8 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
 
         //ImagePickerを起動
         UseImagePicker.start(this);
-
     }
-
-
+    
     /**
      * メニューのアイコン押下時
      *
