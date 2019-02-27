@@ -243,6 +243,13 @@ public class EventReferenceActivity extends AppCompatActivity {
                 eventCategory = eventInfo.getCategory();
                 viewEventCategory.setText(eventCategory);
 
+                ImageView viewEventCategoryImage = findViewById(R.id.imageView_category);
+
+                // データ定義を考慮すればこのif文で囲む必要はない。
+                if(Const.categoryToIconMap.containsKey(eventCategory)) {
+                    viewEventCategoryImage.setImageResource(Const.categoryToIconMap.get(eventCategory));
+                }
+
                 TextView viewEventMemo = findViewById(R.id.viewMemo);
                 eventMemo = eventInfo.getMemo();
                 viewEventMemo.setText(eventMemo);
