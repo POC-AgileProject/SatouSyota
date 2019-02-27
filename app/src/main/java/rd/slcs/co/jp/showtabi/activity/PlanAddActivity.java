@@ -56,8 +56,8 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
         // 人数を選択するSpinnerを初期化
         Spinner spinner = (Spinner) findViewById(R.id.PersonNumber);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.person_number_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.array.person_number_array, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
     }

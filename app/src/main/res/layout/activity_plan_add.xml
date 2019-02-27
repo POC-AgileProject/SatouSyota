@@ -111,23 +111,30 @@
                     android:orientation="horizontal"
                     android:gravity="right"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="50dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="80dp"
+                        android:padding="10dp"
+                        android:layout_height="60sp"
+                        android:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
                         android:text="@string/column_person"/>
 
                     <Spinner
                         android:id="@+id/PersonNumber"
+                        android:singleLine="true"
+                        android:textSize="40sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawSelectorOnTop="true"
                         android:spinnerMode="dialog"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="50dp"
+                        android:layout_height="40sp"
+                        android:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
                         android:text="@string/column_person_unit" />
 
                 </LinearLayout>
