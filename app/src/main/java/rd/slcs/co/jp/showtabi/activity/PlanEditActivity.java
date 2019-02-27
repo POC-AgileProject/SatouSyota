@@ -32,6 +32,7 @@ import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
+import rd.slcs.co.jp.showtabi.common.firebase.PlanRemover;
 import rd.slcs.co.jp.showtabi.object.Plan;
 
 public class PlanEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -226,9 +227,8 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        DatabaseReference mDatabase;
-                                        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE + "/" + planKey);
-                                        mDatabase.removeValue();
+
+                                        removePlan(planKey);
 
                                         Intent intent = new Intent(PlanEditActivity.this, PlanListActivity.class);
                                         startActivity(intent);
@@ -258,5 +258,9 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
     }
 
 
+    private void removePlan(String planKey) {
+        PlanRemover planRemover = new PlanRemover(planKey);
+        planRemover.removePlan();
+    }
 
 }
