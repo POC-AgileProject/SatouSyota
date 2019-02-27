@@ -41,9 +41,9 @@ public class EventReferenceActivity extends AppCompatActivity {
     private String planKey;
     private EventDisp eventInfo;
     private String eventName;
-    private String eventDate;
-    private String startTime;
-    private String endTime;
+    private Date eventDate;
+    private Date startTime;
+    private Date endTime;
     private String eventCategory;
     private String eventMemo;
     private String eventAddress;
@@ -71,16 +71,19 @@ public class EventReferenceActivity extends AppCompatActivity {
         viewEventName.setText(eventName);
 
         TextView viewEventDate = findViewById(R.id.viewEventDate);
-        eventDate = eventInfo.getStartTime().substring(0, 8);
-        viewEventDate.setText(eventDate);
+        eventDate = Util.convertToDate(eventInfo.getStartTime());
+        SimpleDateFormat eventDateFmt = new SimpleDateFormat("yyyy/M/d'('E')'");
+        viewEventDate.setText(eventDateFmt.format(eventDate));
 
         TextView viewStartTime = findViewById(R.id.viewStartTime);
-        startTime = eventInfo.getStartTime().substring(8);
-        viewStartTime.setText(startTime);
+        startTime = Util.convertToDate(eventInfo.getStartTime());
+        SimpleDateFormat startTimeFmt = new SimpleDateFormat("H:mm");
+        viewStartTime.setText(startTimeFmt.format(startTime));
 
         TextView viewEndTime = findViewById(R.id.viewEndTime);
-        endTime = eventInfo.getEndTime().substring(8);
-        viewEndTime.setText(endTime);
+        endTime = Util.convertToDate(eventInfo.getEndTime());
+        SimpleDateFormat endTimeFmt = new SimpleDateFormat("H:mm");
+        viewEndTime.setText(endTimeFmt.format(endTime));
 
         TextView viewEventCategory = findViewById(R.id.viewEventCategory);
         eventCategory = eventInfo.getCategory();
@@ -222,16 +225,19 @@ public class EventReferenceActivity extends AppCompatActivity {
                 viewEventName.setText(eventName);
 
                 TextView viewEventDate = findViewById(R.id.viewEventDate);
-                eventDate = eventInfo.getStartTime().substring(0, 8);
-                viewEventDate.setText(eventDate);
+                eventDate = Util.convertToDate(eventInfo.getStartTime());
+                SimpleDateFormat eventDateFmt = new SimpleDateFormat("yyyy/M/d'('E')'");
+                viewEventDate.setText(eventDateFmt.format(eventDate));
 
                 TextView viewStartTime = findViewById(R.id.viewStartTime);
-                startTime = eventInfo.getStartTime().substring(8);
-                viewStartTime.setText(startTime);
+                startTime = Util.convertToDate(eventInfo.getStartTime());
+                SimpleDateFormat startTimeFmt = new SimpleDateFormat("H:mm");
+                viewStartTime.setText(startTimeFmt.format(startTime));
 
                 TextView viewEndTime = findViewById(R.id.viewEndTime);
-                endTime = eventInfo.getEndTime().substring(8);
-                viewEndTime.setText(endTime);
+                endTime = Util.convertToDate(eventInfo.getEndTime());
+                SimpleDateFormat endTimeFmt = new SimpleDateFormat("H:mm");
+                viewEndTime.setText(endTimeFmt.format(endTime));
 
                 TextView viewEventCategory = findViewById(R.id.viewEventCategory);
                 eventCategory = eventInfo.getCategory();

@@ -1,6 +1,8 @@
 package rd.slcs.co.jp.showtabi.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -16,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -41,6 +45,7 @@ import java.util.List;
 import rd.slcs.co.jp.showtabi.R;
 import rd.slcs.co.jp.showtabi.adaptor.CardRecyclerAdapter4Photos;
 import rd.slcs.co.jp.showtabi.common.Const;
+import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
 import rd.slcs.co.jp.showtabi.common.Util;
@@ -52,7 +57,7 @@ import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
-public class EventEditActivity extends AppCompatActivity {
+public class EventEditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private String eventName;
     private String eventDate;
@@ -75,6 +80,9 @@ public class EventEditActivity extends AppCompatActivity {
 
     private List<Photo> addPhotos;
 
+    /** イベント日付（カレンダー入力にて使用） */
+    private EditText viewEventDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +101,7 @@ public class EventEditActivity extends AppCompatActivity {
         eventName = eventDisp.getEventName();
         viewEventName.setText(eventName);
 
-        EditText viewEventDate = findViewById(R.id.editEventDate);
+        viewEventDate = findViewById(R.id.editEventDate);
         eventDate = eventDisp.getStartTime().substring(0, 8);
         viewEventDate.setText(eventDate);
 
@@ -400,7 +408,42 @@ public class EventEditActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * カレンダーアイコン押下時
+     * @param v
+     */
+    public void showDatePickerDialog(View v) {
 
+        Date eventDate = Util.convertToDate(viewEventDate.getText().toString());
+        if (eventDate == null) {
+            DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+        } else {
+            DialogFragment newFragment = new DatePickerDialogFragment((Activity)this,eventDate);
+            newFragment.show(getSupportFragmentManager(), "datePicker");
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+        String strYear = String.valueOf(year);
+        String strMonth = "00";
+        String strDate = "00";
+        if(monthOfYear + 1 < 10) {
+            strMonth = "0" + String.valueOf(monthOfYear + 1);
+        }
+        else {
+            strMonth = String.valueOf(monthOfYear + 1);
+        }
+        if (dayOfMonth < 10) {
+            strDate = "0" + String.valueOf(dayOfMonth);
+        }else {
+            strDate = String.valueOf(dayOfMonth);
+        }
+
+        viewEventDate.setText( strYear + strMonth +  strDate);
+    }
 
     /**
      * 時計アイコン押下時
