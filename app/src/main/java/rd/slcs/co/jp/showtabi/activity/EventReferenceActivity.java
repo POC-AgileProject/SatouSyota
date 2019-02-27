@@ -71,15 +71,19 @@ public class EventReferenceActivity extends AppCompatActivity {
 
         TextView viewEventDate = findViewById(R.id.viewEventDate);
         eventDate = eventInfo.getStartTime().substring(0, 8);
-        viewEventDate.setText(eventDate);
+//        SimpleDateFormat eventDateFmt = new SimpleDateFormat("yyyy/M/d'('E')'");
+        SimpleDateFormat eventDateFmt = new SimpleDateFormat("yyyy/M/d");
+        viewEventDate.setText(eventDateFmt.format(eventDate));
 
         TextView viewStartTime = findViewById(R.id.viewStartTime);
         startTime = eventInfo.getStartTime().substring(8);
-        viewStartTime.setText(startTime);
+        SimpleDateFormat startTimeFmt = new SimpleDateFormat("H:m");
+        viewStartTime.setText(startTimeFmt.format(startTime));
 
         TextView viewEndTime = findViewById(R.id.viewEndTime);
         endTime = eventInfo.getEndTime().substring(8);
-        viewEndTime.setText(endTime);
+        SimpleDateFormat endTimeFmt = new SimpleDateFormat("H:m");
+        viewEndTime.setText(endTimeFmt.format(endTime));
 
         TextView viewEventCategory = findViewById(R.id.viewEventCategory);
         eventCategory = eventInfo.getCategory();
