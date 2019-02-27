@@ -1,6 +1,7 @@
 package rd.slcs.co.jp.showtabi.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,16 @@ public class PlanListActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.title_planList);
 
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        setContentView(R.layout.activity_plan_list);
+
+    }
+
+
 
     /*
     メニューのアイコンが押下された場合の処理を行います。
