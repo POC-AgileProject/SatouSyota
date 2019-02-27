@@ -1,5 +1,6 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -70,7 +71,7 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             public void onClick(View v) {
                  Intent intent = new Intent(context, EventListActivity.class);
                 intent.putExtra(Const.PLANDISP, planList.get(position));
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, Const.SCREEN_EVENTLIST);
             }
         });
 

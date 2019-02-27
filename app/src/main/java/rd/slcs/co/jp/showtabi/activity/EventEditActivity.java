@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.telecom.ConnectionService;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.nguyenhoanglam.imagepicker.model.Config;
 import com.nguyenhoanglam.imagepicker.model.Image;
@@ -35,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -388,7 +391,7 @@ public class EventEditActivity extends AppCompatActivity {
     public void savePhoto() {
 
         // / Firebaseからインスタンスを取得
-        DatabaseReference mDatabase;
+        final DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
 
@@ -398,6 +401,32 @@ public class EventEditActivity extends AppCompatActivity {
             mDatabase.push().setValue(photo);
 
         }
+
+
+        // プランのサムネイル画像設定
+        final DatabaseReference refDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE).child(eventDisp.getPlanKey());
+
+        refDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+                Plan plan = snapshot.getValue(Plan.class);
+                // アイコンが設定されていなければ設定する。
+                if("".equals(plan.getIcon())){
+                    plan.setIcon(addPhotos.get(0).getPhoto());
+                    refDatabase.setValue(plan);
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
 
     }
 

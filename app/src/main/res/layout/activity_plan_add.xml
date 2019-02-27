@@ -11,19 +11,13 @@
 
     <ImageView
         android:id="@+id/imageView_icon"
+        android:src="@drawable/top_logo"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         />
 
 
-    <!-- 画像がすでに設定されている場合は表記を変えるなど対応が必要 -->
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="画像の取得"
-
-        />
 
     <LinearLayout
         android:layout_width="match_parent"

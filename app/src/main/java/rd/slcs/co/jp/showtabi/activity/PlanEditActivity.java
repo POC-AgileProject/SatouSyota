@@ -42,6 +42,8 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
     private EditText editStartDay;
     /** 最終日 */
     private EditText editEndDay;
+    /** プランアイコン */
+    private String planIcon;
     /** 押下ボタン判別キー */
     private int id_clickDate;
 
@@ -72,11 +74,12 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
 
 
                 // 画面にプランの情報を表示
-
                 byte[] decodedString = {};
 
+                planIcon = plan.getIcon();
+
                 // プラン画像が設定されている場合
-                if(plan.getIcon() != null){
+                if(planIcon != null && !"".equals(planIcon)){
                     // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
                     decodedString = Base64.decode(plan.getIcon(), Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -192,6 +195,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 EditText editMemo = findViewById(R.id.editMemo);
                 plan.setMemo(editMemo.getText().toString());
 
+                plan.setIcon(planIcon);
 
                 //TODO:開始日と終了日の前後チェック
                 // 入力チェック
