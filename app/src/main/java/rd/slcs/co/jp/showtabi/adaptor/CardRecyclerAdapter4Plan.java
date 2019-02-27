@@ -57,8 +57,9 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
 
         byte[] decodedString = {};
 
+        String planIcon = planList.get(position).getIcon();
         // プラン画像が設定されている場合
-        if(planList.get(position).getIcon() != null){
+        if(planIcon != null && !"".equals(planIcon)){
             // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
             decodedString = Base64.decode(planList.get(position).getIcon(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

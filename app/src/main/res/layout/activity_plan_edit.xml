@@ -11,7 +11,7 @@
 
     <ImageView
         android:id="@+id/imageView_icon"
-        android:src="@drawable/top_logo"
+        android:src="@drawable/default_img"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:scaleType="centerCrop"

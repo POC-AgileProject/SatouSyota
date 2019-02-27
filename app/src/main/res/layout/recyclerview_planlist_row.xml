@@ -26,6 +26,7 @@
 
             <ImageView
                 android:id="@+id/imageView_icon"
+                android:src="@drawable/icon_showtabi"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="10dp"
