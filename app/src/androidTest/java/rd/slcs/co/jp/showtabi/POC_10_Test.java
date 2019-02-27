@@ -386,11 +386,11 @@ public class POC_10_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText(testEventName)));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText(testEventDate)));
+                .check(matches(withText("2050/1/3(月)")));
         onView(withId(R.id.viewStartTime))
-                .check(matches(withText(testEventStartTime)));
+                .check(matches(withText("4:00")));
         onView(withId(R.id.viewEndTime))
-                .check(matches(withText(testEventEndTime)));
+                .check(matches(withText("23:00")));
         onView(withId(R.id.viewEventCategory))
                 .check(matches(withText("移動")));
         onView(withId(R.id.viewMemo))
@@ -534,7 +534,6 @@ public class POC_10_Test {
         onView(withText("テストイベント")).check(matches(ViewMatchers.isDisplayed()));
     }
 
-    // TODO 参照画面→編集画面→変更を保存→参照画面で内容がリロードされないバグがあり、対応完了すれば@Testアノテーション外してください
     @Test
     public void case3() {
         try {
@@ -692,11 +691,11 @@ public class POC_10_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText(testEventName)));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText(testEventDate)));
+                .check(matches(withText("2050/1/3(月)")));
         onView(withId(R.id.viewStartTime))
-                .check(matches(withText(testEventStartTime)));
+                .check(matches(withText("4:00")));
         onView(withId(R.id.viewEndTime))
-                .check(matches(withText(testEventEndTime)));
+                .check(matches(withText("23:00")));
         onView(withId(R.id.viewEventCategory))
                 .check(matches(withText("移動")));
         onView(withId(R.id.viewMemo))
