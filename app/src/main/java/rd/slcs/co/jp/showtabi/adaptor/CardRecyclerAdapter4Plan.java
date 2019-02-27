@@ -71,6 +71,9 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             @Override
             public void onClick(View v) {
                  Intent intent = new Intent(context, EventListActivity.class);
+
+                 // アイコンのデータが重いと落ちることがあるので消去
+                planList.get(position).setIcon("");
                 intent.putExtra(Const.PLANDISP, planList.get(position));
                 ((Activity)context).startActivityForResult(intent, Const.SCREEN_EVENTLIST);
             }
