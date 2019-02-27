@@ -56,6 +56,7 @@ public class POC_141_Test {
 
     @Before
     public void setUp() {
+        POC_Common.tearDownDB(mDatabase);
         POC_Common.setUpDB(mDatabase);
         mActivity = mActivityRule.launchActivity(null);
     }
