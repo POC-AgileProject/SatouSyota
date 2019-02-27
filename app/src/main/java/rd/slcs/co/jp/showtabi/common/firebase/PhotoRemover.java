@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import rd.slcs.co.jp.showtabi.common.Const;
 import rd.slcs.co.jp.showtabi.common.Env;
 
-public class PhotosRemover {
+public class PhotoRemover {
 
     public void removePhotosRelatedFromEvent(String photoKey){
         DatabaseReference mDatabase;
