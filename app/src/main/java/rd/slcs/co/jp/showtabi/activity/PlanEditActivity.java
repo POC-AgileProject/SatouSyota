@@ -148,7 +148,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
 
         // 出発日の場合
         if(R.id.bottom_DatePicker_startDay == id_clickDate) {
-            Date planStartDay = Util.convertToDate(editStartDay.getText().toString());
+            Date planStartDay = Util.convertToDate(removeString(editStartDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planStartDay == null) {
                 DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
@@ -161,7 +161,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
             }
 
             // 日付初期設定フラグの更新
-            Date planEndDay = Util.convertToDate(editEndDay.getText().toString());
+            Date planEndDay = Util.convertToDate(removeString(editEndDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planEndDay == null) {
                 dateSetFlg = true;
@@ -169,7 +169,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
         }
         // 最終日の場合
         else if (R.id.bottom_DatePicker_endDay == id_clickDate) {
-            Date planEndDay = Util.convertToDate(editEndDay.getText().toString());
+            Date planEndDay = Util.convertToDate(removeString(editEndDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planEndDay == null) {
                 DialogFragment newFragment = new DatePickerDialogFragment((Activity)this);
@@ -182,7 +182,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
             }
 
             // 日付初期設定フラグの更新
-            Date planStartDay = Util.convertToDate(editStartDay.getText().toString());
+            Date planStartDay = Util.convertToDate(removeString(editStartDay.getText().toString(), "/"));
             // 日付形式で入力されていない場合
             if (planStartDay == null) {
                 dateSetFlg = true;
