@@ -62,7 +62,7 @@ public class POC_141_Test {
 
     @After
     public void tearDown() {
-        POC_Common.tearDownDB(mDatabase);
+//        POC_Common.tearDownDB(mDatabase);
     }
 
     // TODO 不要なので実装完了したら消します
