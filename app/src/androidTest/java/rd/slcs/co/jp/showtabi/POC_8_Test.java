@@ -137,7 +137,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20200401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -156,6 +156,12 @@ public class POC_8_Test {
         // 保存ボタンを押下する
         onView(withId(R.id.menuListOption_Event_Add))
                 .perform(click());
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // イベント一覧画面に遷移することを確認
         onView(withText("田舎に泊まろう　第三回目")).check(matches(ViewMatchers.isDisplayed()));
@@ -206,7 +212,7 @@ public class POC_8_Test {
 
         // イベント名のみを未入力で登録ボタンを押下する
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))
@@ -263,7 +269,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText(""));
         onView(withId(R.id.editEndTime))
@@ -280,6 +286,122 @@ public class POC_8_Test {
 
         onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
                 .check(matches(withText("必須項目を入力してください")));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // 終了時間のみを未入力で登録ボタンを押下する
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20170401"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText(""));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0001)).inRoot(new ToastMatcher())
+                .check(matches(withText("必須項目を入力してください")));
+
+
+        // ---------------------------------------------------------------
+        // イベント日付の範囲チェックが機能していることを確認する
+        // ---------------------------------------------------------------
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // プラン出発日以前の日付を入力
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("2019122"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0002)).inRoot(new ToastMatcher())
+                .check(matches(withText("日付形式で入力してください")));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // プラン出発日以前の日付を入力
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20191223"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0003)).inRoot(new ToastMatcher())
+                .check(matches(withText("出発日以降の日付を入力してください")));
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // プラン最終日以後の日付を入力
+        onView(withId(R.id.editEventName))
+                .perform(replaceText("テストイベント"));
+        onView(withId(R.id.editEventDate))
+                .perform(replaceText("20200101"));
+        onView(withId(R.id.editStartTime))
+                .perform(replaceText("1700"));
+        onView(withId(R.id.editEndTime))
+                .perform(replaceText("1900"));
+        onView(withId(R.id.radio_sightseeing))
+                .perform(click());
+        onView(withId(R.id.editMemo))
+                .perform(replaceText("テストメモ"));
+        onView(withId(R.id.editAddress))
+                .perform(replaceText("東京都新宿区"));
+
+        onView(withId(R.id.menuListOption_Event_Add))
+                .perform(click());
+
+        onView(withText(R.string.msg_error_0004)).inRoot(new ToastMatcher())
+                .check(matches(withText("最終日以前の日付を入力してください")));
 
     }
 
@@ -314,7 +436,7 @@ public class POC_8_Test {
         onView(withId(R.id.editEventName))
                 .perform(replaceText("テストイベント"));
         onView(withId(R.id.editEventDate))
-                .perform(replaceText("20170401"));
+                .perform(replaceText("20191225"));
         onView(withId(R.id.editStartTime))
                 .perform(replaceText("1700"));
         onView(withId(R.id.editEndTime))

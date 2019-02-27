@@ -121,9 +121,9 @@ public class POC_109_Test {
         // ---------------------------------------------------------------
         onView(withContentDescription(R.string.abc_action_bar_up_description))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.button_save))
+        onView(withId(R.id.menuListOption_Event_Edit_Save))
                 .check(matches(isDisplayed()));
-        onView(withId(R.id.button_del))
+        onView(withId(R.id.menuListOption_Event_Edit_Del))
                 .check(matches(isDisplayed()));
 
         // ---------------------------------------------------------------
