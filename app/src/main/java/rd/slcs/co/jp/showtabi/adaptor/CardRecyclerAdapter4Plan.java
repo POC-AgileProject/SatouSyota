@@ -1,5 +1,6 @@
 package rd.slcs.co.jp.showtabi.adaptor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -56,8 +57,9 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
 
         byte[] decodedString = {};
 
+        String planIcon = planList.get(position).getIcon();
         // プラン画像が設定されている場合
-        if(planList.get(position).getIcon() != null){
+        if(planIcon != null && !"".equals(planIcon)){
             // DBから取得した64bitエンコードされている画像ファイルをBitmapにエンコード
             decodedString = Base64.decode(planList.get(position).getIcon(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -69,8 +71,11 @@ public class CardRecyclerAdapter4Plan extends RecyclerView.Adapter<CardRecyclerA
             @Override
             public void onClick(View v) {
                  Intent intent = new Intent(context, EventListActivity.class);
+
+                 // アイコンのデータが重いと落ちることがあるので消去
+                planList.get(position).setIcon("");
                 intent.putExtra(Const.PLANDISP, planList.get(position));
-                context.startActivity(intent);
+                ((Activity)context).startActivityForResult(intent, Const.SCREEN_EVENTLIST);
             }
         });
 
