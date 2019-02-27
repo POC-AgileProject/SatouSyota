@@ -8,7 +8,13 @@ import rd.slcs.co.jp.showtabi.common.Env;
 
 public class PhotoRemover {
 
-    public void removePhotosRelatedFromEvent(String photoKey){
+    private final String photoKey;
+
+    public PhotoRemover(String pPhotoKey) {
+        photoKey = pPhotoKey;
+    }
+
+    public void removePhoto(){
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE + "/" + photoKey);
         mDatabase.removeValue();

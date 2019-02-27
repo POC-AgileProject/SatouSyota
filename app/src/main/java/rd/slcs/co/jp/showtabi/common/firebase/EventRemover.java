@@ -44,28 +44,27 @@ public class EventRemover {
     }
 
     /**
-     * remove
+     * remove photos related to Event key.
      */
     private void removePhotosRelatedEventKey() {
         // Firebaseから写真テーブルのインスタンスを取得
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE);
 
+        // イベントキーに合致するクエリを取得
         Query query = mDatabase.orderByChild(Const.DB_PHOTOSTABLE_EVENTKEY).equalTo(eventKey);
         // クエリを使用してデータベースの内容を一度だけ取得する
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                List<PlanDisp> planDispList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Photo photo = dataSnapshot.getValue(Photo.class);
                     String photoKey = dataSnapshot.getKey();
 
+                    // イベントキーが合致する写真について削除処理を実行
                     if (eventKey.equals(photo.getEventKey())) {
-                        DatabaseReference mDatabase;
-                        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PHOTOSTABLE + "/" + photoKey);
-                        mDatabase.removeValue();
+                        PhotoRemover photoRemover = new PhotoRemover(photoKey);
+                        photoRemover.removePhoto();
                     }
                 }
             }
