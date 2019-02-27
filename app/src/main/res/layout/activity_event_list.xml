@@ -8,11 +8,11 @@
     tools:context=".activity.PlanListActivity">
 
     <TextView
-        android:id="@+id/textView_startYMD"
+        android:id="@+id/textView_planYMD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:gravity="center"
         android:layout_margin="5dp"
         />

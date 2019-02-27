@@ -34,7 +34,7 @@
                 android:id="@+id/editPlanName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/column_planName" />
+                android:hint="@string/column_required_planName" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -52,7 +52,7 @@
                     android:id="@+id/editStartDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/column_startDay"
+                    android:hint="@string/column_required_startDay"
                     android:inputType="time" />
 
             </android.support.design.widget.TextInputLayout>
@@ -81,7 +81,7 @@
                     android:id="@+id/editEndDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/column_endDay"
+                    android:hint="@string/column_required_endDay"
                     android:inputType="time" />
 
             </android.support.design.widget.TextInputLayout>

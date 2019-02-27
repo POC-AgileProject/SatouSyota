@@ -89,11 +89,11 @@ public class POC_11_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText("20191224")));
+                .check(matches(withText("2019/12/24(火)")));
         onView(withId(R.id.viewStartTime))
-                .check(matches(withText("1000")));
+                .check(matches(withText("10:00")));
         onView(withId(R.id.viewEndTime))
-                .check(matches(withText("1230")));
+                .check(matches(withText("12:30")));
         onView(withId(R.id.viewEventCategory))
                 .check(matches(withText("移動")));
         onView(withId(R.id.viewMemo))
@@ -184,11 +184,11 @@ public class POC_11_Test {
         onView(withId(R.id.viewEventName))
                 .check(matches(withText("電車移動")));
         onView(withId(R.id.viewEventDate))
-                .check(matches(withText("20191224")));
+                .check(matches(withText("2019/12/24(火)")));
         onView(withId(R.id.viewStartTime))
-                .check(matches(withText("1000")));
+                .check(matches(withText("10:00")));
         onView(withId(R.id.viewEndTime))
-                .check(matches(withText("1230")));
+                .check(matches(withText("12:30")));
         onView(withId(R.id.viewEventCategory))
                 .check(matches(withText("移動")));
         onView(withId(R.id.viewMemo))
