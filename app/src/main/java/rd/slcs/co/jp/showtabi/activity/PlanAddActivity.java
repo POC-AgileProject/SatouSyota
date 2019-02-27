@@ -186,6 +186,8 @@ public class PlanAddActivity extends AppCompatActivity implements DatePickerDial
                 EditText editMemo = findViewById(R.id.editMemo);
                 plan.setMemo(editMemo.getText().toString());
 
+                // 作成時点では空
+                plan.setIcon("");
 
                 //TODO:開始日と終了日の前後チェック
                 // 入力チェック
