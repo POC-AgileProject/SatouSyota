@@ -49,6 +49,7 @@ import rd.slcs.co.jp.showtabi.common.DatePickerDialogFragment;
 import rd.slcs.co.jp.showtabi.common.Env;
 import rd.slcs.co.jp.showtabi.common.UseImagePicker;
 import rd.slcs.co.jp.showtabi.common.Util;
+import rd.slcs.co.jp.showtabi.common.firebase.EventRemover;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.Photo;
@@ -360,9 +361,7 @@ public class EventEditActivity extends AppCompatActivity implements DatePickerDi
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DatabaseReference mDatabase;
-                                        mDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_EVENTTABLE + "/" + eventKey);
-                                        mDatabase.removeValue();
+                                        removeEvent(eventKey);
 
                                         Intent intent = new Intent();
                                         intent.putExtra("hanteiKey",Const.HANTEIKEY_DEL);
@@ -478,6 +477,16 @@ public class EventEditActivity extends AppCompatActivity implements DatePickerDi
                                                         listener, Const.DEFAULT_HOUR, Const.DEFAULT_MINUTE, true);
         dialog.show();
 
+    }
+
+    /**
+     * 指定されたイベントキーのイベントデータを削除する。
+     *
+     * @param eventKey
+     */
+    private void removeEvent(String eventKey) {
+        EventRemover eventRemover = new EventRemover(eventKey);
+        eventRemover.removeEvent();
     }
 
 
