@@ -12,6 +12,7 @@
     <string name="column_endDay">最終日</string>
     <string name="column_memo">メモ</string>
     <string name="column_person">人数</string>
+    <string name="column_person_unit">人</string>
     <string name="column_eventName">イベント名</string>
     <string name="column_eventDate">日付</string>
     <string name="column_startTime">開始時間</string>
@@ -60,4 +61,16 @@
     <string name="msg_warning_0001">プランを削除します。よろしいですか？</string>
     <string name="msg_warning_0002">イベントを削除します。よろしいですか？</string>
 
+    <string-array name="person_number_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>
