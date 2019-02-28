@@ -420,8 +420,10 @@ public class EventEditActivity extends AppCompatActivity implements DatePickerDi
                 Plan plan = snapshot.getValue(Plan.class);
                 // アイコンが設定されていなければ設定する。
                 if("".equals(plan.getIcon())){
-                    plan.setIcon(addPhotos.get(0).getPhoto());
-                    refDatabase.setValue(plan);
+                    if(addPhotos.size() >= 1) {
+                        plan.setIcon(addPhotos.get(0).getPhoto());
+                        refDatabase.setValue(plan);
+                    }
                 }
 
             }
