@@ -17,8 +17,6 @@
         android:scaleType="centerCrop"
         />
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,61 +38,67 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/editStartDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
                     android:hint="@string/column_required_startDay"
+                    android:textSize="16dp"
                     android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
+
             <ImageButton
                 android:id="@+id/bottom_DatePicker_startDay"
-                android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:gravity="center"
-                app:srcCompat="@drawable/ic_calendar_black_24dp"
                 android:onClick="showDatePickerDialog"
-                />
+                app:srcCompat="@drawable/ic_calendar_black_24dp" />
+
             <TextView
                 android:id="@+id/textPeriod"
-                android:layout_width="30dp"
                 android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/period"
-                android:textSize="14dp"/>
+                android:textSize="14dp" />
 
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="6">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/editEndDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
                     android:hint="@string/column_required_endDay"
+                    android:textSize="16dp"
                     android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
             <ImageButton
                 android:id="@+id/bottom_DatePicker_endDay"
-                android:layout_width="50dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="2"
                 android:gravity="center"
-                app:srcCompat="@drawable/ic_calendar_black_24dp"
                 android:onClick="showDatePickerDialog"
-                />
+                app:srcCompat="@drawable/ic_calendar_black_24dp" />
         </LinearLayout>
 
         <LinearLayout
