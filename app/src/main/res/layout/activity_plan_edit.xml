@@ -40,18 +40,19 @@
 
 
         <LinearLayout
-            android:layout_width="400dp"
+            android:layout_width="350dp"
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="125dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/editStartDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="14dp"
                     android:hint="@string/column_required_startDay"
                     android:inputType="time" />
 
@@ -66,21 +67,22 @@
                 />
             <TextView
                 android:id="@+id/textPeriod"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/period"
-                android:textSize="14sp"/>
+                android:textSize="14dp"/>
 
             <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="125dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/editEndDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="14dp"
                     android:hint="@string/column_required_endDay"
                     android:inputType="time" />
 

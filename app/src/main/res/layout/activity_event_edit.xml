@@ -59,46 +59,54 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_width="400dp"
+                android:layout_width="350dp"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <android.support.design.widget.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content">
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/editStartTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14dp"
                         android:hint="@string/column_required_startTime"
                         android:inputType="time" />
 
                 </android.support.design.widget.TextInputLayout>
                 <ImageButton
                     android:id="@+id/TimePicker_startTime"
-                    android:layout_width="40dp"
+                    android:layout_width="45dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     app:srcCompat="@drawable/ic_access_time_24dp"
                     android:onClick="showTimePickDialog"
                     />
-
+                <TextView
+                    android:id="@+id/textPeriod"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/period"
+                    android:textSize="14dp"/>
                 <android.support.design.widget.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                    android:layout_width="160dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/editEndTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14dp"
                         android:hint="@string/column_required_endTime"
                         android:inputType="time" />
 
                 </android.support.design.widget.TextInputLayout>
                 <ImageButton
                     android:id="@+id/TimePicker_endTime"
-                    android:layout_width="40dp"
+                    android:layout_width="45dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     app:srcCompat="@drawable/ic_access_time_24dp"
