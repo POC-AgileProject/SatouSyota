@@ -107,11 +107,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/editPerson"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="right"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/column_person" />
+                    android:layout_height="50dp">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="80dp"
+                        android:padding="10dp"
+                        android:layout_height="60sp"
+                        android:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        android:text="@string/column_person"/>
+
+                    <Spinner
+                        android:id="@+id/PersonNumber"
+                        android:singleLine="true"
+                        android:textSize="40sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawSelectorOnTop="true"
+                        android:spinnerMode="dialog"/>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="50dp"
+                        android:layout_height="40sp"
+                        android:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="12sp"
+                        android:text="@string/column_person_unit" />
+
+                </LinearLayout>
 
             </android.support.design.widget.TextInputLayout>
 

@@ -17,9 +17,11 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +58,8 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
     /** 日付初期設定フラグ */
     private boolean dateSetFlg;
 
+    private Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,13 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
         Intent intent = getIntent();
         planKey = intent.getStringExtra(Const.DB_PLANTABLE_PLANKEY);
 
+
+        // 人数を選択するSpinnerを初期化
+        spinner = (Spinner) findViewById(R.id.PersonNumber);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.person_number_array, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         // DBから値を取得し表示
         DatabaseReference mDatabase;
@@ -109,11 +120,12 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 SimpleDateFormat endDateFmt = new SimpleDateFormat("yyyy/MM/dd");
                 editEndDay.setText(endDateFmt.format(endYMD));
 
-                EditText editPerson = findViewById(R.id.editPerson);
-                editPerson.setText(plan.getPerson());
+                // 人数とSpinnerのIndexを-1して調整
+                spinner.setSelection(Integer.valueOf(plan.getPerson()) - 1);
 
                 EditText editMemo = findViewById(R.id.editMemo);
                 editMemo.setText(plan.getMemo());
+
 
             }
 
@@ -252,8 +264,9 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 EditText editEndDay = findViewById(R.id.editEndDay);
                 plan.setEndYMD(removeString(editEndDay.getText().toString(), "/"));
 
-                EditText editPerson = findViewById(R.id.editPerson);
-                plan.setPerson(editPerson.getText().toString());
+                Spinner spinner = (Spinner) findViewById(R.id.PersonNumber);
+                String selectedNumber = spinner.getSelectedItem().toString();
+                plan.setPerson(selectedNumber);
 
                 EditText editMemo = findViewById(R.id.editMemo);
                 plan.setMemo(editMemo.getText().toString());
