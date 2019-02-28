@@ -52,6 +52,7 @@ import rd.slcs.co.jp.showtabi.common.Util;
 import rd.slcs.co.jp.showtabi.object.Event;
 import rd.slcs.co.jp.showtabi.object.EventDisp;
 import rd.slcs.co.jp.showtabi.object.Photo;
+import rd.slcs.co.jp.showtabi.object.Plan;
 import rd.slcs.co.jp.showtabi.object.PlanDisp;
 import rd.slcs.co.jp.showtabi.view.CardRecyclerView4EventPhotos;
 
@@ -323,6 +324,35 @@ public class EventAddActivity extends AppCompatActivity implements DatePickerDia
             // データを追加
             mDatabase.push().setValue(photo);
         }
+
+
+        // プランのサムネイル画像設定
+        final DatabaseReference refDatabase = FirebaseDatabase.getInstance().getReference(Env.DB_USERNAME + "/" + Const.DB_PLANTABLE).child(planKey);
+
+        refDatabase.addListenerForSingleValueEvent(new ValueEventListener(){
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot){
+                Plan plan = snapshot.getValue(Plan.class);
+                // アイコンが設定されていなければ設定する。
+                if("".equals(plan.getIcon())){
+                    if(addPhotos.size() >= 1) {
+                        plan.setIcon(addPhotos.get(0).getPhoto());
+                        refDatabase.setValue(plan);
+                    }
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
     }
 
     /**

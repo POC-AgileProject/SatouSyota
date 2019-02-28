@@ -18,12 +18,14 @@ import org.junit.Test;
 
 import rd.slcs.co.jp.showtabi.activity.MainActivity;
 
+import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.anything;
 
 public class POC_38_Test {
     private DatabaseReference mDatabase;
@@ -66,8 +68,8 @@ public class POC_38_Test {
                 .perform(replaceText("20170501"));
         onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
-        onView(withId(R.id.editPerson))
-                .perform(replaceText("100"));
+        onView(withId(R.id.PersonNumber)).perform(click());
+        onData(anything()).atPosition(6).perform(click());
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
@@ -158,8 +160,8 @@ public class POC_38_Test {
                 .perform(replaceText("20170501"));
         onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
-        onView(withId(R.id.editPerson))
-                .perform(replaceText("100"));
+        onView(withId(R.id.PersonNumber)).perform(click());
+        onData(anything()).atPosition(6).perform(click());
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
@@ -182,8 +184,8 @@ public class POC_38_Test {
                 .perform(replaceText(""));
         onView(withId(R.id.editEndDay))
                 .perform(replaceText("20170505"));
-        onView(withId(R.id.editPerson))
-                .perform(replaceText("100"));
+        onView(withId(R.id.PersonNumber)).perform(click());
+        onData(anything()).atPosition(6).perform(click());
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
@@ -206,8 +208,8 @@ public class POC_38_Test {
                 .perform(replaceText("20170501"));
         onView(withId(R.id.editEndDay))
                 .perform(replaceText(""));
-        onView(withId(R.id.editPerson))
-                .perform(replaceText("100"));
+        onView(withId(R.id.PersonNumber)).perform(click());
+        onData(anything()).atPosition(6).perform(click());
         onView(withId(R.id.editMemo))
                 .perform(replaceText("テストメモ"));
         // 保存ボタンを押下
