@@ -116,7 +116,7 @@ public class PlanEditActivity extends AppCompatActivity implements DatePickerDia
                 editStartDay.setText(startDateFmt.format(startYMD));
 
                 editEndDay = findViewById(R.id.editEndDay);
-                Date endYMD = Util.convertToDate(plan.getStartYMD());
+                Date endYMD = Util.convertToDate(plan.getEndYMD());
                 SimpleDateFormat endDateFmt = new SimpleDateFormat("yyyy/MM/dd");
                 editEndDay.setText(endDateFmt.format(endYMD));
 
